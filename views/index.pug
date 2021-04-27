@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  div.text-center.d-flex.flex-column.align-items-center
+    a.w-75(style="color: #f0ad4e", href='/ingresarPedidos')
+      button.btn.btn-primary.btn-lg.w-100.my-3(type="button") Ingreso de Pedidos
+    //- button.btn.btn-primary.btn-lg.w-75.my-3(type="button", data-toggle="modal", data-target="#PoSModal") Ingreso de Pedidos
+
+    //- div.modal.fade#PoSModal(tabindex="-1", role="dialog", aria-labelledby="PoSModalLabel", aria-hidden="true")
+    //-   div.modal-dialog(role="document")
+    //-     div.modal-content
+    //-       div.modal-header
+    //-         h5.modal-title#exampleModalLabel Seleccionar punto de venta:
+    //-         button.close(type="button", data-dismiss="modal")
+    //-           span(aria-hidden="true") &times;
+    //-       div.modal-body
+    //-         div.btn-group-vertical.w-100(role="group", aria-label="PoS")
+    //-           form(method="post", action="/ingresarPedidos")
+    //-             fieldset
+    //-               // legend Seleccionar Jugador
+    //-               input#idPos(name="pos[id]", type="hidden", value="waitId")
+    //-               input.btn.btn-secondary.w-100.py-4#pos1(type="submit", value="Punto de venta 1")
+    //-               input.btn.btn-secondary.w-100.py-4#pos2(type="submit", value="Punto de venta 2")
+    //-               input.btn.btn-secondary.w-100.py-4#pos3(type="submit", value="Punto de venta 3")
+
+    //-           script(src="/javascripts/PoSSelection.js")
+
+    a.w-75(style="color: #f0ad4e", href='/pendientes')
+      button.btn.btn-primary.btn-lg.w-100.my-3(type="button") Pedidos Pendientes
+    a.w-75(style="color: #f0ad4e", href='/inventario')
+      button.btn.btn-primary.btn-lg.w-100.my-3(type="button") Inventario de Ingredientes
+    a.w-75(style="color: #f0ad4e", href='/layout')
+      button.btn.btn-primary.btn-lg.w-100.my-3(type="button") Layout
+
+    button.btn.btn-primary.btn-lg.w-75.my-3(type="button", data-toggle="modal", data-target="#pswModal") Registro
+
+    div.modal.fade#pswModal(tabindex="-1", role="dialog", aria-labelledby="pswModalLabel", aria-hidden="true")
+      div.modal-dialog(role="document")
+        div.modal-content
+          div.modal-header
+            h5.modal-title#pswModalLabel Ingresar Contraseña
+            button.close(type="button", data-dismiss="modal")
+              span(aria-hidden="true") &times;
+          div.modal-body
+            span Contraseña:   
+              input(type="password", size="10", maxlength="10")
+            br
+            a.w-75(style="color: #f0ad4e", href='/registro')
+              button.btn.btn-primary.my-2.w-50(type="button") Entrar
+

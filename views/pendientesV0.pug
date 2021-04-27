@@ -1,0 +1,44 @@
+extends layoutComp
+
+block content
+  a(style="color: #f0ad4e", href='/ingresarPedidos')
+    button.btn.btn-primary.directAccess(type="button") Ingresar Pedidos
+
+  h1.text-center Pedidos Pendientes
+
+  -var pendientes = 0;
+  -var productos = 0;
+
+  table.text-center#table-pendientes
+    tr
+      th.hide-border(style="width:40px")
+      th(style="width:40px") #
+      th(style="width:40px") Hora
+      th(style="width:40px") PoS
+      th(style="width:40px") Mesa
+      th(style="min-width:350px") Pedido
+      th(style="width:40px") Valor a cobrar
+    while pendientes < 10
+      -pendientes++;
+      -productos = 0;
+      tr.item-pendiente
+        td.hide-border
+          button.btn.btn-success.visto ✔
+        td #
+        td HH:MM
+        td #
+        td #
+        td(style="padding:1px")
+          table#table-productos
+            tr
+              th Producto
+              th(style="min-width:40px") Observación
+            while productos < 3
+              -productos++;
+              tr
+                td Taco Chingón Barbacoa de Res Picante
+                td sin cebolla, sin mayonesa            
+        td $$
+    
+
+  script(src = "/javascripts/pendientes.js")

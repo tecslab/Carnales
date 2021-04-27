@@ -1,0 +1,112 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='x-ua-compatible' content='ie=edge')
+  title= title
+  meta(name='description' content='')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  //
+    Google Fonts
+    ============================================
+  link(href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900' rel='stylesheet')
+  //
+    Bootstrap CSS
+    ============================================
+  link(rel='stylesheet' href='/stylesheets/bootstrap/bootstrap.min.css')
+  //
+    font awesome CSS
+    ============================================
+  link(rel='stylesheet' href='/stylesheets/font-awesome.min.css')
+  //
+    animate CSS
+    ============================================
+  link(rel='stylesheet' href='/stylesheets/animate.css')
+  //
+    Notika icon CSS
+    ============================================
+  link(rel='stylesheet' href='/stylesheets/notika-custom-icon.css')
+  //
+    main CSS
+    ============================================
+  link(rel='stylesheet' href='/stylesheets/main.css')
+  //
+    style CSS
+    ============================================
+  link(rel='stylesheet' href='/stylesheets/styleDashboard.css')
+  //
+    responsive CSS
+    ============================================
+  link(rel='stylesheet' href='/stylesheets/responsive.css')
+  //
+    modernizr JS
+    ============================================
+  script(src='/javascripts/vendor/modernizr-2.8.3.min.js')
+//if lt IE 8
+  p.browserupgrade
+    | You are using an 
+    strong outdated
+    |  browser. Please 
+    a(href='http://browsehappy.com/') upgrade your browser
+    |  to improve your experience.
+// Start Header Top Area
+.header-top-area
+  .container
+    .row
+      .col-xs-4.col-md-10
+        .logo-area
+          a(href='/')
+            img(src='/images/carnalesLogo.png' alt='')
+
+      .col-xs-8.col-md-2
+        .header-top-menu
+          ul.nav.navbar-nav.notika-top-nav
+
+            li.nc-al
+              // Notification icon and number
+              a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-expanded='false')
+                span
+                  i.notika-icon.notika-alarm
+                .spinner4.spinner-4
+                .ntd-ctn
+                  span 3
+
+              .dropdown-menu.message-dd.notification-dd.animated.zoomIn(role='menu')
+                .hd-mg-tt
+                  h2 Notificaciones
+                .hd-message-info
+                  a(href='#')
+                    .hd-message-sn
+                      .hd-mg-ctn
+                        h3 Cebolla: Nivel bajo
+                  a(href='#')
+                    .hd-message-sn
+                      .hd-mg-ctn
+                        h3 Barbacoa de res: Nivel bajo
+                  
+                .hd-mg-va
+                  a(href='#') Ver todos
+            
+// End Header Top Area
+// Bar Chart area Start
+.line-chart-area
+  .container
+    .row
+      .col-12
+        .bar-chart-wp.chart-display-nn
+          canvas#barchart1(height='30vh' width='100vw')
+
+
+// Bar Chart area End
+//
+  jquery
+  ============================================
+script(src='/javascripts/vendor/jquery-1.12.4.min.js')
+//
+  bootstrap JS
+  ============================================
+script(src='/javascripts/bootstrap/bootstrap.min.js')
+//
+  Charts JS
+  ============================================
+script(src='/javascripts/charts/Chart.js')
+script(src='/javascripts/charts/bar-chart.js')

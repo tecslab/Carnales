@@ -1,0 +1,201 @@
+extends layoutNew
+block content
+
+  - var ingredientes = ["Pollo", "Res", "Chancho", "Harina", "Frejol", "Manteca", "Aji", "Arroz", 'Huevos', "Ajo", "Aguacates", "Limones", "Vinagre", "Queso", "Culantro","Cebolla", "Comino","Pimienta Negra", "Tomate","Tomate de arbol", "Aceite", "Piña", "Naranja","Sal", "Jamaica", "Panela", "Ajo en Polvo", "Paprika", "Chile en Polvo", "Jalapeños en Polvo"];
+
+  - var items = ["Cajas Delivery", "Servilletas", "Fundas de basura", "Papel Cera", "Lavavajilla", "Papel Aluminio", "Envolvente Plástico"]
+
+  -var productos = ['Tortilla','Guacamole', 'Aji'];
+
+  - var categorias = ["General","Ingrediente","Item","Producción"];
+
+  
+
+  div.main-container
+    div.left-sidebar
+      div.cat-radios.btn-group.btn-group-toggle(data-toggle="buttons")
+        each cat in categorias
+          label.btn.active
+            input(id=`${cat}` type="radio" name="options" autocomplete="off" checked)
+            |  #{cat}
+
+
+    div.form-area(id='container-'+ `${categorias[0]}`)
+      h1 Registro General
+      form(method="post", action="/registrar")
+        input(name="tipo" type="hidden" value="registro-general")
+        table
+          tr
+            td.hide-border(style="width:100px;")
+              label(for="rubro") Rubro:
+            td.hide-border
+              input(style="width:80px; height:2.5em" type="text" id="rubro" name="nombre" required)
+          tr
+            td.hide-border
+              label(for="cantidadG") Monto:
+            td.hide-border
+              input(style="width:80px; height:2.5em" type="number" required step="0.01" min="0" name="monto")
+              span USD
+          tr
+            td.hide-border
+              label(for="comentario") Comentario:
+            td.hide-border
+              input(style="width:120px; height:3em" type="text" id="comentario" name="comentario")
+        br
+        input.btn.btn-warning#input-submit(type='submit' value='Registrar')
+
+
+    div.form-area.hide(id='container-'+ `${categorias[1]}`)
+      h1#headerTitle Añadir Ingrediente
+      div.ing-radios.btn-group.btn-group-toggle(data-toggle="buttons")
+        label.btn.btn-warning.active
+          input#addOption(type="radio" name="options" autocomplete="off" checked)
+          |  Agregar
+        label.btn.btn-warning
+          input#setOption(type="radio" name="options" autocomplete="off")
+          |  Establecer
+          
+
+      div.ing-form
+        form(method="post", action="/registrar")
+          input(name="tipo" type="hidden" value="agregar-ingrediente")
+          table
+            tr
+              td.hide-border(style="width:100px;")
+                label(for="iName") Ingrediente:
+              td.hide-border
+                select(style="height:2.5em" name="nombre" id="iName")
+                  each ingrediente in ingredientes
+                    option(value=`${ingrediente}`) #{ingrediente}
+            tr
+              td.hide-border
+                label(for="precio") Precio:
+              td.hide-border
+                input(name="precio" style="width:80px; height:2.5em" type="number" required step="0.01" min="0" id="precio" value="0")
+                span USD x unidad
+            tr
+              td.hide-border
+                label(for="cantidad") Cantidad Comprada:
+              td.hide-border
+                input(name="cantidad" style="width:80px; height:2.5em" type="number" required step="0.01" min="0" id="cantidad" value="0")
+                span Kg
+          br
+          input.btn.btn-warning#input-submit(type='submit' value='Registrar')
+
+
+
+      div.ing-form.hide
+        form(method="post", action="/registrar")
+          input(name="tipo" type="hidden" value="establecer-ingrediente")
+          table
+            tr
+              td.hide-border(style="width:100px;")
+                label(for="iName") Ingrediente:
+              td.hide-border
+                select(style="height:2.5em" name="nombre" id="iName")
+                  each ingrediente in ingredientes
+                    option(value=`${ingrediente}`) #{ingrediente}
+            tr
+              td.hide-border
+                label(for="cantidadI") Cantidad Total:
+              td.hide-border
+                input(style="width:80px; height:2.5em" type="number" required step="0.01" min="0" id="cantidadI" name="cantidad")
+          br
+          input.btn.btn-warning#input-submit(type='submit' value='Registrar')
+
+
+    div.form-area.hide(id='container-'+ `${categorias[2]}`)
+      h1#headerTitle Añadir Item
+      div.item-radios.btn-group.btn-group-toggle(data-toggle="buttons")
+        label.btn.btn-warning.active
+          input(type="radio" name="options" autocomplete="off" checked)
+          |  Agregar
+        label.btn.btn-warning
+          input(type="radio" name="options" autocomplete="off")
+          |  Establecer
+          
+
+      div.item-form
+        form(method="post", action="/registrar")
+          input(name="tipo" type="hidden" value="agregar-item")
+          table
+            tr
+              td.hide-border(style="width:100px;")
+                label(for="iName") Item:
+              td.hide-border
+                select(style="height:2.5em" name="nombre" id="iName")
+                  each item in items
+                    option(value=`${item}`) #{item}
+            tr
+              td.hide-border
+                label(for="precio") Precio:
+              td.hide-border
+                input(name="precio" style="width:80px; height:2.5em" type="number" required step="0.01" min="0" id="precio")
+                span USD x unidad
+            tr
+              td.hide-border
+                label(for="cantidad") Cantidad Comprada:
+              td.hide-border
+                input(name="cantidad" style="width:80px; height:2.5em" type="number" required min="0" id="cantidad")
+                span Kg
+          br
+          input.btn.btn-warning#input-submit(type='submit' value='Registrar')
+
+
+
+      div.item-form.hide
+        form(method="post", action="/registrar")
+          input(name="tipo" type="hidden" value="establecer-item")
+          table
+            tr
+              td.hide-border(style="width:100px;")
+                label(for="iName") Ingrediente:
+              td.hide-border
+                select(style="height:2.5em" name="nombre" id="iName")
+                  each item in items
+                    option(value=`${item}`) #{item}
+            tr
+              td.hide-border
+                label(for="cantidadI") Cantidad Total:
+              td.hide-border
+                input(style="width:80px; height:2.5em" type="number" required min="0" id="cantidadI" name="cantidad")
+          br
+          input.btn.btn-warning#input-submit(type='submit' value='Registrar')
+
+
+    div.form-area.hide(id='container-'+ `${categorias[3]}`)
+      h1#headerTitle Producción
+      form(method="post", action="/registrar")
+        input(name="tipo" type="hidden" value="produccion")
+        table
+          tr
+            td.hide-border(style="width:100px;")
+              label(for="pName") Producto:
+            td.hide-border
+              select(style="height:2.5em" name="nombre")
+                each producto in productos
+                  option(value=`${producto}`) #{producto}
+          tr
+            td.hide-border
+              label(for="cantidadP") Cantidad Total:
+            td.hide-border
+              input(style="width:80px; height:2.5em" type="number" required step="0.01" min="0" id="cantidadP" name="cantidad")
+        br
+        input.btn.btn-warning#input-submit(type='submit' value='Registrar')
+
+
+
+  // Bar Chart area End
+  //
+    jquery
+    ============================================
+  script(src='/javascripts/vendor/jquery-1.12.4.min.js')
+  //
+    bootstrap JS
+    ============================================
+  script(src='/javascripts/bootstrap/bootstrap.min.js')
+
+  script(src='/javascripts/registrar.js')
+
+
+

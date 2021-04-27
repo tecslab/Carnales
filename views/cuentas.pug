@@ -1,0 +1,55 @@
+extends layoutComp
+
+block content
+  // script to compare objects
+  script(src='/javascripts/lodash.min.js')
+
+  - pedidos= pedidos
+
+  a(style="color: #f0ad4e", href='/ingresarPedidos')
+    button.btn.btn-primary.directAccess(type="button") Ingresar Pedidos
+
+  h1.text-center Cuentas Pendientes
+
+  div.container.col-12
+    div.row#pendientes-canvas
+
+
+
+      - if ( pedidos.length > 0)
+        each val in pedidos
+          - var mesa= val.Mesa
+          - var productos= val.Productos
+          - var numeroPedido= val.NumeroPedido
+          - var orderTime= new Date(val.Hora).getTime()
+
+          div.col-6.col-sm-4.col-lg-2.card-col(id=`${numeroPedido}`)
+            div.card.rounded.border-dark
+              div.card-header.p-1(style="background-color:green;")
+                span.m-0(style="font-size:18px;")
+                  strong ##{numeroPedido}
+                span.crono(style="color:white; margin-left:25%" data=`${orderTime}`) #{orderTime}
+                p.m-0.text-center
+                  strong Mesa #{mesa[4]}
+              ul.list-group.list-group-flush
+                each prod in productos
+                  - var name= prod.Categoria + ' ' + prod.Variedad
+                  - var cantidad= prod.Cantidad
+                  - var observaciones = prod.Observacion
+
+                  p.mx-1(style="margin-bottom:5px") #{name}
+                    span.badge.badge-pill.badge-warning.text-right x#{cantidad}
+                    - if (observaciones!="")
+                      br
+                      span.my-0.mx-4(style="color:red") #{observaciones}
+                      
+              div.card-footer
+                button.btn.btn-success.w-100.listo Listo ✔
+
+
+  - serverDate= date    
+  script.
+    var serverDate =new Date("#{serverDate}");
+
+  script(src="/socket.io/socket.io.js")
+  script(src = "/javascripts/cuentas.js")

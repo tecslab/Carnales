@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  //- data es un string
+  //- pedidosS= JSON.parse(`${pedidos}`)
+  - pedidosJSON= JSON.parse(data)
+  //- pedidoStr= JSON.stringify(pedidosJSON)
+  //- pedidoStr= pedidosJSON[0].Productos[0].Variedad
+  //- pedidoStr= pedidosJSON[0].NumeroPedido
+
+  - tableSize= pedidosJSON.length
+
+  - index= 0
+  //- pedidosS= JSON.stringify(JSON.parse('{"hola":"rasta"}').hola)
+
+  //p #{pedidoStr}
+
+  h1.text-center Consultar Día
+
+  table
+    tr      
+      th Mesa
+      th Cantidad
+      th Productos
+
+    while index < tableSize    
+      - var mesaData= pedidosJSON[index].Mesa
+      - var totalData= pedidosJSON[index].Total
+      - var prodData= pedidosJSON[index].Productos.length
+      tr
+        td #{mesaData[4]}
+        td.subtotal #{totalData}
+        td.subtotalPedidos #{prodData}
+      -index++;
+
+    tr
+      td
+        strong Total
+      td
+        strong#total $
+      td
+        strong#totalPedidos --
+
+
+  //- div.popDiv(style="width:150px; height:100px; border:1px solid red;border-radius:7px;")
+  //-   form(action="/")
+  //-     table(style="margin:2px 2px 0px 2px;")
+  //-       tr
+  //-         td(style="padding:.3em;") 
+  //-           input#cebolla(type="checkbox", name="cebolla", value="nop", style="-ms-transform: scale(2); -moz-transform: scale(2);-webkit-transform: scale(2);-o-transform: scale(2);transform: scale(2);margin:3px;", checked)
+  //-         td(style="padding:.3em;width:450px") Cebolla
+  //-       tr
+  //-         td(style="padding:.3em;") 
+  //-           input#mayonesa(type="checkbox", name="mayonesa", value="nop", style="-ms-transform: scale(2); -moz-transform: scale(2);-webkit-transform: scale(2);-o-transform: scale(2);transform: scale(2);margin:3px;", checked)
+  //-         td(style="padding:.3em;width:450px") Mayonesa
+  //-   button.btn.btn-success(style="display:block;margin-left:auto;margin-right:auto;") Hecho!
+
+
+  script(src="/javascripts/consultar.js")

@@ -1,0 +1,166 @@
+extends layoutComp
+
+block content
+  script(src='/javascripts/lodash.min.js')
+  - id= id
+  //- Direct access to Pedidos Pendientes
+  div.header  
+    a(style="color: #f0ad4e", href='/pendientes')
+      button.btn.btn-primary.directAccess(type="button") Pedidos Pendientes
+
+    div.text-center(style="position:relative; top: -1em; width:50%; margin-left:auto; margin-right:auto")
+      a(href='/')
+        img(src='/images/carnalesComp.png')
+    //burger menu
+    label.toggle-menu(for='optionMenu')
+      ul
+        li
+        li
+        li
+        
+    input#optionMenu(type='checkbox')
+
+    nav
+      ul
+        button.dropdown-item#op1 Grupo
+
+    input#fondoButton(type='button')
+    label.fondo#fondoInput(for='fondoInput')
+
+  // Fondo is a fixed div that takes up the whole screen
+  // It is used to close menu with clicks on everywhere
+  // Now I know that it is easier to do that with select inputs
+  div.fondo#fondo
+
+  //- **************************************************
+
+  header.text-center
+    //- The id is the PoS number
+    //- p.comp #{id}
+    p.comp Mesa:
+    div.comp.selector.slider.text-center
+      // Table selector
+      button.comp.btn.btn-primary.btn-mesa#ventana V
+      button.comp.btn.btn-primary.btn-mesa#mesa1 1
+      button.comp.btn.btn-primary.btn-mesa#mesa2 2
+      button.comp.btn.btn-primary.btn-mesa#mesa3 3
+      button.comp.btn.btn-primary.btn-mesa#mesa4 4
+      button.comp.btn.btn-primary.btn-mesa#mesa5 5
+      button.comp.btn.btn-primary.btn-mesa#mesa6 6
+      button.comp.btn.btn-primary.btn-mesa#mesa7 7
+  
+  div.col.card.selector.comp.hide#clientSelector
+    - var clientes = [1,2,3,4,5,6,7,8]
+    // Client selector
+    div.comp.selector.slider.text-center
+      div.comp.selector.client
+        button.btn.btn-primary.client General
+        each cli in clientes
+          button.btn.btn-primary.client Cliente #{cli}
+
+  div.col.card.selector.comp
+    // Categorie selector
+    div.comp.selector.slider.text-center
+      div.comp.selector.categorie
+        button.btn.btn-primary.categorie#butTacos(value=0) Taco
+        button.btn.btn-primary.categorie#butTacoChingon(value=-1.5) Taco Chingón
+        button.btn.btn-primary.categorie#butBurritos(value=-1.5) Burrito
+        button.btn.btn-primary.categorie#butQuesadillas(value=-2) Quesadilla
+        button.btn.btn-primary.categorie#butEspeciales(value=0) Especiales
+        button.btn.btn-primary.categorie#butBebidas(value=0) Bebidas
+    // Products selector
+
+    //- Variedades de cada categoría
+    - var variedadMain = ['Pollo Asado','Carne Asada', 'Carne Guisada', 'Al Pastor', 'Cerdo Asado Picante','Barbacoa de Res Picante', 'Chicharron', 'Carnitas', 'Cabeza'];
+
+    -var variedadEspeciales = ['Tortillas Artesanales(4)'];
+
+    -var variedadBebidas = ['Coca-cola', 'Agua', 'Jugo'];
+    //- The item price is calculated with the difference between the price o the product less the price of the categorie
+    - var preciosMain=[1,1,1,1,1,1,1.5,1.5,1.5];
+    - var preciosEspeciales=[2.5];
+    - var preciosBebidas=[1,1,2];
+    - var cantidad= [1,2,3,4,5,6,7,8,9,10];
+
+    // Main category products
+    div.container.comp.selector.text-center#main
+      div.row.comp.selector
+        each val, index in variedadMain
+          div.col-6.col-md-4.products.comp.selector.flex-container
+            div.dropdown
+              div.title.pointerCursor 1 ▼
+              div.menu.pointerCursor.hide
+                each cant in cantidad
+                  div.option(id='option' + `${cant}`) #{cant}
+            button.btn.btn-secondary.products.product(id=`${val}`, value=`${preciosMain[index]}`) #{val}
+
+    // Especial Category products
+    div.container.comp.selector.text-center.hide#especiales
+      div.row.comp.selector
+        each val, index in variedadEspeciales
+          div.col-6.col-md-4.products.comp.selector.flex-container
+
+            div.dropdown
+              div.title.pointerCursor 1 ▼
+              div.menu.pointerCursor.hide
+                each cant in cantidad
+                  div.option(id='option' + `${cant}`) #{cant}
+
+            button.btn.btn-secondary.products.product(id=`${val}`, value=`${preciosEspeciales[index]}`) #{val}
+
+    // Drinks category products
+    div.container.comp.selector.text-center.hide#bebidas
+      div.row.comp.selector
+        each val, index in variedadBebidas
+          div.col-6.col-md-4.products.comp.selector.flex-container
+
+            div.dropdown
+              div.title.pointerCursor 1 ▼
+              div.menu.pointerCursor.hide
+                each cant in cantidad
+                  div.option(id='option' + `${cant}`) #{cant}
+
+            button.btn.btn-secondary.products.product(id=`${val}`, value=`${preciosBebidas[index]}`) #{val}
+
+  // Products summary
+  p.lista Lista de Productos:
+  //div
+  div.card.lista#listaProductos
+    div.card-body.lista.text-center
+      table.lista#productsTable
+    each cli in clientes
+      div.card-body.lista.text-center
+        table.lista(id='cliente' + `${cli}`+ 'Table')
+
+  //Total Price
+  div.cuentas.hide.text-center
+    input.bigCheck.cuentas#cuentasCheckbox(type='checkbox')
+    span Cuentas Separadas
+  h2.text-center Total:
+    span $
+    span#price 0,00
+    br
+    button.btn.btn-primary#realizarPedido(type="button", data-toggle="modal", data-target="#modResumen") Realizar Pedido
+
+  div.modal.fade#modResumen(tabindex="-1", role="dialog", aria-labelledby="modResumenLabel", aria-hidden="true")
+    div.modal-dialog(role="document")
+      div.modal-content
+        div.modal-header
+          h5.modal-title Resumen:
+          button.close(type="button", data-dismiss="modal")
+            span(aria-hidden="true") &times;
+        div.modal-body#confirmarModal
+          // Aqui van los items
+
+        div.modal-footer
+          form(method="post", action="/confirmarPedido")
+            fieldset
+              input#dataPedido(name="pedido[pedido]", type="hidden", value="waitId")
+              label(for="nombreCli") Nombre Cliente:
+              input(style="margin-right:4px", name="nombreCli", id="nombreCli", type="text", value="Nombre")
+              input.btn.btn-primary#confirmarPedido(type="submit", value="Confirmar Pedido")
+
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/ingresarPedidos.js")
+
+  // Carne mixtos

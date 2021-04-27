@@ -1,0 +1,37 @@
+extends layoutComp
+
+block content
+  // script to compare objects
+  script(src='/javascripts/lodash.min.js')
+
+  - pedidos= pedidos;
+  - serverDate= date;
+
+  // This invisible paragraph is used to pass the orders
+  //  from pug to the js script in the value attribute
+  p#pedidosString(value=`${pedidos}` style="display:none")
+
+  div.header  
+    a(style="color: #f0ad4e", href='/ingresarPedidos')
+      button.btn.btn-primary.directAccess(type="button") Ingresar Pedido
+
+    div.text-center(style="position:relative; top: -1em; width:50%; margin-left:auto; margin-right:auto")
+      a(href='/')
+        img(src='/images/carnalesComp.png')
+
+  h1.text-center Pedidos Pendientes
+
+  div.container.col-12
+    div.row#pendientes-canvas
+
+      
+
+  script.
+    var serverDate =new Date("#{serverDate}");
+    // I can't pass an object from pug to js script
+    // I can convert to string before, but there is a problem
+    // representing the "
+    //var pedidos = "#{pedidos}";
+
+  script(src="/socket.io/socket.io.js")
+  script(src = "/javascripts/pendientes.js")

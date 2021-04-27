@@ -1,0 +1,76 @@
+*{
+  //border: 1px solid black;
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #e8eaee;
+}
+
+
+#plano{
+  background-color: white;
+  background-image: url(../images/restaurante.png);
+  background-repeat: no-repeat;
+  height: 900px;
+  width:600px;
+  background-position:center;
+  background-size: cover;
+  position:relative;
+  margin:auto;
+}
+
+.mesa{
+	position:relative;
+	height:60px;
+  width:120px;
+}
+
+#mesa1{
+	left:282px;
+  top:84px;
+}
+
+#mesa2{
+  left:360px;
+  top:80px;    
+}
+
+#mesa3{
+  left:42px;
+  top:250px;    
+}
+
+#mesa4{
+  left:118px;
+  top:326px;    
+}
+
+#mesa5{
+  left:-23px;
+  top:602px;    
+}
+
+#mesa6{
+  left:457px;
+  top:689px;    
+}
+
+.mesaV{
+  position:relative;
+  height:120px;
+  width:60px;
+}
+
+#mesa7{
+  left:129px;
+  top:563px;
+  padding:0;
+  border: 1px solid black;
+}
+
+
+a {
+  color: #00B7FF;
+}

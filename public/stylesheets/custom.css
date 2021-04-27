@@ -1,0 +1,176 @@
+:root {
+    --primary-background: #DCC078;
+    --secondary-background: #E7DFCA;
+    --hover-background:#E9B635;
+}
+
+body {
+font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+background-color: var(--secondary-background);
+}
+
+path{
+    fill:white;
+}
+
+/*  Header */
+.header-bar{
+    padding: 5px 3em 0px 3em;
+	height: 4em;
+	width: 100%;
+	background-color:var(--primary-background);
+}
+
+.header-logo{
+    float:left;
+}
+
+.header-tools{
+    height: 100%;
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+li{
+    list-style-type: none;
+}
+
+.hide{
+	display: none;
+}
+
+/* ############# ICON ########################### */
+
+.icon{
+    width: 20px;
+    height: 20px;
+}
+
+.icon-container{
+    height: 30px;
+    width: 30px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    padding-top: 4px;
+}
+
+.icon.icon-container:hover{
+    background-color: var(--hover-background);
+
+}
+
+/* ############## Layout plano ################### */
+
+#plano{
+    background-color: white;
+    background-image: url(../images/restaurante.png);
+    background-repeat: no-repeat;
+    height: 900px;
+    width:600px;
+    background-position:center;
+    background-size: cover;
+    position:relative;
+    margin:auto;
+}
+
+.mesa{
+    height:60px;
+    width:120px;
+}
+
+.mesaV{
+    height:120px;
+    width:60px;
+    padding: 0;
+}
+
+.mesa-wrapper{
+    position:relative;
+    padding: 0;
+    margin: 0;
+    height: 0;
+}
+
+#mesa1{
+    left:282px;
+    top:84px;
+}
+
+#mesa2{
+    left:478px;
+    top:84px;    
+}
+
+#mesa3{
+    left:282px;
+    top:250px;    
+}
+
+#mesa4{
+    left:478px;
+    top:325px;    
+}
+
+#mesa5{
+    left:456px;
+    top:602px;    
+}
+
+#mesa6{
+    left:456px;
+    top:780px;    
+}
+
+#mesa7{
+    left:250px;
+    top:624px;
+}
+/* ################# Modal  #######################*/
+.modal-background{
+    position: fixed;
+    z-index: 50;
+    background-color: rgba(94,96,141,0.6);
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+}
+
+.modal-card{
+    width: 90%;
+    height: 60%;
+    position:fixed;
+    z-index: 99;
+    left: 0%;
+    top:10%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 1em;
+    margin-left: 5%;
+}
+
+/* ################# Notifications  #######################*/
+
+.notification {
+    color: black;
+	position: relative;
+    top: -28px;
+    left: 17px;
+    font-size: 11px;
+    background: #FC3D3D;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+@media (min-width:800px){
+    .modal-card{
+        width: 50%;
+        left:25%;
+        margin-left: auto;
+    }    
+}
