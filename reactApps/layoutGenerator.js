@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 
 import Header from './headerGen';
-import Mesa from './mesaGen';
 import Canvas from './canvasGen';
-
 
 class Layout extends Component {
 	render(){

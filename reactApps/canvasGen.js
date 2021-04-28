@@ -11,21 +11,23 @@ class Canvas extends Component {
     }
 
     setModal(e){
-        if (e.target.className=="modal-background" || e.target.className.slice(0,4)=='mesa'){
-            this.setState({modal:!this.state.modal});
-        }
+        this.setState({modal:!this.state.modal});
     }
     
     render(){
         return(
         <div id="plano">
             {this.state.modal==true &&
-                <div className="modal-background" onClick={this.setModal}>
+                <div>
+                    <div className="modal-background" onClick={this.setModal}>
+                        
+                    </div>
                     <div className="modal-card">
                         <OrderCard/>
                     </div>
-                </div>
+                </div>                
             }
+            <Mesa setModal={this.setModal} modalID='modal' value='Ventana' mesaType='ventana' id ="ventana"/>
             <Mesa setModal={this.setModal} modalID='modal' value="Mesa 1" mesaType="mesa" id ="mesa1"/>
             <Mesa setModal={this.setModal} modalID='modal' value="Mesa 2" mesaType="mesa" id ="mesa2" />
             <Mesa setModal={this.setModal} modalID='modal' value="Mesa 3" mesaType="mesa" id ="mesa3" />

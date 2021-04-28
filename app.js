@@ -23,6 +23,7 @@ var registrarPost = require('./routes/registrar');
 //API
 var dashboardAPI = require('./routes/api.dashboard');
 var migrar = require('./routes/api.migrar');
+var pedidosAPI = require('./routes/api.pedidos');
 
 var app = express();
 global.globalOrders = [];
@@ -56,6 +57,7 @@ app.use('/registrar',registrarPost);
 //API
 app.use('/api/dashboard',dashboardAPI);
 app.use('/api/migrar',migrar);
+app.use('/api/pedidos', pedidosAPI);
 
 
 
