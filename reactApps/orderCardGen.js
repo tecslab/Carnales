@@ -22,18 +22,18 @@ class OrderCard extends Component {
         this.reqPedido();
     }
 
+    getId(idMesa){
+        if (idMesa=='ventana'){
+            
+        }
+    }
+
     reqPedido(){
         console.log('recibiendo pedido...');
-        /*fetch('/api/pedidos',{
-            method: 'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.error(err));
-        e.preventDefault();*/
+
+        
+
+        console.log(this.props.mesaActiva);
         fetch('/api/pedidos/mesa/5')
             .then(res => res.json())
             .then(data =>{

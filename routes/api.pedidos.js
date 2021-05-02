@@ -13,7 +13,7 @@ router.get('/:id', async (req, res)=>{
 });
 
 router.get('/mesa/:num', async (req, res)=>{
-    var pedido = await Pedido.findOne({mesa:req.params.num}).populate({path:'canasta.producto_id'});
+    var pedido = await Pedido.find({mesa:req.params.num}).populate({path:'canasta.producto_id'});
     res.json(pedido);
 }); 
 
@@ -35,8 +35,6 @@ router.delete('/:id', async(req, res)=>{
     await Pedido.findByIdAndRemove(req.params.id);
     res.json('Pedido borrado');
 });
-
-
 
 module.exports = router;
 

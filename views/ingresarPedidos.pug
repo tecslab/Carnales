@@ -153,12 +153,10 @@ block content
           // Aqui van los items
 
         div.modal-footer
-          form(method="post", action="/confirmarPedido")
-            fieldset
-              input#dataPedido(name="pedido[pedido]", type="hidden", value="waitId")
-              label(for="nombreCli") Nombre Cliente:
-              input(style="margin-right:4px", name="nombreCli", id="nombreCli", type="text", value="Nombre")
-              input.btn.btn-primary#confirmarPedido(type="submit", value="Confirmar Pedido")
+          input#dataPedido(name="pedido[pedido]", type="hidden", value="waitId")
+          label(for="nombreCli") Nombre Cliente:
+          input(style="margin-right:4px", name="nombreCli", id="nombreCli", type="text", value="Nombre")
+          input.btn.btn-primary#confirmarPedido(type="submit", value="Confirmar Pedido")
 
   script(src="/socket.io/socket.io.js")
   script(src="/javascripts/ingresarPedidos.js")

@@ -234,8 +234,8 @@ function crearPedido(pedido){
 	if (document.getElementById('cardResumen')!=null){
 		document.getElementById('cardResumen').remove();
 	}
-	var clientes = pedido.Clientes;
-	var mesaPedido = pedido.Mesa;	
+	var clientes = pedido.clientes;
+	var mesaPedido = pedido.mesa;	
 	//Mejorar
 
 	//columna donde se localiza la tarjeta
@@ -299,7 +299,7 @@ function crearPedido(pedido){
 	}
 	if (cuentasCheckbox.checked==false){
 		var cuentaTot = document.createElement('h2');
-		cuentaTot.textContent='$'+ pedido.Total;
+		cuentaTot.textContent='$'+ pedido.total;
 		cuentaTot.setAttribute("style", "margin:0px;");
 		cuentaTot.setAttribute("class", "text-center");
 		card.insertAdjacentElement("beforeend", cuentaTot);
@@ -544,16 +544,16 @@ realizarPedido.onclick = function(){
 
 	//Armamos el JSON del pedido
 	//pedidoJSON.Productos=products;
-	pedidoJSON.Clientes=clientes;
-	pedidoJSON.Mesa=activeMesa.id;
+	pedidoJSON.clientes=clientes;
+	pedidoJSON.mesa=activeMesa.id;
 	if (cuentasCheckbox.checked==true){
-		pedidoJSON.SepararCuentas=true;
+		pedidoJSON.separarCuentas=true;
 	}
 
 	//Deberia ser el id de PoS
 	//pedidoJSON.NumeroPedido="";
 	//POS ID =
-	pedidoJSON.Total = cuentaTotal;
+	pedidoJSON.total = cuentaTotal;
 	//console.log(pedidoJSON);
 	crearPedido(pedidoJSON);
 	//Insertamos los productos en el modal
@@ -563,8 +563,17 @@ confirmarButton.onclick = function(){
 	//Set the form data to be sent
 	//This is manage in the router and saved on the database
 	dataPedido.value=JSON.stringify(pedidoJSON);
+	console.log(pedidoJSON);
+	fetch('/api/newPedidos', {
+		method: 'POST', 
+		body: JSON.stringify(pedidoJSON),
+		headers: {
+		  'Accept': 'application/json',
+		  'Content-Type': 'application/json'
+		}
+	  });
 	//Send the data to the server socket. Then is sent to the KDS
-	socket.emit('nuevoPedido',{pedido:pedidoJSON});
+	//socket.emit('nuevoPedido',{pedido:pedidoJSON});
 }
 
 // #################################### //

@@ -20,6 +20,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+
 var server = http.createServer(app);
 
 /**
@@ -90,45 +91,13 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-// ###################################
-//This code send the kitchen request to the kitchen
-var numPedido = 1;
-//var pedidos = [];
-var io = require('socket.io').listen(server);
-io.sockets.on('connection', function(socket){
-  console.log('Kitchen connected');
+// Socket.io server
+// Deliver the orders cards to clients that need it(Pedidos pendientes/cuentas pendientes, etc)
+var socket = require('../socket')(server);
+var newPedidosAPI = require('../routes/api.newPedidos')(socket);
+app.use('/api/newPedidos', newPedidosAPI);
 
-
-
-
-
-  socket.on('nuevoPedido',function(data){
-    console.log('pedido recibido');
-    //console.log(data.pedido); 
-    data.pedido.NumeroPedido = numPedido;
-    data.pedido.Hora=new Date();
-    globalOrders.push({...data.pedido});
-    globalCuentas.push({...data.pedido});
-
-    numPedido++;
-    socket.broadcast.emit('pedidoEntrante', {pedido:data.pedido});
-  });
-
-
-  socket.on('eliminarPedido',function(data){
-    //data.numPedido
-    socket.broadcast.emit('eliminarPedido',{numPedido:data.numPedido});
-    //var  currentCard = globalOrders.find(pedido => pedido.NumeroPedido==data.numPedido);
-    globalOrders = globalOrders.filter( pedido => pedido.NumeroPedido!=data.numPedido );
-    //console.log(currentCard);
-    //console.log(globalOrders);
-  });
-
-  socket.on('eliminarCuenta',function(data){
-    socket.broadcast.emit('eliminarCuenta',{numPedido:data.numPedido});
-    //var  currentCard = globalOrders.find(pedido => pedido.NumeroPedido==data.numPedido);
-    globalCuentas = globalCuentas.filter( pedido => pedido.NumeroPedido!=data.numPedido );
-  });
-
-
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });

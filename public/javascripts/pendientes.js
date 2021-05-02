@@ -7,10 +7,10 @@ var pedidos = JSON.parse(document.getElementById("pedidosString").attributes.val
 
 
 function crearPedido(pedido,type){
-	var clientes = pedido.Clientes;
-	var numPedido = pedido.NumeroPedido;
-	var mesaPedido = pedido.Mesa;
-	var pedidoTime = new Date (pedido.Hora);
+	var clientes = pedido.clientes;
+	var numPedido = pedido.numPedido;
+	var mesaPedido = pedido.mesa;
+	var pedidoTime = new Date (pedido.fecha);
 	//columna donde se localiza la tarjeta
 	var cardCol = document.createElement("div");
 	//Contenedor de la tarjeta
@@ -180,6 +180,7 @@ for (let i in pedidos){
 
 // Listen to new incoming orders
 socket.on('pedidoEntrante', function(data){
+	console.log('Eureka');
 	crearPedido(data.pedido,'new');
 });
 
@@ -193,4 +194,15 @@ socket.on('eliminarPedido', function(data){
 			break;
 		}
 	}
+});
+
+socket.on('actualizarPedido', (data)=>{
+	var currentCards = document.getElementsByClassName('card-col');
+	for (let i in currentCards){
+		if (data.pedido.numPedido==currentCards[i].id){
+			currentCards[i].remove();
+			break;
+		}
+	}
+	crearPedido(data.pedido,'new');
 });

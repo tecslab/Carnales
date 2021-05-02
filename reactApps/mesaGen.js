@@ -11,7 +11,7 @@ class Mesa extends Component {
     render(){
         return(
             <div className={this.props.mesaType + ' mesa-wrapper'} id={this.props.id}>
-                    <input onClick={(e) => this.props.setModal(e)} className={this.props.mesaType + ' btn btn-info'} type="button" value={this.props.value} />
+                    <input onClick={(e) => this.props.setModal(e, this.props.id)} className={this.props.mesaType + ' btn btn-info'} type="button" value={this.props.value} />
             </div>
             )
     }    

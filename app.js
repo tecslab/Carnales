@@ -59,12 +59,9 @@ app.use('/api/dashboard',dashboardAPI);
 app.use('/api/migrar',migrar);
 app.use('/api/pedidos', pedidosAPI);
 
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// The route /api/newPedidos is defined in the /bin/www script
+// because it need the io socket
+// The 404 error page is also defined in the /bin/www script
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -7,11 +7,15 @@ class Canvas extends Component {
     constructor(props){
         super(props);
         this.setModal = this.setModal.bind(this);
-        this.state = { modal: false };
+        this.state = {
+             modal: false,
+             mesaActiva:undefined
+            };
     }
 
-    setModal(e){
+    setModal(e, idMesa){
         this.setState({modal:!this.state.modal});
+        this.setState({mesaActiva:idMesa});
     }
     
     render(){
@@ -23,7 +27,7 @@ class Canvas extends Component {
                         
                     </div>
                     <div className="modal-card">
-                        <OrderCard/>
+                        <OrderCard mesaActiva={this.state.mesaActiva}/>
                     </div>
                 </div>                
             }

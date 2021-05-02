@@ -47,11 +47,11 @@ function removeCard(Card){
 
 console.log('cuentasss');
 function crearPedido(pedido){
-	var clientes = pedido.Clientes;
-	var numPedido = pedido.NumeroPedido;
+	var clientes = pedido.clientes;
+	var numPedido = pedido.numPedido;
 	var separar=pedido.SepararCuentas;
 	//var productos = pedido.Productos;
-	var mesaPedido = pedido.Mesa;
+	var mesaPedido = pedido.mesa;
 	//var pedidoTime = new Date (pedido.Hora);
 
 	//columna donde se localiza la tarjeta
@@ -151,7 +151,7 @@ function crearPedido(pedido){
 	}
 	if (separar!=true){
 		var cuentaTot = document.createElement('h2');
-		cuentaTot.textContent='$'+ pedido.Total;
+		cuentaTot.textContent='$'+ pedido.total;
 		cuentaTot.setAttribute("style", "margin:0px;");
 		cuentaTot.setAttribute("class", "text-center");
 		card.insertAdjacentElement("beforeend", cuentaTot);
@@ -230,7 +230,8 @@ socket.on('pedidoEntrante', function(data){
 	crearPedido(data.pedido);
 });
 
-socket.on('eliminarCuenta', function(data){
+// Listen to a delete order signal
+socket.on('eliminarPedido', function(data){
 	//console.log('llegó');
 	var currentCards = document.getElementsByClassName('card-col');
 	for (let i in currentCards){
@@ -239,4 +240,15 @@ socket.on('eliminarCuenta', function(data){
 			break;
 		}
 	}
+});
+
+socket.on('actualizarPedido', (data)=>{
+	var currentCards = document.getElementsByClassName('card-col');
+	for (let i in currentCards){
+		if (data.pedido.numPedido==currentCards[i].id){
+			currentCards[i].remove();
+			break;
+		}
+	}
+	crearPedido(data.pedido,'new');
 });
