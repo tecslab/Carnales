@@ -21,15 +21,20 @@ class Canvas extends Component {
     render(){
         return(
         <div id="plano">
-            {this.state.modal==true &&
-                <div>
-                    <div className="modal-background" onClick={this.setModal}>
-                        
-                    </div>
-                    <div className="modal-card">
-                        <OrderCard mesaActiva={this.state.mesaActiva}/>
-                    </div>
-                </div>                
+            {this.state.modal==true &&               
+                <div className="container modal-background" onClick={this.setModal}>
+                    {/* <div className="row">
+                        <div className="modal-card col-4">
+                            <OrderCard mesaActiva={this.state.mesaActiva}/>
+                        </div>
+                        <div className="modal-card col-4">
+                            <OrderCard mesaActiva={this.state.mesaActiva}/>
+                        </div>
+                        <div className="modal-card col-4">
+                            <OrderCard mesaActiva={this.state.mesaActiva}/>
+                        </div>
+                    </div> */}                        
+                </div>                              
             }
             <Mesa setModal={this.setModal} modalID='modal' value='Ventana' mesaType='ventana' id ="ventana"/>
             <Mesa setModal={this.setModal} modalID='modal' value="Mesa 1" mesaType="mesa" id ="mesa1"/>

@@ -12,7 +12,7 @@ var pedidoSchema = new Schema({
    numPedido: {type: Number},
    total: {type: Number, required:true},
    cantClientes: Number,
-}, { collection: 'pedidosTemp' });
+});
 
 
 // abstraer la hora

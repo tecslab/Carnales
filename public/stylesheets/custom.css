@@ -65,13 +65,13 @@ li{
 
 #plano{
     background-color: white;
-    background-image: url(../images/restaurante.png);
+    /*background-image: url(../images/restaurante.png);
     background-repeat: no-repeat;
-    height: 900px;
-    width:600px;
     background-position:center;
-    background-size: cover;
-    position:relative;
+    background-size: cover;*/
+    height: 900px;
+    width:100%;
+    position:fixed;
     margin:auto;
 }
 
@@ -138,22 +138,28 @@ li{
 }
 /* ################# Modal  #######################*/
 .modal-background{
-    position: fixed;
+    height: 900px;
+    width:100%;
+    
+    position:fixed;
     z-index: 50;
+    margin:auto;
     background-color: rgba(94,96,141,0.6);
-    width: 100%;
+    /*position: fixed;
+    top: 0;left: 0;
     height: 100%;
-    top:0;
-    left: 0;
+    width: 100%;
+    z-index: 50;
+    background-color: rgba(94,96,141,0.6);*/
 }
 
 .modal-card{
-    width: 90%;
+    /* width: 90%;
     height: 60%;
     position:fixed;
     z-index: 99;
     left: 0%;
-    top:10%;
+    top:10%; */
     background-color: white;
     border-radius: 8px;
     padding: 1em;
@@ -178,8 +184,8 @@ li{
 
 @media (min-width:800px){
     .modal-card{
-        width: 50%;
-        left:25%;
-        margin-left: auto;
+        /* width: 50%;
+        left:25%;*/
+        margin: auto;
     }    
 }

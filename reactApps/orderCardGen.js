@@ -22,23 +22,24 @@ class OrderCard extends Component {
         this.reqPedido();
     }
 
-    getId(idMesa){
+    getMesaName(idMesa){
+        var name= '';
         if (idMesa=='ventana'){
-            
+            name='Ventana';
+        }else{
+            name='Mesa '+idMesa.slice(4);
         }
     }
 
     reqPedido(){
         console.log('recibiendo pedido...');
-
-        
-
         console.log(this.props.mesaActiva);
-        fetch('/api/pedidos/mesa/5')
+        const mesa=this.props.mesaActiva;
+        fetch('/api/newPedidos/mesa/'+mesa)
             .then(res => res.json())
             .then(data =>{
                 this.setState({pedidos:data});
-                console.log(this.state.pedidos.canasta);
+                console.log(this.state.pedidos);
                 console.log('..recibido');
             });        
     }
@@ -49,8 +50,8 @@ class OrderCard extends Component {
             <div className="card rounded border-dark">
                 <div className="card-header p-1" style={{backgroundColor:"green",}}>
                     <span className="m-0" style={{fontSize:"18px"}}><strong>#2</strong></span>
-                    <span className="crono" style={{color:"white", marginLeft:"25%"}} data="1min21seg">{this.state.pedidos.fecha}</span>
-                    <p className="m-0 text-center"><strong>{this.state.pedidos.mesa}</strong></p>
+                    <span className="crono" style={{color:"white", marginLeft:"25%"}}>1min21seg</span>
+                    <p className="m-0 text-center"><strong>{this.props.mesaActiva}</strong></p>
                 </div>              
 
 
