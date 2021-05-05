@@ -22,7 +22,7 @@ class Canvas extends Component {
         return(
         <div id="plano">
             {this.state.modal==true &&               
-                <div className="container modal-background" onClick={this.setModal}>
+                <div className="modal-background" onClick={this.setModal}>
                     {/* <div className="row">
                         <div className="modal-card col-4">
                             <OrderCard mesaActiva={this.state.mesaActiva}/>
