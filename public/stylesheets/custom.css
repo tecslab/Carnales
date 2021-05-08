@@ -65,10 +65,10 @@ li{
 
 #plano{
     background-color: white;
-    /*background-image: url(../images/restaurante.png);
+    background-image: url(../images/restaurante.png);
     background-repeat: no-repeat;
     background-position:center;
-    background-size: cover;*/
+    background-size: cover;
     height: 900px;
     width:600px;
     position:relative;
@@ -156,8 +156,6 @@ li{
     top:10%; */
     background-color: white;
     border-radius: 8px;
-    padding: 1em;
-    margin-left: 5%;
 }
 
 /* ################# Notifications  #######################*/

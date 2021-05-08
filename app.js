@@ -1,9 +1,7 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const {mongoose} = require('./database');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -45,33 +43,22 @@ app.use('/ingresarPedidos', ingPedidosRouter);
 app.use('/mapa', mapaRouter);
 app.use('/layout', layoutRouter);
 app.use('/registro', registroRouter);
-app.use('/pendientes',pendientesRouter);
-app.use('/cuentas',cuentasRouter);
+app.use('/pendientes', pendientesRouter);
+app.use('/cuentas', cuentasRouter);
 app.use('/consultarDia', consultarDia);
-app.use('/dashboard',dashboard);
-app.use('/inventario',inventario);
-app.use('/registraregreso',registrarEgreso);
+app.use('/dashboard', dashboard);
+app.use('/inventario', inventario);
+app.use('/registraregreso', registrarEgreso);
 //Post routes
-app.use('/confirmarPedido',confirmarPedido);
-app.use('/registrar',registrarPost);
+app.use('/confirmarPedido', confirmarPedido);
+app.use('/registrar', registrarPost);
 //API
-app.use('/api/dashboard',dashboardAPI);
-app.use('/api/migrar',migrar);
+app.use('/api/dashboard', dashboardAPI);
+app.use('/api/migrar', migrar);
 app.use('/api/pedidos', pedidosAPI);
 
 // The route /api/newPedidos is defined in the /bin/www script
 // because it need the io socket
 // The 404 error page is also defined in the /bin/www script
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 module.exports = app;
