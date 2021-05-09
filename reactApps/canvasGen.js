@@ -25,14 +25,19 @@ class Canvas extends Component {
                     <div className="modal-background" onClick={this.setModal}>
                         <div className="horizontal-slider-container">
                             <div className="modal-card">
+                                <OrderCard mesaActiva={this.state.mesaActiva} />
                             </div>
                             <div className="modal-card">
+                                <OrderCard mesaActiva={this.state.mesaActiva} />
                             </div>
                             <div className="modal-card">
+                                <OrderCard mesaActiva={this.state.mesaActiva} />
                             </div>
                             <div className="modal-card">
+                                <OrderCard mesaActiva={this.state.mesaActiva} />
                             </div>
                             <div className="modal-card">
+                                <OrderCard mesaActiva={this.state.mesaActiva} />
                             </div>
                         </div>
 
