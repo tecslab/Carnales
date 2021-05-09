@@ -148,16 +148,37 @@ li{
 }
 
 .modal-card{
-    /*width: 90%;
-    height: 60%;
-    position:fixed;
-    z-index: 99;
-    left: 0%;
-    top:10%;*/
-    margin-top: 20%;
     padding:10px;
+    margin:0 5px 0 5px;
     background-color: white;
     border-radius: 8px;
+    min-width: 350px;
+}
+
+.modal-card:first-child {
+    margin-left:auto;
+}
+
+.modal-card:last-child{
+    margin-right: auto;
+}
+
+/* ################## VERSION 2 ####################### */
+
+.horizontal-slider-container{
+    margin-top:20vh;
+    overflow: auto;
+    display: flex;
+}
+
+.horizontal-slider-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.horizontal-slider-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 /* ################# Notifications  #######################*/

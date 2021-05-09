@@ -23,28 +23,19 @@ class Canvas extends Component {
             <div id="plano">
                 {this.state.modal == true &&
                     <div className="modal-background" onClick={this.setModal}>
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-4">
-                                    <div className="modal-card">
-                                        <OrderCard mesaActiva={this.state.mesaActiva} />
-                                    </div>
-                                </div>
-
-                                <div className="col-4">
-                                    <div className="modal-card">
-                                        <OrderCard mesaActiva={this.state.mesaActiva} />
-                                    </div>
-                                </div>
-
-                                <div className="col-4">
-                                    <div className="modal-card">
-                                        <OrderCard mesaActiva={this.state.mesaActiva} />
-                                    </div>
-                                </div>
-
+                        <div className="horizontal-slider-container">
+                            <div className="modal-card">
+                            </div>
+                            <div className="modal-card">
+                            </div>
+                            <div className="modal-card">
+                            </div>
+                            <div className="modal-card">
+                            </div>
+                            <div className="modal-card">
                             </div>
                         </div>
+
                     </div>
                 }
                 <Mesa setModal={this.setModal} modalID='modal' value='Ventana' mesaType='ventana' id="ventana" />

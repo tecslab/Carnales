@@ -139,7 +139,6 @@ button.comp{
 }
 
 .selector.categorie{
-	overflow-x:hidden;
 	min-width:560px;
 	margin-right:auto;
 	margin-left:auto;
