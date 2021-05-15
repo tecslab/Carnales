@@ -9,66 +9,101 @@ const styleObj = {
 
 class OrderCard extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            pedidos:[],
-            test:'2'
+        this.state = {
+            test: '2'
         };
-        this.reqPedido = this.reqPedido.bind(this);
+        this.keyCount = 0;
+        this.getKey = this.getKey.bind(this);
+        this.myInput = React.createRef();
     }
 
-    componentDidMount(){
-        this.reqPedido();
+    componentDidMount() {
+        console.log(this.myInput.current.offsetHeight);
     }
 
-    getMesaName(idMesa){
-        var name= '';
-        if (idMesa=='ventana'){
-            name='Ventana';
-        }else{
-            name='Mesa '+idMesa.slice(4);
+    getKey() {
+        return this.keyCount++;
+    }
+
+    getMesaName(idMesa) {
+        var name = '';
+        if (idMesa == 'ventana') {
+            name = 'Ventana';
+        } else {
+            name = 'Mesa ' + idMesa.slice(4);
         }
+        return name;
     }
 
-    reqPedido(){
-        console.log('recibiendo pedido...');
-        console.log(this.props.mesaActiva);
-        const mesa=this.props.mesaActiva;
-        fetch('/api/newPedidos/mesa/'+mesa)
-            .then(res => res.json())
-            .then(data =>{
-                this.setState({pedidos:data});
-                console.log(this.state.pedidos);
-                console.log('..recibido');
-            });        
-    }
+    /*  //*
+      las personas que se han convertido en un ser tracendental a medias, un ser tracendental no puede
+  */
+    render() {
+        return (
+            <div >
+                <div className="card rounded border-dark">
+                    <div className="card-header p-1" style={{ backgroundColor: "green", }}>
+                        <span ref={this.myInput} className="m-0" style={{ fontSize: "18px" }}><strong>#{this.props.pedido.numPedido}</strong></span>
+                        <span className="crono" style={{ color: "white", marginLeft: "25%" }}>1min21seg</span>
+                        <p className="m-0 text-center"><strong>{this.getMesaName(this.props.pedido.mesa)}</strong></p>
+                    </div>
 
-    render(){
-	return(
-        <div>
-            <div className="card rounded border-dark">
-                <div className="card-header p-1" style={{backgroundColor:"green",}}>
-                    <span className="m-0" style={{fontSize:"18px"}}><strong>#2</strong></span>
-                    <span className="crono" style={{color:"white", marginLeft:"25%"}}>1min21seg</span>
-                    <p className="m-0 text-center"><strong>{this.props.mesaActiva}</strong></p>
-                </div>              
+                    {
+                        this.props.pedido.clientes.map(cliente => {
+                            return (
+                                //Review if this key is right
+                                <div className="cliente" key={cliente.nombre}>
+                                    <ul className="list-group list-group-flush">
+                                        {
+                                            cliente.productos.map(producto => {
+                                                return (
+                                                    <li className="list-group-item" style={{ margin: "0", padding: '1px' }} key={this.getKey()}>
+                                                        <p className="mx-1" style={{ marginBottom: "5px" }}>
+                                                            {producto.Categoria + ' ' + producto.Variedad}
+                                                            <span className="badge badge-pill badge-warning">
+                                                                x{producto.Cantidad}
+                                                            </span>
 
-
+                                                            {
+                                                                producto.Observacion != "" &&
+                                                                <span>
+                                                                    <br></br><span className="my-0 mx-4" style={{ color: "red" }}>
+                                                                        {producto.Observacion}
+                                                                    </span>
+                                                                </span>
+                                                            }
+                                                        </p>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                    </ul>
+                                    {
+                                        this.props.pedido.separarCuentas == true &&
+                                        <h4 className="text-center" style={{ margin: "0" }}>${cliente.cuenta}</h4>
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                    {
+                        this.props.pedido.separarCuentas != true &&
+                        <h4 className="text-center" style={{ margin: "0" }}>${this.props.pedido.total}</h4>
+                    }
+                    <div className="card-footer">
+                        <button style={{ marginBottom: "5px" }} className="btn btn-success w-100 listo">Listo ✔</button>
+                        <button style={{ marginBottom: "5px" }} className="btn btn-success w-100 listo">Editar</button>
+                        <button style={{ margingBottom: "5px" }} className="btn btn-success w-100 listo">Eliminar </button>
+                    </div>
+                </div>
             </div>
 
 
-                    
-        </div>
-        
-
-    )}
+        )
+    }
 }
-
-
-
-
-
 
 
 {/* <ul className="list-group list-group-flush">
@@ -86,54 +121,6 @@ class OrderCard extends Component {
                 </ul> */}
 
 
-
-
-
-
-
-
-
-
-
-
-{/*
-    this.state.pedidos.map(pedidos => {
-                    return (
-                        <h1>{pedidos.mesa}</h1>
-                    )
-                    
-                })
-
-
-    
-    <div className="card rounded border-dark">
-                <div className="card-header p-1" style={{backgroundColor:"green",}}>
-                    <span className="m-0" style={{fontSize:"18px"}}><strong>#2</strong></span>
-                    <span className="crono" style={{color:"white", marginLeft:"25%"}} data="1min21seg">123123</span>
-                    <p className="m-0 text-center"><strong>Mesa 4</strong></p>
-                </div>
-                
-                <ul className="list-group list-group-flush">
-                    <p className="mx-1" style={{marginBottom:"5px",}}>Taco Chingón
-                        <span className="badge badge-pill badge-warning text-right">x2</span>
-                        <br/>
-                        <span className="my-0 mx-4" style={{color:"red",}}>Sin Cebolla</span>
-                    </p>
-                    <p className="mx-1" style={{marginBottom:"5px",}}>Burrito Chingón
-                        <span className="badge badge-pill badge-warning text-right">x2</span>
-                    </p>
-                    <p className="mx-1" style={{marginBottom:"5px",}}>Taco al Pastor
-                        <span className="badge badge-pill badge-warning text-right">x5</span>
-                        <br/>
-                        <span className="my-0 mx-4" style={{color:"red",}}>Sin Piña</span>
-                    </p>
-                </ul>
-                <div className="card-footer">
-                    <button style={{marginBottom:"5px"}} className="btn btn-success w-100 listo">Listo ✔</button>
-                    <button style={{marginBottom:"5px"}} className="btn btn-success w-100 listo">Editar</button>
-                    <button style={{margingBottom:"5px"}} className="btn btn-success w-100 listo">Eliminar </button>
-                </div>
-            </div> */}
 
 
 export default OrderCard;
