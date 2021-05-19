@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
-import {render} from 'react-dom';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
 
 import Header from './headerGen';
 import Canvas from './canvasGen';
 
 class Layout extends Component {
-	render(){
-		return(
+	render() {
+		return (
 			<div>
-			<Header/>
-			<Canvas/>
+				<Header />
+				<Canvas />
 			</div>
-			)
+		)
 	}
 }
 
-render(<Layout/>, document.getElementById('app'));
+
+render(<Layout />, document.getElementById('app'));

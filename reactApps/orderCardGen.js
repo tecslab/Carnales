@@ -20,7 +20,11 @@ class OrderCard extends Component {
     }
 
     componentDidMount() {
-        console.log(this.myInput.current.offsetHeight);
+        let cardSize = this.myInput.current.offsetHeight;
+        let viewPortHeight = window.innerHeight;
+        if (cardSize > viewPortHeight) {
+            dispatchEvent(this.props.winEvent);
+        }
     }
 
     getKey() {
@@ -42,10 +46,10 @@ class OrderCard extends Component {
   */
     render() {
         return (
-            <div >
+            <div ref={this.myInput}>
                 <div className="card rounded border-dark">
                     <div className="card-header p-1" style={{ backgroundColor: "green", }}>
-                        <span ref={this.myInput} className="m-0" style={{ fontSize: "18px" }}><strong>#{this.props.pedido.numPedido}</strong></span>
+                        <span className="m-0" style={{ fontSize: "18px" }}><strong>#{this.props.pedido.numPedido}</strong></span>
                         <span className="crono" style={{ color: "white", marginLeft: "25%" }}>1min21seg</span>
                         <p className="m-0 text-center"><strong>{this.getMesaName(this.props.pedido.mesa)}</strong></p>
                     </div>

@@ -182,13 +182,13 @@ li{
     scrollbar-width: none;  /* Firefox */
 }
 
-.horizontal-slider-container.big-card{
+.horizontal-slider-container-big-card{
     margin:auto 0 auto 0;
     overflow-x: auto;
     display: flex;
     position: absolute;
     width: 100%;
-    top:0;
+    top:0vh;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }

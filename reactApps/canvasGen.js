@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import OrderCard from './orderCardGen';
 import Mesa from './mesaGen';
 
@@ -41,19 +41,8 @@ class Canvas extends Component {
         return (
             <div id="plano">
                 {this.state.modal == true &&
-                    <div id="modal-background" clickeable="true" className="modal-background" onClick={(e) => this.toggleLayout(e, this.state.mesaActiva)}>
-                        <div clickeable="true" className="horizontal-slider-container">
-                            {
-                                this.state.pedidos.map(pedido => {
-                                    return (
-                                        <div className="modal-card" key={pedido.numPedido}>
-                                            <OrderCard pedido={pedido} />
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-
+                    <div id="modalBackground" clickeable="true" className="modal-background" onClick={(e) => this.toggleLayout(e, this.state.mesaActiva)}>
+                        <HorizontalSliderContainer clickeable={"true"} pedidos={this.state.pedidos} />;
                     </div>
                 }
                 <Mesa toggleLayout={this.toggleLayout} modalID='modal' value='Ventana' mesaType='ventana' id="ventana" />
@@ -63,10 +52,58 @@ class Canvas extends Component {
                 <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 4" mesaType="mesa" id="mesa4" />
                 <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 5" mesaType="mesa" id="mesa5" />
                 <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 6" mesaType="mesa" id="mesa6" />
-                <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 7" mesaType="mesaV" id="mesa7" />
+                <Mesa toggleLax yout={this.toggleLayout} modalID='modal' value="Mesa 7" mesaType="mesaV" id="mesa7" />
             </div>
         )
     }
 }
+
+
+
+//modalBackground.addEventListener('bigOrder', e => alert('bigeeeer'));
+
+const HorizontalSliderContainer = ({ clickeable, pedidos }) => {
+    const [higherThanVP, setHigher] = useState(
+        false
+    );
+
+    const bigOrder = new CustomEvent('bigOrder', {
+        biggerThanVP: true// is doing nothing
+    });
+
+    const handleCEvent = (event) => {
+        setHigher(true);
+        console.log('Custom event launched');
+    }
+
+    const getClass = () => {
+        let elementClass = "horizontal-slider-container";
+        if (higherThanVP == true) {
+            elementClass = "horizontal-slider-container-big-card";
+        }
+        return elementClass;
+    }
+
+    React.useEffect(() => {
+        window.addEventListener('bigOrder', handleCEvent);
+        // cleanup this component
+        return () => {
+            window.removeEventListener('bigOrder', handleCEvent);
+        };
+        // [] this is to execute it only the first time
+    }, []);
+
+    return <div clickeable={clickeable} className={getClass()}>
+        {
+            pedidos.map(pedido => {
+                return (
+                    <div className="modal-card" key={pedido.numPedido}>
+                        <OrderCard pedido={pedido} winEvent={bigOrder} />
+                    </div>
+                )
+            })
+        }
+    </div>
+};
 
 export default Canvas;
