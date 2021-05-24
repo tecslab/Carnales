@@ -2,7 +2,6 @@ import React, { Component, useState } from 'react';
 import OrderCard from './orderCardGen';
 import Mesa from './mesaGen';
 
-
 class Canvas extends Component {
     constructor(props) {
         super(props);
@@ -58,18 +57,12 @@ class Canvas extends Component {
     }
 }
 
-
-
-//modalBackground.addEventListener('bigOrder', e => alert('bigeeeer'));
-
 const HorizontalSliderContainer = ({ clickeable, pedidos }) => {
     const [higherThanVP, setHigher] = useState(
         false
     );
 
-    const bigOrder = new CustomEvent('bigOrder', {
-        biggerThanVP: true// is doing nothing
-    });
+    const bigOrder = new CustomEvent('bigOrder');
 
     const handleCEvent = (event) => {
         setHigher(true);
@@ -84,6 +77,7 @@ const HorizontalSliderContainer = ({ clickeable, pedidos }) => {
         return elementClass;
     }
 
+    // useReducer to use toggles
     React.useEffect(() => {
         window.addEventListener('bigOrder', handleCEvent);
         // cleanup this component
