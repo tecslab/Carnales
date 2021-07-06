@@ -1,0 +1,4 @@
+api productos, model producto
+api ingredientes, model ingredientes
+separar front y back
+leer los productos en el Pos y generar el menú con ellos
