@@ -1,5 +1,5 @@
 module.exports={
-	entry: './reactApps/layoutGenerator.js',
+	entry: './reactApps/index.js',
 	output:{
 		path: __dirname + '/public',
 		filename: 'layout.js'

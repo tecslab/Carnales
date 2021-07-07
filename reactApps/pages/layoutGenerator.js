@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import Header from './headerGen';
-import Canvas from './canvasGen';
+import Header from '../components/headerGen';
+import Canvas from '../components/canvasGen';
 
 class Layout extends Component {
 	render() {
