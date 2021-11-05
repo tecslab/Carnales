@@ -1,0 +1,431 @@
+body {
+  padding: 0px;
+  padding-top:0px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #DCC078;
+}
+
+.comp.selector, .lista{
+	background-color: #E7DFCA;
+}
+ 
+h1{
+	font-size:30px;
+}
+
+.header{
+	position: relative;
+	width: 100%;
+	height: auto;
+	z-index: 50;
+	background-color: none;
+	top: 0px;
+	padding: 1em 1.5em 0em 0.5em;
+}
+
+.directAccess{
+	float: left;
+	width:110px;
+	height:60px;
+}
+
+/* burger menu*/
+.toggle-menu ul {position: relative; width:25px; padding: 0px; z-index: 99;}
+.toggle-menu ul li {list-style:none; width:100%; height:3px; background-color:#006000; margin-bottom:4px;}
+.toggle-menu ul li:last-child{margin-bottom:0px;}
+
+input#optionMenu[type=checkbox], input#fondoButton[type=button]{
+	position: absolute; 
+	top: -9999px; 
+	left: -9999px;
+}
+
+label.toggle-menu {
+	position:relative; 
+	float: right;
+	top:-6em; 
+	padding:0px 0px;
+	cursor:pointer;  
+	z-index: 99;
+}
+
+input#optionMenu[type=checkbox]:checked ~ nav {display:block;}
+input#optionMenu[type=checkbox]:checked ~ label.fondo {display:block;}
+
+nav{display:none; 
+	position:absolute; 
+	right:0px; top:30px;
+	background-color:#76BC66; 
+	margin-right:10px;
+	z-index:99;
+	width: 100px;
+	border-radius:5px;
+}
+
+nav ul{width:auto; padding: 0.5em; margin: 0px;}
+
+nav ul li{float:none; 
+	padding:0px; 
+	width:100%;
+	height: 100%;
+	display:table; 
+	color:#FFF; 
+	font-size:15px;
+}
+
+.fondo{
+	background-color: none;
+	position: fixed;
+	top:-5em;
+	height:120%; 
+	width: 100%;
+	display:none;
+	z-index: 50;
+}
+
+.btn-mesa{
+	width:60px;
+	margin-left: 5px;
+}
+
+/*to compress on y axis*/
+.comp{
+	padding-top:1px;
+	padding-bottom:1px;
+	margin-top:0px;
+	margin-bottom:0px;
+}
+
+button.comp{
+	width:50px;
+	margin-left:1px;
+}
+
+.badge{
+	float:right;
+}
+
+.selector{
+	padding-left:1%;
+	padding-right:1%;
+}
+
+.test{
+	border:1px solid red;
+}
+
+.selector.slider{
+	overflow-x:auto;
+	border-bottom:1px solid gray;
+}
+
+.container.selector{
+/*	transition: max-width .2s ease-out;*/	
+	max-height:auto;
+	max-width:auto;
+}
+
+.selector.mesa{
+	overflow-x:auto;
+	min-width:530px;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+.selector.client{
+	overflow-x:auto;
+	min-width:830px;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+.selector.categorie{
+	min-width:560px;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+button.categorie{
+	margin-left:1px;
+}
+
+.card-col{
+	margin: 0px, 2px, 5px, 2px;
+	padding:2px;
+}
+
+.card-pedido{
+	padding-bottom: 5px;
+}
+
+.flex-container{
+	display:flex;
+	flex-wrap:wrap;
+}
+
+button.products{
+	width:80%;
+	height:50px;
+}
+
+.product-quantity{
+	margin: 0px;
+	padding: 0px;
+	width:20%;
+	text-align: center;
+	height:50px;
+}
+
+
+p.lista{
+	font-size:16px;
+	margin:0px;
+}
+
+.card.lista{
+	max-height:120px;
+	overflow:auto;
+}
+
+.card-body.lista{
+	padding-top:0px;
+	padding-bottom: 0px;
+}
+
+.item-group{
+	margin-top:3px;
+	display:none;
+}
+
+
+.btn.lista, .btn.visto{
+	width:30px;
+	height:30px;
+	padding:0px;
+	text-align:center;
+	border-radius:25px;
+}
+
+.cliente{
+	border:1px solid black; 
+	margin:0.4em 0.4em 0 0.4em; 
+	border-radius:5px; 
+	padding:1px;
+}
+
+#realizarPedido{
+	width:50%;
+	height:50px;
+}
+
+/* ################################## */
+/*Para las tablas*/
+table{
+	width:auto;
+}
+
+table, th, td{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+
+th, td{
+	padding:5px;
+	text-align:left;
+}
+
+th.hide-border, td.hide-border {
+	border-left:hidden;
+	border-top:hidden;
+	border-bottom:hidden;
+}
+
+#table-pendientes, table.lista{
+	border:hidden;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#table-pendientes tr:nth-child(even), table.lista tr:nth-child(even){
+	background-color: #eee;
+}
+
+#table-pendientes tr:nth-child(odd), table.lista tr:nth-child(odd){
+	background-color: #fff;
+}
+
+#table-productos{
+	font-size:12px;
+}
+
+/* ################################## */
+/* ###############dropdown################### */
+
+.dropdown{
+	background-color: white;
+	border:0.1em solid black;
+	width:20%;
+}
+
+.dropdown .title{
+	margin:0px;
+	padding: 1em .3em .3em .3em;
+	width:100%;
+	height:100%;
+}
+
+.dropdown .menu{
+	transition: max-height .3s ease-out;
+	max-height:30em;
+	max-width:4em;
+	width:4em;
+	border:0.1em solid black;
+	border-top:hidden;
+	background-color:white;
+	overflow:hidden;
+	position: absolute;
+	left:0px;
+	top:3em;
+	z-index:99;
+	margin:0;
+	padding:0;
+}
+
+.dropdown .menu .option{
+	margin: 0em;
+	padding: 0.5em 0em 0.5em 0em;
+	width:100%;
+	height:100%;
+}
+
+.dropdown .menu .option:hover{
+	background:rgba(0,0,0,0.2);
+}
+
+.pointerCursor:hover{
+	cursor:pointer;
+}
+
+/* ################################## */
+/* ##### DETAILS FORM ############### */
+
+.popDiv{
+	position:fixed;
+	z-index:99; 
+	background-color:white;
+	max-width:150px;
+	max-height:30em;
+	border:3px solid gray;
+	border-radius:7px;
+	overflow:hidden;
+	
+}
+
+.detailsTable{
+	margin:2px 2px 0px 2px;
+}
+
+.bigCheck{
+	-ms-transform: scale(2);
+	-moz-transform: scale(2);
+	-webkit-transform: scale(2);
+	-o-transform: scale(2);
+	transform: scale(2);
+	margin:3px;
+}
+
+input.cuentas{
+	margin: 1em;
+}
+.cuentas span{
+	font-size: 18px;
+}
+
+.activeButton{
+	background-color: green !important;
+}
+
+.hide{
+	max-height:0 !important;
+	max-width:0 !important;
+	border:hidden !important;
+	overflow:hidden;
+}
+
+/* ################################## */
+/* ##### DETAILS FORM ############### */
+
+.main-container{
+	background-color: #E7DFCA;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0em 0 0 0em;
+	position: fixed;
+	height: 100%;
+	left: 0;
+}
+
+.main-container .form-area{
+	padding-top: 1em;
+	padding-left: 8em;
+	position: relative;
+	left: 10%;
+}
+
+.main-container table{
+	border: hidden;
+}
+
+#input-submit{
+	width: 150px;
+	height: auto;
+	font-size: 20px;
+}
+
+/* ################################## */
+/* ##### Left Side Bar ############### */
+
+.left-sidebar{
+	padding-top: 0.5em;
+	width: 100px;
+	height: 100%;
+	border-left: 1px solid black;
+	background-color:#dcc078;
+	position: absolute;
+	z-index:1;
+	overflow:auto;
+}
+
+.left-sidebar label{
+	font-size: 16px;
+	padding: 1em 0px 1em 0px;
+	width: 100px;
+	height: 3em;
+	float:left;
+	border:none;
+	background-color:#D6D8D9;
+	border-bottom:1px solid;
+	display:block;
+}
+
+@media (min-width:800px){
+	body {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.header{
+		padding: 1em 1em 0em 1em;
+	}
+
+	.main-container{
+		width: 50%;
+		left: 25%;
+	}
+}
+
+a {
+  color: #00B7FF;
+}
+

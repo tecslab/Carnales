@@ -1,0 +1,45 @@
+/*  Header */
+.header-bar{
+  padding: 5px 3em 0px 3em;
+  height: 4em;
+  width: 100%;
+  background-color:var(--primary-background);
+}
+
+.header-logo{
+  float:left;
+}
+/* notificatins & burger menu */
+.header-tools{
+  height: 100%;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+/* burger menu display mechanism */
+input#optionMenu[type=checkbox]{display:none}
+input#optionMenu[type=checkbox]:checked ~ nav.burger-nav {display:block;}
+
+nav.burger-nav{
+  display:none; 
+	position:absolute; 
+	right:20px; top:45px;
+  border:3px solid var(--primary-background);
+	background-color:var(--secondary-background); 
+	margin-right:10px;
+	z-index:99;
+	width: 100px;
+	border-radius:0 0 5px 5px;
+}
+
+nav.burger-nav ul{width:auto; padding: 0.5em; margin: 0px;}
+
+nav.burger-nav ul li{float:none; 
+	padding:0px; 
+	width:100%;
+	height: 100%;
+	display:table; 
+	color:#FFF; 
+	font-size:15px;
+}
