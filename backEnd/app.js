@@ -23,6 +23,8 @@ var dashboardAPI = require('./routes/api.dashboard');
 var migrar = require('./routes/api.migrar');
 var pedidosAPI = require('./routes/api.pedidos');
 
+const cors = require('cors');
+
 var app = express();
 global.globalOrders = [];
 global.globalCuentas = [];
@@ -36,6 +38,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -30,13 +30,26 @@ class Canvas extends Component {
         }
         // Request the orders for the table selected
         console.log('recibiendo pedido...');
+        console.log(urlBack + '/api/newPedidos/mesa/' + idMesa);
         fetch(urlBack + '/api/newPedidos/mesa/' + idMesa)
-            .then(res => console.log(res))
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ pedidos: data });
+                console.log(data);
+            }).catch(e=>{
+                console.log(e);
+            });
+            /* .then(res => {
+                console.log('Respuesta: ');
+                console.log(res.json());
+            })
             .then(data => {
                 this.setState({ pedidos: data });
                 console.log(this.state.pedidos);
                 console.log('..recibido');
-            })            
+            }).catch(e=>{
+                console.log(e);
+            }) */
     }
 
     render() {
@@ -93,7 +106,7 @@ const HorizontalSliderContainer = ({ clickeable, pedidos }) => {
     }, []);
 
     return <div clickeable={clickeable} className={getClass()}>
-        {
+        {pedidos!==undefined &&
             pedidos.map(pedido => {
                 return (
                     <div className="modal-card" key={pedido.numPedido}>

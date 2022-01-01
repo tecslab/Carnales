@@ -14,11 +14,9 @@ function initRouter(socket) {
     
     router.get('/mesa/:idMesa', async (req, res)=>{
         const mesa = req.params.idMesa;
-        console.log(mesa);
         mesaOrders = globalOrders.filter( pedido => pedido.mesa==mesa);
-        console.log(mesaOrders);
         res.json(mesaOrders);
-    }); 
+    });
     
     router.post('/', async(req,res)=>{
         console.log('que putas');
