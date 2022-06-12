@@ -1,0 +1,8 @@
+.pos-radio-button{
+  /* background-color: rgb(222, 222, 222) */
+  background-color: var(--verde-secundario)
+}
+
+.pos-dropdown-item, .pos-dropdown-list{
+  background-color: var(--verde-secundario)
+}

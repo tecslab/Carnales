@@ -1,5 +1,6 @@
 import IndexPage from './pages/indexPage';
 import Layout from './pages/layoutGenerator';
+import PoS from './pages/pos';
 
 import {
   Route,
@@ -12,6 +13,7 @@ function App() {
       <Switch>
         <Route path="/" component={IndexPage} exact />
         <Route path="/layout" component={Layout}/>
+        <Route path="/pos" component={PoS}/>
       </Switch>
     </div>
   );

@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { render } from "react-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "./stylesheets/colorPalette.css";
 
 class Index extends Component {
   render() {

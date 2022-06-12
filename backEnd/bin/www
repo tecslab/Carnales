@@ -9,14 +9,13 @@ var debug = require('debug')('restaurante:server');
 var http = require('http');
 const createError = require('http-errors');
 
-//console.log(testing);
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
-
+console.log("Corre en el puerto: ", port);
 /**
  * Create HTTP server.
  */
