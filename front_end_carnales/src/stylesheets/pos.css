@@ -6,3 +6,23 @@
 .pos-dropdown-item, .pos-dropdown-list{
   background-color: var(--verde-secundario)
 }
+
+.invisible{
+  visibility: hidden;
+}
+
+.selector-border-l{
+  border-right: 2.5px solid;
+}
+
+.selector-border-r{
+  border-left: 2.5px solid;
+}
+
+.selector-cant-l{
+  padding-right: 0px
+}
+
+.selector-cant-r{
+  padding-left: 0px
+}
