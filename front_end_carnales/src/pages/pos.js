@@ -203,12 +203,22 @@ class PoS extends Component {
   onClickContinuar = event =>{
     let canastas = [];
     //FORMATO: {cliente, productos}
-    let bufferProductos = this.state.bufferProductos;    
+    let bufferProductos = this.state.bufferProductos;
+    // Separa los productos en el buffer en diferentes canastas según los clientes
     for (let i=0; i< bufferProductos.length; i++){
+      if (i===0){
+        let newCanasta = {cliente: bufferProductos[i].cliente, productos:[]}          
+        delete bufferProductos[i].cliente;
+        newCanasta.productos.push(bufferProductos[i]);
+        canastas.push(newCanasta);
+        continue;
+      }
+      // Compara si el cliente del producto coincide con una canasta existente, y si no crea una nueva
       for(let j=0; j< canastas.length; j++){
         if (bufferProductos[i].cliente===canastas[j].cliente){
           delete bufferProductos[i].cliente;
           canastas[j].productos.push(bufferProductos[i]);
+          break;
         }else if (j === canastas.length-1){
           let newCanasta = {cliente: bufferProductos[i].cliente, productos:[]}          
           delete bufferProductos[i].cliente;
@@ -217,6 +227,7 @@ class PoS extends Component {
         }
       }
     }
+    console.log(canastas);
   }
 
 	render() {
@@ -334,7 +345,7 @@ class PoS extends Component {
         <div className="container-md">
           <div className="row">
             <div className="col-6 checkout-container">
-              <button className="btn btn-success btn-lg w-75">
+              <button className="btn btn-success btn-lg w-75" onClick={this.onClickContinuar}>
               CONTINUAR
               </button>
             </div>
