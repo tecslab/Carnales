@@ -26,3 +26,43 @@
 .selector-cant-r{
   padding-left: 0px
 }
+
+.products-table .products-cell{
+  border-left:hidden;
+	border-top:hidden;
+	border-bottom:hidden;
+}
+
+.products-table .products-control{
+  width:30px;
+	height:30px;
+	padding:0px;
+	text-align:center;
+	border-radius:25px;
+}
+
+.canasta-container .card{
+  background-color: var(--fondo-carnales);
+	max-height:120px;
+	overflow:auto;
+}
+
+.canasta-container .card-body {
+  background-color: #dfcd9e;
+	padding-top:0px;
+	padding-bottom: 0px;
+}
+
+table.products-table{
+	border:hidden;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+table.products-table tr:nth-child(even){
+	background-color: #eee;
+}
+
+table.products-table tr:nth-child(odd){
+	background-color: #fff;
+}

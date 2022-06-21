@@ -92,7 +92,8 @@ class PoS extends Component {
       //productoVisible: null
       focusedProduct: null,
       selectorCantidad: 1,
-      canasta:[]
+      bufferProductos:[],
+      canastas:[]
       //productoVisible: "Carne Asada"
     };
   }
@@ -185,19 +186,37 @@ class PoS extends Component {
   }
 
    onClickAceptarProducto = event =>{
+    let cliente = this.state.clienteSeleccionado;
     let product = this.state.focusedProduct;
     let cantidad = this.state.selectorCantidad;
-    let addCanasta = [];
+    let addBuffer = [];
     for (let i=0; i< cantidad; i++){
-      let newProduct = {id: + new Date(), name: product.name};
-      addCanasta.push(newProduct);
+      let newProduct = {id: + new Date(), name: product.name, cliente: cliente};
+      addBuffer.push(newProduct);
     }
     this.setState({
-      canasta: [...this.state.canasta, ...addCanasta],
+      bufferProductos: [...this.state.bufferProductos, ...addBuffer],
       focusedProduct: null
     });
-    console.log(this.state.canasta)
+  }
 
+  onClickContinuar = event =>{
+    let canastas = [];
+    //FORMATO: {cliente, productos}
+    let bufferProductos = this.state.bufferProductos;    
+    for (let i=0; i< bufferProductos.length; i++){
+      for(let j=0; j< canastas.length; j++){
+        if (bufferProductos[i].cliente===canastas[j].cliente){
+          delete bufferProductos[i].cliente;
+          canastas[j].productos.push(bufferProductos[i]);
+        }else if (j === canastas.length-1){
+          let newCanasta = {cliente: bufferProductos[i].cliente, productos:[]}          
+          delete bufferProductos[i].cliente;
+          newCanasta.productos.push(bufferProductos[i]);
+          canastas.push(newCanasta);
+        }
+      }
+    }
   }
 
 	render() {
@@ -219,7 +238,7 @@ class PoS extends Component {
                 </ul>
               </div>
             </div>
-            <div className="col-4">
+            {/* <div className="col-4">
               <div className="btn-group w-100">
                 <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   {this.state.clienteSeleccionado}
@@ -231,7 +250,7 @@ class PoS extends Component {
                   }
                 </ul>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -247,18 +266,14 @@ class PoS extends Component {
                   </>
                 ))
                 }
-
               </div>
             </div>
-
 
             <div className="col-9">
               <div className="row">
                 {this.state.productosActivos.map(producto => (
-                  //<div className={this.getProductVisibility(producto.alias?producto.alias:producto.name)} key={producto.name}>
                   <div className="col-6 col-md-4 py-1" key={producto.name}>
                     <div className="row">
-
                       <div className="col-12">
                         <button className={this.getProductColor(producto)} value={JSON.stringify(producto)} onClick={this.setFocusedProduct}>                        
                           {producto.alias?producto.alias:producto.name}
@@ -292,7 +307,39 @@ class PoS extends Component {
               </div>
             </div>
           </div>
-        </div>        
+        </div>  
+        <div className="container-md">
+          <div className="row">
+            <div className="col-8 canasta-container">
+              <div className="card">
+                <div className="card-body text-center">
+                  <table className="products-table">
+                    {this.state.bufferProductos.map(product=>(
+                      <tr>
+                        <td className="products-cell">
+                          <button className="btn btn-danger products-control">
+                          X
+                          </button>
+                        </td>
+                        <td className="products-cell">{product.name}</td>
+                      </tr>
+                    ))}
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="container-md">
+          <div className="row">
+            <div className="col-6 checkout-container">
+              <button className="btn btn-success btn-lg w-75">
+              CONTINUAR
+              </button>
+            </div>
+          </div>
+        </div>
 			</>
 		)
 	}
