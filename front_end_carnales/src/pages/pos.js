@@ -203,11 +203,11 @@ class PoS extends Component {
   onClickContinuar = event =>{
     let canastas = [];
     //FORMATO: {cliente, productos}
-    let bufferProductos = this.state.bufferProductos;
+    let bufferProductos = {...this.state.bufferProductos};
     // Separa los productos en el buffer en diferentes canastas según los clientes
     for (let i=0; i< bufferProductos.length; i++){
       if (i===0){
-        let newCanasta = {cliente: bufferProductos[i].cliente, productos:[]}          
+        let newCanasta = {cliente: bufferProductos[i].cliente, productos:[]}
         delete bufferProductos[i].cliente;
         newCanasta.productos.push(bufferProductos[i]);
         canastas.push(newCanasta);
@@ -227,6 +227,7 @@ class PoS extends Component {
         }
       }
     }
+    this.setState({canastas})
     console.log(canastas);
   }
 
