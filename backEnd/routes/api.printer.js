@@ -34,14 +34,19 @@ try {
 
 
 
+const express = require('express');
+const router = express.Router();
+const Pedido = require('../models/pedido');
 
 
 
+/* const ThermalPrinter = require('node-thermal-printer').printer;
+const Types = require('node-thermal-printer').types; */
 
-const ThermalPrinter = require('node-thermal-printer').printer;
-const Types = require('node-thermal-printer').types;
+/* async function imprimirPedido(pedido) {
+  //  {cliente, productos:[{name, cantidad, observacion}]}
+  let productos = pedido.productos;
 
-async function example() {
   const printer = new ThermalPrinter({
     type: Types.EPSON, // 'star' or 'epson'
     interface: '/dev/usb/lp0',
@@ -64,7 +69,12 @@ async function example() {
 
   printer.alignLeft();
   printer.newLine();
-  printer.println('Hello Richard!!!!');
+  printer.println('Carnales');
+
+  for (let i = 0; i <productos.length; i++) {
+    printer.println(productos[i].name + "x" + productos[i].cantidad);
+  }
+
 
   printer.cut();
 
@@ -74,6 +84,17 @@ async function example() {
   } catch (error) {
     console.error('Print error:', error);
   }
-}
+} */
 
-example();
+//imprimirPedido();
+
+
+router.post('/', async(req,res)=>{
+  console.log('test');
+  //const pedido = JSON.parse(req.body);
+  const pedido = req.body;
+  console.log(pedido);
+  res.json('Impreso');
+});
+
+module.exports = router;

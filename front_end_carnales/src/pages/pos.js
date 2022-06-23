@@ -263,7 +263,15 @@ class PoS extends Component {
       canastas.push(bufferCanastas[i]);
     }
     this.setState({canastas})
-    
+
+    fetch('http://localhost:4000/api/print', {
+      method: 'POST', 
+      body: JSON.stringify(canastas[0]),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      }).then(console.log('s'));
   }
 
 	render() {

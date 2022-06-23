@@ -22,6 +22,7 @@ var registrarPost = require('./routes/registrar');
 var dashboardAPI = require('./routes/api.dashboard');
 var migrar = require('./routes/api.migrar');
 var pedidosAPI = require('./routes/api.pedidos');
+var printerAPI = require('./routes/api.printer');
 
 const cors = require('cors');
 
@@ -66,6 +67,7 @@ app.use('/registrar', registrarPost);
 app.use('/api/dashboard', dashboardAPI);
 app.use('/api/migrar', migrar);
 app.use('/api/pedidos', pedidosAPI);
+app.use('/api/print', printerAPI);
 
 // The route /api/newPedidos is defined in the /bin/www script
 // because it need the io socket
