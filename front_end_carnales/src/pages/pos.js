@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/headerGen';
 import "../stylesheets/pos.css";
+import _ from 'lodash';
 
 let mesas = [
   {name: "Ventana"},
@@ -191,7 +192,8 @@ class PoS extends Component {
     let cantidad = this.state.selectorCantidad;
     let addBuffer = [];
     for (let i=0; i< cantidad; i++){
-      let newProduct = {id: + new Date(), name: product.name, cliente: cliente};
+      // se suma i al id para evitar ids repetidos en la misma iteración
+      let newProduct = {id: + new Date() + i, name: product.name, cliente: cliente};
       addBuffer.push(newProduct);
     }
     this.setState({
@@ -201,34 +203,67 @@ class PoS extends Component {
   }
 
   onClickContinuar = event =>{
-    let canastas = [];
+    let bufferCanastas = [];
     //FORMATO: {cliente, productos}
-    let bufferProductos = {...this.state.bufferProductos};
+    let bufferProductos = JSON.parse(JSON.stringify(this.state.bufferProductos)); // para hacer una copia profunda
     // Separa los productos en el buffer en diferentes canastas según los clientes
     for (let i=0; i< bufferProductos.length; i++){
       if (i===0){
         let newCanasta = {cliente: bufferProductos[i].cliente, productos:[]}
         delete bufferProductos[i].cliente;
         newCanasta.productos.push(bufferProductos[i]);
-        canastas.push(newCanasta);
+        bufferCanastas.push(newCanasta);
         continue;
       }
       // Compara si el cliente del producto coincide con una canasta existente, y si no crea una nueva
-      for(let j=0; j< canastas.length; j++){
-        if (bufferProductos[i].cliente===canastas[j].cliente){
+      for(let j=0; j< bufferCanastas.length; j++){
+        if (bufferProductos[i].cliente===bufferCanastas[j].cliente){
           delete bufferProductos[i].cliente;
-          canastas[j].productos.push(bufferProductos[i]);
+          bufferCanastas[j].productos.push(bufferProductos[i]);
           break;
-        }else if (j === canastas.length-1){
+        }else if (j === bufferCanastas.length-1){
           let newCanasta = {cliente: bufferProductos[i].cliente, productos:[]}          
           delete bufferProductos[i].cliente;
           newCanasta.productos.push(bufferProductos[i]);
-          canastas.push(newCanasta);
+          bufferCanastas.push(newCanasta);
         }
       }
     }
+    // Se establecerá el formato de las canastas como:
+    // {cliente, productos:[{nombre, cantidad, observacion}]}
+    // previamente productos llega como productos:[{id, name, observacion}]
+    let canastas = [];
+    for (let i=0; i< bufferCanastas.length; i++){
+      let productosCanasta = [];
+      let productosBuffer = bufferCanastas[i].productos;
+      for (let j=0; j< productosBuffer.length; j++){
+        let productCompBuffer = {...productosBuffer[j]};
+        delete productCompBuffer.id;
+        if (j>0){
+          for(let k=0; k< productosCanasta.length; k++){
+            let productCompCanasta = {...productosCanasta[k]};
+						delete productCompCanasta.cantidad;
+						if (_.isEqual(productCompCanasta, productCompBuffer)){
+							// Si está repetido le suma 1 a la cantidad
+							productosCanasta[k].cantidad++;
+							break;
+						}else if(k==productosCanasta.length-1){
+							// Si es un producto nuevo crea ese producto
+							productCompBuffer.cantidad=1;
+							productosCanasta.push({...productCompBuffer});
+              break; // Es necesario porque se modifica el tamaño de productosCanasta
+						}
+          }
+        }else{
+          productCompBuffer.cantidad=1;
+					productosCanasta.push({...productCompBuffer});
+        }
+      }
+      bufferCanastas[i].productos=productosCanasta;
+      canastas.push(bufferCanastas[i]);
+    }
     this.setState({canastas})
-    console.log(canastas);
+    
   }
 
 	render() {
@@ -326,6 +361,7 @@ class PoS extends Component {
               <div className="card">
                 <div className="card-body text-center">
                   <table className="products-table">
+                    <tbody>
                     {this.state.bufferProductos.map(product=>(
                       <tr>
                         <td className="products-cell">
@@ -336,6 +372,7 @@ class PoS extends Component {
                         <td className="products-cell">{product.name}</td>
                       </tr>
                     ))}
+                    </tbody>
                   </table>
                 </div>
               </div>
