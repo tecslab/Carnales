@@ -1,5 +1,5 @@
 import IndexPage from './pages/indexPage';
-import Layout from './pages/layoutGenerator';
+import Layout from './pages/layout';
 import PoS from './pages/pos';
 
 import {

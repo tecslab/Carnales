@@ -9,7 +9,7 @@ var pedidoSchema = new Schema({
    }],
    mesa: {type: String, required:true},
    fecha: {type:Date, required:true},
-   numPedido: {type: Number},
+   numPedido: {type: Number}, //Número de pedido en el día
    total: {type: Number, required:true},
    cantClientes: Number,
 });
