@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
-import OrderCard from './orderCardGen';
-import Mesa from './mesaGen';
+import OrderCard from './orderCard';
+import Mesa from './mesa';
 import conf from '../conf';
 
 let urlBack =  conf.urlBack;
