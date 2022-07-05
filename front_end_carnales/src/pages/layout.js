@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from '../components/headerGen';
-import Canvas from '../components/canvasGen';
+import Header from '../components/header';
+import Canvas from '../components/canvas';
 
 class Layout extends Component {
 	render() {

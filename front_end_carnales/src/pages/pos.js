@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../components/headerGen';
+import Header from '../components/header';
 import "../stylesheets/pos.css";
 import _ from 'lodash';
 
