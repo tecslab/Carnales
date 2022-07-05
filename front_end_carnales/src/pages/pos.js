@@ -230,6 +230,8 @@ class PoS extends Component {
     console.log(bufferCanastas)
     this.setState({bufferCanastas})
 
+    this.reiniciarPoS();
+
     /* fetch('http://localhost:4000/api/print', {
       method: 'POST', 
       body: JSON.stringify(canastas[0]),
@@ -238,6 +240,23 @@ class PoS extends Component {
         'Content-Type': 'application/json'
       }
       }).then(console.log('Enviado')); */
+  }
+
+  reiniciarPoS = () => {
+    //Reinicia el PoS para un nuevo pedido
+    this.setState ({
+      mesaSeleccionada: mesas[0].name,
+      clienteSeleccionado: clientes[0].name,
+      categoriaSeleccionada: categorias[0].name,
+      productosActivos: productos.filter(producto => producto.idCategoria===1), // Se inicializa con los tacos
+      //productoVisible: null
+      focusedProduct: null,
+      selectorCantidad: 1,
+      bufferProductos:[],
+      canastas:[],
+      cuentasClientes: [],
+      cuentaTotal: (0).toFixed(2),
+    });
   }
 
   resumirProductos = arrayProductos => {
