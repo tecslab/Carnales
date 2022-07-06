@@ -41,9 +41,6 @@ class OrderCard extends Component {
         return name;
     }
 
-    /*  //*
-      las personas que se han convertido en un ser tracendental a medias, un ser tracendental no puede
-  */
     render() {
         return (
             <div ref={this.myInput}>
