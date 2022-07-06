@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import parametrosGlobales from "../parametrosGlobales.js";
 
-let mesas = parametrosGlobales.constants.mesas;
-let clientes = parametrosGlobales.constants.clientes;
 let productos = parametrosGlobales.constants.productos;
-let categorias = parametrosGlobales.constants.categorias;
 
 //FORMATO: {canastas:[ { productos:[ {name, cantidad, observacion} ] } ], mesa}
 
@@ -43,7 +40,7 @@ class SummaryCard extends Component {
                                 <li className="list-group-item" style={{ margin: "0", padding: '1px' }}>
                                     <p className="mx-1" style={{ marginBottom: "5px" }}>
                                         {producto.name}
-                                        <span className="badge badge-pill badge-warning">
+                                        <span className="badge text-bg-warning">
                                             x{producto.cantidad}
                                         </span>
 
@@ -75,7 +72,7 @@ class SummaryCard extends Component {
           } */}
           <h4 className="text-center" style={{ margin: "0" }}>${this.props.pedido.cuentaTotal}</h4>
           <div className="card-footer">
-            <button style={{ marginBottom: "5px" }} className="btn btn-success w-100 listo">Confirmar ✔</button>
+            <button style={{ marginBottom: "5px" }} className="btn btn-success w-100 listo" onClick={this.props.onClickConfirmarOrden}>Confirmar ✔</button>
           </div>
         </div>
       </div>
