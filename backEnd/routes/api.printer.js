@@ -51,8 +51,8 @@ function getTotalPrice(productFromOrder){
   return (precioProducto*cantidad).toFixed(2);
 }
 
-/* const ThermalPrinter = require('node-thermal-printer').printer;
-const Types = require('node-thermal-printer').types; */
+const ThermalPrinter = require('node-thermal-printer').printer;
+const Types = require('node-thermal-printer').types;
 
 async function imprimirPedido(pedido) {
   //  {productos:[{name, cantidad, observacion}]}
@@ -61,7 +61,7 @@ async function imprimirPedido(pedido) {
 
   const printer = new ThermalPrinter({
     type: Types.EPSON, // 'star' or 'epson'
-    interface: '/dev/usb/lp0',
+    interface: '/dev/usb/lp1',
     //interface: process.argv[2],
     options: {
       timeout: 1000,
@@ -88,7 +88,7 @@ async function imprimirPedido(pedido) {
   printer.setTextNormal();
 
   for (let i = 0; i <productos.length; i++) {
-    printer.println(productos[i].name + "x" + productos[i].cantidad + ":" + getTotalPrice(productos[i]));
+    printer.println(productos[i].name + "    x     " + productos[i].cantidad + ":" + getTotalPrice(productos[i]));
   }
 
   printer.println('_____________________');
@@ -109,10 +109,11 @@ async function imprimirPedido(pedido) {
 
 
 router.post('/', async(req,res)=>{
-  console.log('test');
+  
   //const pedido = JSON.parse(req.body);
   const pedido = req.body;
   console.log(pedido);
+  imprimirPedido(pedido);
   res.json('Impreso');
 });
 

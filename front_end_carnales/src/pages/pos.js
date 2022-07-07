@@ -222,6 +222,7 @@ class PoS extends Component {
       bufferProductos:[],
       cuentasClientes: [],
       cuentaTotal: (0).toFixed(2),
+      showSummaryModal: false,
       orden: {canastas:[ { productos:[] } ], mesa: mesas[0].name}
     });
   }
