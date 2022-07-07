@@ -196,7 +196,7 @@ class PoS extends Component {
   onClickConfirmarOrden = () => {
     fetch('http://localhost:4000/api/print', {
       method: 'POST', 
-      body: JSON.stringify(this.state.pedido.canastas[0]),
+      body: JSON.stringify(this.state.pedido),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
