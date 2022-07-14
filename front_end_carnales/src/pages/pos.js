@@ -317,82 +317,92 @@ class PoS extends Component {
 
         <div className="container-md">
           <div className="row">
-            <div className="col-3">
-              <div className="btn-group-vertical">
-                {categorias.map(categoria => (
-                  <>
-                    <input type="radio" className="btn-check" name="btnradio" id={categoria._id} autoComplete="off" onChange={this.onSelectCategoria} checked={this.checkRadioButton(categoria.name)}/>
-                    <label className="btn btn-outline-success pos-radio-button" htmlFor={categoria._id}>{categoria.name}</label>
-                  </>
-                ))
-                }
-              </div>
-            </div>
-
-            <div className="col-9">
+            {/* Selección de Productos */}
+            <div className="col-12 col-lg-6">
               <div className="row">
-                {this.state.productosActivos.map(producto => (
-                  <div className="col-6 col-md-4 py-1" key={producto.name}>
-                    <div className="row">
-                      <div className="col-12">
-                        <button className={this.getProductColor(producto)} value={JSON.stringify(producto)} onClick={this.setFocusedProduct}>                        
-                          {producto.alias?producto.alias:producto.name}
-                        </button>
-                      </div>
-                      {this.isFocusedProduct(producto)?
+                <div className="col-3">
+                  <div className="btn-group-vertical">
+                    {categorias.map(categoria => (
                       <>
-                        <div className="col-3 selector-cant-l">
-                          <button className="btn btn-light w-100 selector-border-l" value="-" onClick={this.setCantidad}>
-                            -
-                          </button>
-                        </div>
-                        <div className="col-6 px-0">
-                          <input type="text" className="form-control text-center" disabled value={this.state.selectorCantidad} />
-                        </div>
-                        <div className="col-3 selector-cant-r">
-                          <button className="btn btn-light w-100 selector-border-r" value="+" onClick={this.setCantidad}>
-                            +
-                          </button>
-                        </div>
-                        <div className="col-12">
-                          <button className="btn btn-success btn-sm w-100" onClick={this.onClickAceptarProducto}>
-                            ACEPTAR
-                          </button>
-                        </div>
-                      </>:null
-                      }
-                    </div>                  
-                  </div>                  
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>  
-        <div className="container-md">
-          <div className="row">
-            <div className="col-8 canasta-container">
-              <div className="card">
-                <div className="card-body text-center">
-                  <table className="products-table">
-                    <tbody>
-                    {this.state.bufferProductos.map(product=>(
-                      <tr>
-                        <td className="products-cell">
-                          <button className="btn btn-danger products-control" id={product.instanceID} onClick={this.onClickEliminar}>
-                          X
-                          </button>
-                        </td>
-                        <td className="products-cell">{product.name}</td>
-                      </tr>
+                        <input type="radio" className="btn-check" name="btnradio" id={categoria._id} autoComplete="off" onChange={this.onSelectCategoria} checked={this.checkRadioButton(categoria.name)}/>
+                        <label className="btn btn-outline-success pos-radio-button" htmlFor={categoria._id}>{categoria.name}</label>
+                      </>
+                    ))
+                    }
+                  </div>
+                </div>
+
+                <div className="col-9">
+                  <div className="row">
+                    {this.state.productosActivos.map(producto => (
+                      <div className="col-6 col-md-4 py-1" key={producto.name}>
+                        <div className="row">
+                          <div className="col-12">
+                            <button className={this.getProductColor(producto)} value={JSON.stringify(producto)} onClick={this.setFocusedProduct}>                        
+                              {producto.alias?producto.alias:producto.name}
+                            </button>
+                          </div>
+                          {this.isFocusedProduct(producto)?
+                          <>
+                            <div className="col-3 selector-cant-l">
+                              <button className="btn btn-light w-100 selector-border-l" value="-" onClick={this.setCantidad}>
+                                -
+                              </button>
+                            </div>
+                            <div className="col-6 px-0">
+                              <input type="text" className="form-control text-center" disabled value={this.state.selectorCantidad} />
+                            </div>
+                            <div className="col-3 selector-cant-r">
+                              <button className="btn btn-light w-100 selector-border-r" value="+" onClick={this.setCantidad}>
+                                +
+                              </button>
+                            </div>
+                            <div className="col-12">
+                              <button className="btn btn-success btn-sm w-100" onClick={this.onClickAceptarProducto}>
+                                ACEPTAR
+                              </button>
+                            </div>
+                          </>:null
+                          }
+                        </div>                  
+                      </div>                  
                     ))}
-                    </tbody>
-                  </table>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* Buffer de productos en el carrito*/}
+            <div className="col-12 col-lg-6">
+              <div className="row">
+                <div className="col-8 canasta-container">
+                  <div className="card">
+                    <div className="card-body text-center">
+                      <table className="products-table">
+                        <tbody>
+                        {this.state.bufferProductos.map(product=>(
+                          <tr>
+                            <td className="products-cell">
+                              <button className="btn btn-danger products-control" id={product.instanceID} onClick={this.onClickEliminar}>
+                              X
+                              </button>
+                            </td>
+                            <td className="products-cell">{product.name}</td>
+                          </tr>
+                        ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
+
+        {/* Resumen precio y continuar*/}
         <div className="container-md pt-3">
           <div className="row">
             <div className="col-6 checkout-container text-center">
