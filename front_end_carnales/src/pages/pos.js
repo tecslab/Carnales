@@ -131,7 +131,7 @@ class PoS extends Component {
     let addBuffer = [];
     for (let i=0; i< cantidad; i++){
       // se suma i al instanceID para evitar ids repetidos en la misma iteración
-      let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente: cliente};
+      let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente: cliente}; //Definir el formato para eliminables
       addBuffer.push(newProduct);
     }
     let {cuentaTotal, cuentasClientes} = this.getCuentas([...this.state.bufferProductos, ...addBuffer]);
@@ -339,7 +339,7 @@ class PoS extends Component {
                         <div className="row">
                           <div className="col-12">
                             <button className={this.getProductColor(producto)} value={JSON.stringify(producto)} onClick={this.setFocusedProduct}>                        
-                              {producto.alias?producto.alias:producto.name}
+                              {producto.variedad?producto.variedad:producto.name}
                             </button>
                           </div>
                           {this.isFocusedProduct(producto)?
@@ -388,6 +388,9 @@ class PoS extends Component {
                               </button>
                             </td>
                             <td className="products-cell">{product.name}</td>
+                            {/* {product.ingredientes.map(ingrediente =>
+                              <td className="products-cell">{ingrediente}</td>
+                            )} */}
                           </tr>
                         ))}
                         </tbody>
