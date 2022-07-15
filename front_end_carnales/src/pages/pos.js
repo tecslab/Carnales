@@ -98,7 +98,7 @@ class PoS extends Component {
     let cantidadActualizada;
     if (operador==="+"){
       cantidadActualizada = this.state.selectorCantidad+1
-     if (cantidadActualizada<=10){
+      if (cantidadActualizada<=10){
         this.setState({
           selectorCantidad: cantidadActualizada
         })
