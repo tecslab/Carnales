@@ -4,6 +4,7 @@ import "../stylesheets/pos.css";
 import _ from 'lodash';
 import SummaryCard from '../components/summaryCard.js'
 import parametrosGlobales from "../parametrosGlobales.js";
+import Modal from 'react-bootstrap/Modal'
 
 let mesas = parametrosGlobales.constants.mesas;
 let clientes = parametrosGlobales.constants.clientes;
@@ -23,12 +24,18 @@ class PoS extends Component {
       focusedProduct: null,
       selectorCantidad: 1,
       bufferProductos:[],
-      canastas:[],
       cuentasClientes: [],
       cuentaTotal: (0).toFixed(2),
       //productoVisible: "Carne Asada"
+      showSummaryModal: false,
+      orden: {canastas:[], mesa: mesas[0].name, cuentaTotal:(0).toFixed(2)}
     };
   }
+
+
+  handleCloseSummaryModal = () => {console.log('test');this.setState({showSummaryModal:false})};
+  handleShowSummaryModal = () => this.setState({showSummaryModal:true});
+  
 
   componentDidMount() {
   }
@@ -136,6 +143,19 @@ class PoS extends Component {
     });
   }
 
+  onClickEliminar = event => {
+    let instanceID = event.target.id;
+    console.log(instanceID);
+    let productos = this.state.bufferProductos;
+    let newBufferProductos = productos.filter(producto => producto.instanceID!==Number(instanceID));
+    let {cuentaTotal, cuentasClientes} = this.getCuentas(newBufferProductos);
+    this.setState({
+      bufferProductos: newBufferProductos,
+      cuentaTotal: cuentaTotal.toFixed(2),
+      cuentasClientes,
+    })
+  }
+
   onClickContinuar = event =>{
     //in:  producto:{instanceID, name, precio, cliente, observaciones}[];
     // Los pedidos están compuestos por varias canastas de productos según cada cliente
@@ -158,25 +178,35 @@ class PoS extends Component {
       canastas.push(newCanasta);
     }
 
-    console.log(canastas)
-    this.setState({canastas})
-
     let pedido = {
       mesa:this.state.mesaSeleccionada,
       canastas: canastas,
       cuentaTotal: this.state.cuentaTotal
     }
 
+    this.setState({
+      pedido,
+      showSummaryModal:true
+    })
+
     //this.reiniciarPoS();
 
-    /* fetch('http://localhost:4000/api/print', {
+  }
+
+  onClickConfirmarOrden = () => {
+    fetch('http://localhost:4000/api/print', {
       method: 'POST', 
-      body: JSON.stringify(canastas[0]),
+      body: JSON.stringify(this.state.pedido.canastas[0]),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-      }).then(console.log('Enviado')); */
+    }).then(response => {
+      this.reiniciarPoS();
+      console.log(response);
+    }).catch(error =>{
+      console.log(error);
+    });
   }
 
   reiniciarPoS = () => {
@@ -190,9 +220,9 @@ class PoS extends Component {
       focusedProduct: null,
       selectorCantidad: 1,
       bufferProductos:[],
-      canastas:[],
       cuentasClientes: [],
       cuentaTotal: (0).toFixed(2),
+      orden: {canastas:[ { productos:[] } ], mesa: mesas[0].name}
     });
   }
 
@@ -229,19 +259,29 @@ class PoS extends Component {
     //this.setState({cuentaTotal, cuentasClientes});
     return {cuentaTotal, cuentasClientes}
   }
-
-  onClickEliminar = event => {
-    let instanceID = event.target.id;
-    console.log(instanceID);
-    let productos = this.state.bufferProductos;
-    let newBufferProductos = productos.filter(producto => producto.instanceID!==Number(instanceID));
-    this.setState({bufferProductos: newBufferProductos})
-  }
+  
 
 	render() {
 		return (
 			<>
         <Header />
+        <Modal show={this.state.showSummaryModal} onHide={this.handleCloseSummaryModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Resumen</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <SummaryCard pedido={this.state.pedido} onClickConfirmarOrden={this.onClickConfirmarOrden}/>
+          </Modal.Body>
+          {/* <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseSummaryModal}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={this.handleCloseSummaryModal}>
+              Confirmar
+            </Button>
+          </Modal.Footer> */}
+        </Modal>
+
         <div className="container-md py-1">
           <div className="row">
             <div className="col-8">
