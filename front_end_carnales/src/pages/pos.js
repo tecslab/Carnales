@@ -131,7 +131,8 @@ class PoS extends Component {
     let addBuffer = [];
     for (let i=0; i< cantidad; i++){
       // se suma i al instanceID para evitar ids repetidos en la misma iteración
-      let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente: cliente}; //Definir el formato para eliminables
+      let eliminables = product.ingredientes?product.ingredientes.filter(ingrediente => ingrediente.eliminable===true):[];
+      let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente, eliminables}; //Definir el formato para eliminables
       addBuffer.push(newProduct);
     }
     let {cuentaTotal, cuentasClientes} = this.getCuentas([...this.state.bufferProductos, ...addBuffer]);
@@ -388,9 +389,9 @@ class PoS extends Component {
                               </button>
                             </td>
                             <td className="products-cell">{product.name}</td>
-                            {/* {product.ingredientes.map(ingrediente =>
-                              <td className="products-cell">{ingrediente}</td>
-                            )} */}
+                            {product.eliminables.map(eliminable =>
+                              <td className="products-cell">{eliminable.idIngrediente}</td>
+                            )}
                           </tr>
                         ))}
                         </tbody>
