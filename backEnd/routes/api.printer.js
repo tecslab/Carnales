@@ -38,18 +38,30 @@ const express = require('express');
 const router = express.Router();
 const Pedido = require('../models/pedido');
 
+const parametrosGlobales = require('../parametrosGlobalesBack')
+let productos = parametrosGlobales.constants.productos;
 
+function findProductByName(productName){
+  return productos.find(producto => producto.name === productName);
+}
 
-/* const ThermalPrinter = require('node-thermal-printer').printer;
-const Types = require('node-thermal-printer').types; */
+function getTotalPrice(productFromOrder){
+  let cantidad = productFromOrder.cantidad;
+  let precioProducto = findProductByName(productFromOrder.name).precio;
+  return (precioProducto*cantidad).toFixed(2);
+}
 
-/* async function imprimirPedido(pedido) {
-  //  {cliente, productos:[{name, cantidad, observacion}]}
-  let productos = pedido.productos;
+const ThermalPrinter = require('node-thermal-printer').printer;
+const Types = require('node-thermal-printer').types;
+
+async function imprimirPedido(pedido) {
+  //  {productos:[{name, cantidad, observacion}]}
+  const {cuentaTotal} = pedido;
+  let productos = pedido.canastas[0].productos;
 
   const printer = new ThermalPrinter({
     type: Types.EPSON, // 'star' or 'epson'
-    interface: '/dev/usb/lp0',
+    interface: '/dev/usb/lp1',
     //interface: process.argv[2],
     options: {
       timeout: 1000,
@@ -67,13 +79,20 @@ const Types = require('node-thermal-printer').types; */
   //printer.alignCenter();
   //await printer.printImage('./assets/olaii-logo-black-small.png');
 
-  printer.alignLeft();
+  printer.alignCenter();
+  printer.setTextDoubleHeight();
   printer.newLine();
   printer.println('Carnales');
+  printer.newLine();
+  printer.alignLeft();
+  printer.setTextNormal();
 
   for (let i = 0; i <productos.length; i++) {
-    printer.println(productos[i].name + "x" + productos[i].cantidad);
+    printer.println(productos[i].name + "    x     " + productos[i].cantidad + ":" + getTotalPrice(productos[i]));
   }
+
+  printer.println('_____________________');
+  printer.println('Total: ' + cuentaTotal);
 
 
   printer.cut();
@@ -84,16 +103,17 @@ const Types = require('node-thermal-printer').types; */
   } catch (error) {
     console.error('Print error:', error);
   }
-} */
+}
 
 //imprimirPedido();
 
 
 router.post('/', async(req,res)=>{
-  console.log('test');
+  
   //const pedido = JSON.parse(req.body);
   const pedido = req.body;
   console.log(pedido);
+  imprimirPedido(pedido);
   res.json('Impreso');
 });
 

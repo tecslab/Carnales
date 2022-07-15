@@ -29,8 +29,8 @@
 
 .products-table .products-cell{
   border-left:hidden;
-	border-top:hidden;
-	border-bottom:hidden;
+  border-top:hidden;
+  border-bottom:hidden;
 }
 
 .products-table .products-control{
@@ -72,4 +72,11 @@ table.products-table tr:nth-child(odd){
 	margin:0.4em 0.4em 0 0.4em; 
 	border-radius:5px; 
 	padding:1px;
+}
+
+
+@media (min-width: 992px) {
+  .canasta-container .card{
+    max-height:700px;
+  }
 }
