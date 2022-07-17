@@ -10,7 +10,7 @@ let mesas = parametrosGlobales.constants.mesas;
 let clientes = parametrosGlobales.constants.clientes;
 let productos = parametrosGlobales.constants.productos;
 let categorias = parametrosGlobales.constants.categorias;
-
+let ingredientes = parametrosGlobales.constants.ingredientes;
 
 class PoS extends Component {
   constructor(props){
@@ -98,6 +98,14 @@ class PoS extends Component {
     }else{
       return "btn btn-secondary w-100"
     }
+  }
+
+  getIngredienteById = ingredienteId =>{
+    return ingredientes.find(ingrediente => ingrediente.id===ingredienteId)
+  }
+
+  getImageName = (elementId, elementsArray) => {
+    let producto = this.getIngredienteById()
   }
 
   setCantidad = event =>{
@@ -390,7 +398,9 @@ class PoS extends Component {
                             </td>
                             <td className="products-cell">{product.name}</td>
                             {product.eliminables.map(eliminable =>
-                              <td className="products-cell">{eliminable.idIngrediente}</td>
+                              <td className="products-cell">{eliminable.idIngrediente}
+                                <image src={"/images/"}></image>
+                              </td>
                             )}
                           </tr>
                         ))}
