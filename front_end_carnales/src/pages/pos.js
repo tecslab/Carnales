@@ -104,8 +104,16 @@ class PoS extends Component {
     return ingredientes.find(ingrediente => ingrediente.id===ingredienteId)
   }
 
-  getImageName = (elementId, elementsArray) => {
-    let producto = this.getIngredienteById()
+  getImageName = (elementInstance, label) => {
+    let sufix = elementInstance.estado===true?"On":"Off";
+    let prefix="";
+    if (label === "ingrediente" ){      
+      let ingrediente = this.getIngredienteById(elementInstance.idIngrediente);
+      prefix = ingrediente.nombre;
+    }else if(label === "opcion"){
+      prefix = elementInstance.nombre;
+    }
+    return prefix + sufix;
   }
 
   setCantidad = event =>{
@@ -140,7 +148,11 @@ class PoS extends Component {
     for (let i=0; i< cantidad; i++){
       // se suma i al instanceID para evitar ids repetidos en la misma iteración
       let eliminables = product.ingredientes?product.ingredientes.filter(ingrediente => ingrediente.eliminable===true):[];
-      let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente, eliminables}; //Definir el formato para eliminables
+      eliminables.forEach(eliminable => eliminable.estado=true);
+      let opciones = product.opciones?product.opciones:[];
+      console.log(opciones)
+      opciones.forEach(opcion => opcion.estado=opcion.default)
+      let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente, eliminables, opciones}; //Definir el formato para eliminables
       addBuffer.push(newProduct);
     }
     let {cuentaTotal, cuentasClientes} = this.getCuentas([...this.state.bufferProductos, ...addBuffer]);
@@ -398,8 +410,13 @@ class PoS extends Component {
                             </td>
                             <td className="products-cell">{product.name}</td>
                             {product.eliminables.map(eliminable =>
-                              <td className="products-cell">{eliminable.idIngrediente}
-                                <image src={"/images/"}></image>
+                              <td className="products-cell">
+                                <img className="eliminable" src={"/images/eliminables/" + this.getImageName(eliminable, "ingrediente")+".png"} />
+                              </td>
+                            )}
+                            {product.opciones.map(opcion =>
+                              <td className="products-cell">
+                                <img className="opcion" src={"/images/opciones/" + this.getImageName(opcion, "opcion")+".png"} />
                               </td>
                             )}
                           </tr>

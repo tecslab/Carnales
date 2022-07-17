@@ -74,6 +74,10 @@ table.products-table tr:nth-child(odd){
 	padding:1px;
 }
 
+.products-cell .eliminable, .products-cell .opcion{
+  width: 40px;
+  height: 40px;
+}
 
 @media (min-width: 992px) {
   .canasta-container .card{
