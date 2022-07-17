@@ -107,13 +107,29 @@ class PoS extends Component {
   getImageName = (elementInstance, label) => {
     let sufix = elementInstance.estado===true?"On":"Off";
     let prefix="";
-    if (label === "ingrediente" ){      
+    if (label === "ingrediente" ){
       let ingrediente = this.getIngredienteById(elementInstance.idIngrediente);
       prefix = ingrediente.nombre;
     }else if(label === "opcion"){
       prefix = elementInstance.nombre;
     }
-    return prefix + sufix;
+    return prefix + sufix + '.png';
+  }
+
+  toggleOnOffButton = (event, productIntanceID, elementInstance, label) =>{
+    let product = this.state.bufferProductos.find(producto => producto.instanceID === productIntanceID);
+    let element = {};
+    if (label === "ingrediente" ){
+      let productEliminables = product.eliminables;
+      element = productEliminables.find(eliminable=>eliminable.idIngrediente===elementInstance.idIngrediente);
+    }else if(label === "opcion"){
+      let productOpciones = product.opciones;
+      element = productOpciones.find(opcion=>opcion.nombre===elementInstance.nombre);
+    }
+    element.estado = !element.estado;
+    this.setState({
+      bufferProductos:this.state.bufferProductos
+    });
   }
 
   setCantidad = event =>{
@@ -150,7 +166,6 @@ class PoS extends Component {
       let eliminables = product.ingredientes?product.ingredientes.filter(ingrediente => ingrediente.eliminable===true):[];
       eliminables.forEach(eliminable => eliminable.estado=true);
       let opciones = product.opciones?product.opciones:[];
-      console.log(opciones)
       opciones.forEach(opcion => opcion.estado=opcion.default)
       let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente, eliminables, opciones}; //Definir el formato para eliminables
       addBuffer.push(newProduct);
@@ -411,12 +426,16 @@ class PoS extends Component {
                             <td className="products-cell">{product.name}</td>
                             {product.eliminables.map(eliminable =>
                               <td className="products-cell">
-                                <img className="eliminable" src={"/images/eliminables/" + this.getImageName(eliminable, "ingrediente")+".png"} />
+                                <button className='btn btn-light' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, eliminable, "ingrediente")}>
+                                  <img className="eliminable" src={"/images/eliminables/" + this.getImageName(eliminable, "ingrediente")} />
+                                </button>
                               </td>
                             )}
                             {product.opciones.map(opcion =>
                               <td className="products-cell">
-                                <img className="opcion" src={"/images/opciones/" + this.getImageName(opcion, "opcion")+".png"} />
+                                <button className='btn btn-light' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, opcion, "opcion")}>
+                                  <img className="opcion" src={"/images/opciones/" + this.getImageName(opcion, "opcion")} />
+                                </button>
                               </td>
                             )}
                           </tr>
