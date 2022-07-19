@@ -27,18 +27,25 @@
   padding-left: 0px
 }
 
+.products-table .products-control{
+  width:20px;
+	height:20px;
+	padding:0px;
+	text-align:center;
+	border-radius:25px;
+  font-size: 12px;
+}
+
 .products-table .products-cell{
   border-left:hidden;
   border-top:hidden;
   border-bottom:hidden;
+  padding: 2px 0px 2px 0px;
 }
 
-.products-table .products-control{
-  width:30px;
-	height:30px;
-	padding:0px;
-	text-align:center;
-	border-radius:25px;
+.products-table .delete-cell{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .canasta-container .card{

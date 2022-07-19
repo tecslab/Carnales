@@ -163,9 +163,10 @@ class PoS extends Component {
     let addBuffer = [];
     for (let i=0; i< cantidad; i++){
       // se suma i al instanceID para evitar ids repetidos en la misma iteración
-      let eliminables = product.ingredientes?product.ingredientes.filter(ingrediente => ingrediente.eliminable===true):[];
+      // Es necesario un copiado profundo
+      let eliminables = product.ingredientes?JSON.parse(JSON.stringify(product.ingredientes.filter(ingrediente => ingrediente.eliminable===true))):[];
       eliminables.forEach(eliminable => eliminable.estado=true);
-      let opciones = product.opciones?product.opciones:[];
+      let opciones = product.opciones?JSON.parse(JSON.stringify(product.opciones)):[];
       opciones.forEach(opcion => opcion.estado=opcion.default)
       let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente, eliminables, opciones}; //Definir el formato para eliminables
       addBuffer.push(newProduct);
@@ -413,12 +414,12 @@ class PoS extends Component {
               <div className="row">
                 <div className="col-8 canasta-container">
                   <div className="card">
-                    <div className="card-body text-center">
+                    <div className="card-body text-center px-0">
                       <table className="products-table">
                         <tbody>
                         {this.state.bufferProductos.map(product=>(
                           <tr>
-                            <td className="products-cell">
+                            <td className="products-cell delete-cell">
                               <button className="btn btn-danger products-control" id={product.instanceID} onClick={this.onClickEliminar}>
                               X
                               </button>
@@ -426,14 +427,14 @@ class PoS extends Component {
                             <td className="products-cell">{product.name}</td>
                             {product.eliminables.map(eliminable =>
                               <td className="products-cell">
-                                <button className='btn btn-light' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, eliminable, "ingrediente")}>
+                                <button className='btn btn-light px-0 py-0' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, eliminable, "ingrediente")}>
                                   <img className="eliminable" src={"/images/eliminables/" + this.getImageName(eliminable, "ingrediente")} />
                                 </button>
                               </td>
                             )}
                             {product.opciones.map(opcion =>
                               <td className="products-cell">
-                                <button className='btn btn-light' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, opcion, "opcion")}>
+                                <button className='btn btn-light px-0 py-0' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, opcion, "opcion")}>
                                   <img className="opcion" src={"/images/opciones/" + this.getImageName(opcion, "opcion")} />
                                 </button>
                               </td>
