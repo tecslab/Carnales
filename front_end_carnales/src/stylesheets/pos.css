@@ -27,6 +27,14 @@
   padding-left: 0px
 }
 
+.producto-activo{
+  padding: 1px 2px 1px 3px;
+}
+
+.producto-activo button{
+  padding: 5px;
+}
+
 .products-table .products-control{
   width:20px;
 	height:20px;
@@ -50,6 +58,7 @@
 
 .canasta-container .card{
   background-color: var(--fondo-carnales);
+  height:120px;
 	max-height:120px;
 	overflow:auto;
 }
@@ -82,12 +91,17 @@ table.products-table tr:nth-child(odd){
 }
 
 .products-cell .eliminable, .products-cell .opcion{
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
 }
 
 @media (min-width: 992px) {
+  *{
+    font-size:16px;
+  }
+  
   .canasta-container .card{
-    max-height:700px;
+    height:400px;
+    max-height:400px;
   }
 }

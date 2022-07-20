@@ -322,7 +322,7 @@ class PoS extends Component {
 
         <div className="container-md py-1">
           <div className="row">
-            <div className="col-8">
+            <div className="col-8 col-lg-4">
               <div className="btn-group w-100">
                 <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   {this.state.mesaSeleccionada}
@@ -358,7 +358,7 @@ class PoS extends Component {
             <div className="col-12 col-lg-6">
               <div className="row">
                 <div className="col-3">
-                  <div className="btn-group-vertical">
+                  <div className="btn-group-vertical pb-1">
                     {categorias.map(categoria => (
                       <>
                         <input type="radio" className="btn-check" name="btnradio" id={categoria._id} autoComplete="off" onChange={this.onSelectCategoria} checked={this.checkRadioButton(categoria.name)}/>
@@ -372,7 +372,7 @@ class PoS extends Component {
                 <div className="col-9">
                   <div className="row">
                     {this.state.productosActivos.map(producto => (
-                      <div className="col-6 col-md-4 py-1" key={producto.name}>
+                      <div className="col-6 col-md-4 producto-activo" key={producto.name}>
                         <div className="row">
                           <div className="col-12">
                             <button className={this.getProductColor(producto)} value={JSON.stringify(producto)} onClick={this.setFocusedProduct}>                        
@@ -412,7 +412,7 @@ class PoS extends Component {
             {/* Buffer de productos en el carrito*/}
             <div className="col-12 col-lg-6">
               <div className="row">
-                <div className="col-8 canasta-container">
+                <div className="col-12 canasta-container">
                   <div className="card">
                     <div className="card-body text-center px-0">
                       <table className="products-table">
@@ -456,7 +456,7 @@ class PoS extends Component {
         {/* Resumen precio y continuar*/}
         <div className="container-md pt-3">
           <div className="row">
-            <div className="col-6 checkout-container text-center">
+            <div className="col-6 checkout-container text-end">
               <h2>
                 Total: ${this.state.cuentaTotal}
               </h2>
