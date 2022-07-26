@@ -206,9 +206,9 @@ class PoS extends Component {
       productosNoProcesados = productosNoProcesados.filter(producto => producto.cliente !== nombreClienteProducto);
       // Procesa los elementos seleccionados      
       let productos = [];
-      selectedProducts.forEach(producto => productos.push({name:producto.name})) // añadir observaciones aqui
+      selectedProducts.forEach(producto => productos.push({name:producto.name, eliminables: producto.eliminables, opciones: producto.opciones})) // añadir observaciones aqui
       // Se resumen los productos de cada cliente:
-      // Formato: {name, cantidad, observacion}]
+      // Formato: {name, cantidad, eliminables, opciones}]
       let resumenProductos = this.resumirProductos(productos);
       //let newCanasta = {cliente: nombreClienteProducto, productos:resumenProductos};
       let newCanasta = {productos:resumenProductos};
@@ -227,7 +227,6 @@ class PoS extends Component {
     })
 
     //this.reiniciarPoS();
-
   }
 
   onClickConfirmarOrden = () => {
@@ -270,10 +269,10 @@ class PoS extends Component {
     let newArrayProductos = [];
     while (arrayProductos.length>0){
       let productoAProcesar = {...arrayProductos[0]};
-      let selectedProducts = arrayProductos.filter(producto => _.isEqual(producto, productoAProcesar)); // Existe forma de contar sin filtrar
+      let selectedProducts = arrayProductos.filter(producto => _.isEqual(producto, productoAProcesar)); // Existe forma de contar sin filtrar?
       arrayProductos = arrayProductos.filter(producto => !_.isEqual(producto, productoAProcesar));
       //let newProducto = {name: productoAProcesar.name, observacion:productoAProcesar.observacion, cantidad: selectedProducts.length}
-      let newProducto = {name: productoAProcesar.name, cantidad: selectedProducts.length};
+      let newProducto = {name: productoAProcesar.name, cantidad: selectedProducts.length, eliminables: productoAProcesar.eliminables, opciones: productoAProcesar.opciones };
       newArrayProductos.push(newProducto);
     }
     return newArrayProductos;

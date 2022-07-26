@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import parametrosGlobales from "../parametrosGlobales.js";
 
 let productos = parametrosGlobales.constants.productos;
+let ingredientes = parametrosGlobales.constants.ingredientes;
 
-//FORMATO: {canastas:[ { productos:[ {name, cantidad, observacion} ] } ], mesa}
+
+//FORMATO: {canastas:[ { productos:[ {name, cantidad, eliminables, opciones} ] } ], mesa}
 
 class SummaryCard extends Component {
 
@@ -18,6 +20,35 @@ class SummaryCard extends Component {
   getProductByName = productName => {
     let productoEncontrado = productos.find(producto => producto.name = productName)[0];
     return productoEncontrado;
+  }
+
+  getIngredienteById = ingredienteId =>{
+    return ingredientes.find(ingrediente => ingrediente.id===ingredienteId)
+  }
+
+  getDetallesProducto = producto => {
+    let detalles = "";
+    producto.eliminables.forEach( eliminable => {
+      let ingrediente = this.getIngredienteById(eliminable.idIngrediente);
+      if (eliminable.estado===false){
+        detalles = detalles + "Sin " + ingrediente.nombre + ", ";
+      }
+    });
+
+    producto.opciones.forEach(opcion=>{
+      if (opcion.estado!==opcion.default){
+        detalles = detalles + opcion.nombre + ", ";
+      }
+    })
+    if (detalles!==""){
+      detalles = detalles.slice(0,detalles.length-2)
+      return(<span>
+        <br></br><span className="my-0 mx-4" style={{ color: "red" }}>
+            {detalles}
+        </span>
+      </span>)
+    }
+    return(<></>)
   }
 
   render() {
@@ -44,13 +75,8 @@ class SummaryCard extends Component {
                                             x{producto.cantidad}
                                         </span>
 
-                                        {
-                                            producto.observacion != "" &&
-                                            <span>
-                                                <br></br><span className="my-0 mx-4" style={{ color: "red" }}>
-                                                    {producto.observacion}
-                                                </span>
-                                            </span>
+                                        {this.getDetallesProducto(producto)
+                                            
                                         }
                                     </p>
                                 </li>
