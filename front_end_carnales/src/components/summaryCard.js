@@ -29,8 +29,8 @@ class SummaryCard extends Component {
   getDetallesProducto = producto => {
     let detalles = "";
     producto.eliminables.forEach( eliminable => {
-      let ingrediente = this.getIngredienteById(eliminable.idIngrediente);
       if (eliminable.estado===false){
+        let ingrediente = this.getIngredienteById(eliminable.idIngrediente);
         detalles = detalles + "Sin " + ingrediente.nombre + ", ";
       }
     });
