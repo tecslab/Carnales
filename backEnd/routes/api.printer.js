@@ -41,13 +41,13 @@ const Pedido = require('../models/pedido');
 const parametrosGlobales = require('../parametrosGlobalesBack')
 let productos = parametrosGlobales.constants.productos;
 
-function findProductByName(productName){
+function getProductByName(productName){
   return productos.find(producto => producto.name === productName);
 }
 
 function getTotalPrice(productFromOrder){
   let cantidad = productFromOrder.cantidad;
-  let precioProducto = findProductByName(productFromOrder.name).precio;
+  let precioProducto = getProductByName(productFromOrder.name).precio;
   return (precioProducto*cantidad).toFixed(2);
 }
 
@@ -57,7 +57,7 @@ const Types = require('node-thermal-printer').types;
 async function imprimirPedido(pedido) {
   //  {productos:[{name, cantidad, observacion}]}
   const {cuentaTotal} = pedido;
-  let productos = pedido.canastas[0].productos;
+  let productosPedido = pedido.canastas[0].productos;
 
   const printer = new ThermalPrinter({
     type: Types.EPSON, // 'star' or 'epson'
@@ -80,15 +80,17 @@ async function imprimirPedido(pedido) {
   //await printer.printImage('./assets/olaii-logo-black-small.png');
 
   printer.alignCenter();
+  printer.bold(true);
   printer.setTextDoubleHeight();
-  printer.newLine();
   printer.println('Carnales');
-  printer.newLine();
+
   printer.alignLeft();
+  printer.bold(true);
   printer.setTextNormal();
 
-  for (let i = 0; i <productos.length; i++) {
-    printer.println(productos[i].name + "    x     " + productos[i].cantidad + ":" + getTotalPrice(productos[i]));
+  for (let i = 0; i <productosPedido.length; i++) {
+    let labelProducto = getProductByName(productosPedido[i].name).alias?getProductByName(productosPedido[i].name).alias:productosPedido[i].name;
+    printer.println(labelProducto + "     " + productosPedido[i].cantidad + "     " + getTotalPrice(productosPedido[i]));
   }
 
   printer.println('_____________________');
