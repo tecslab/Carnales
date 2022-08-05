@@ -93,11 +93,20 @@ module.exports = {
       {name:'Quesadilla Carnitas', variedad: "Carnitas", alias: "Q. Carnitas", idCategoria: 4, precio: 3.5, ingredientes:[ {idIngrediente:1, eliminable:true}, {idIngrediente:2, eliminable:true}, {idIngrediente:4, eliminable:true}, {idIngrediente:6, eliminable:true}, {idIngrediente:7, eliminable:true}, {idIngrediente:8, eliminable:false} ]},
       {name:'Quesadilla Cabeza', variedad: "Cabeza", alias: "Q. Cabeza", idCategoria: 4, precio: 3.5, ingredientes:[ {idIngrediente:1, eliminable:true}, {idIngrediente:2, eliminable:true}, {idIngrediente:4, eliminable:true}, {idIngrediente:6, eliminable:true}, {idIngrediente:7, eliminable:true}, {idIngrediente:8, eliminable:false} ]},
 
-      {name:'Tortillas artesanales', idCategoria: 5, precio: 1},
+      {name:'Tortillas Artesanales', alias:"T. Artesanales", idCategoria: 5, precio: 1},
+      {name: "Nachos", idCategoria: 5, precio: 2},
+      {name: "Pico de Gallo", idCategoria: 5, precio: 2},
+
       {name: "Cola", idCategoria: 6, precio: 0.5},
-      {name: "Horchata", idCategoria: 6, precio: 0.5},
+      {name: "Cola 1L.", idCategoria: 6, precio: 0.5},
+      {name: "Jamaica", idCategoria: 6, precio: 0.5},
+      {name: "Jarra Jamaica Pequeña", alias:"J. Jamaica P.", idCategoria: 6, precio: 2.5},
+      {name: "Jarra Jamaica Mediana", alias:"J. Jamaica M.", idCategoria: 6, precio: 3},
+      {name: "Jarra Jamaica Grande", alias:"J. Jamaica G.", idCategoria: 6, precio: 5},
       {name: "Cerveza", idCategoria: 6, precio: 2},
-      {name: "Nachos", idCategoria: 6, precio: 2}
+      {name: "Michelada", idCategoria: 6, precio: 3},
+      {name: "Tequila", idCategoria: 6, precio: 3},
+      {name: "Agua", idCategoria: 6, precio: 1},
       ]
   }
 }
