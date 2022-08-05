@@ -93,7 +93,8 @@ async function imprimirPedido(pedido) {
     printer.println(labelProducto + "     " + productosPedido[i].cantidad + "     " + getTotalPrice(productosPedido[i]));
   }
 
-  printer.println('_____________________');
+  //printer.println('______________________');
+  printer.drawLine();
   printer.println('Total: ' + cuentaTotal);
 
 
