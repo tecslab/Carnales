@@ -97,7 +97,7 @@ const Types = require('node-thermal-printer').types;
 
 async function imprimirPedido(pedido) {
   //  {productos:[{name, cantidad, observacion}]}
-  const {cuentaTotal} = pedido;
+  const {cuentaTotal, paraLlevar} = pedido;
   let productosPedido = pedido.canastas[0].productos;
 
   const printer = new ThermalPrinter({
@@ -123,13 +123,20 @@ async function imprimirPedido(pedido) {
   printer.alignCenter();
   printer.bold(true);
   printer.setTextDoubleHeight();
-  printer.println('Carnales');
+  printer.println('CARNALES MEXICAN GRILL');
 
   printer.setTextNormal();
-  printer.println('Mexican Grill');
-  printer.alignLeft();
+  printer.println('Av. Gonzales Suarez 8-58');
+  printer.println('RUC: 3050103781001   Tel: 0984348665');
+
   printer.bold(true);
-  
+  if (paraLlevar){
+    printer.println('Llevar');
+  }else{
+    printer.println('Servirse');
+  }
+
+  printer.bold(false);  
 
   for (let i = 0; i <productosPedido.length; i++) {
     let labelProducto = getProductByName(productosPedido[i].name).alias?getProductByName(productosPedido[i].name).alias:productosPedido[i].name;
@@ -149,8 +156,6 @@ async function imprimirPedido(pedido) {
       printer.setTextNormal();
     }
   }
-
-
 
   //printer.println('_____________________');
   printer.drawLine();
