@@ -17,6 +17,7 @@ class PoS extends Component {
     super(props);
     this.state = {
       mesaSeleccionada: mesas[0].name,
+      paraLlevar: false,
       clienteSeleccionado: clientes[0].name,
       categoriaSeleccionada: categorias[0].name,
       productosActivos: productos.filter(producto => producto.idCategoria===1), // Se inicializa con los tacos
@@ -44,6 +45,10 @@ class PoS extends Component {
     this.setState({
       mesaSeleccionada: event.target.text
     });
+  }
+
+  onClickParaLLevar = (event) => {
+    this.setState({paraLlevar:!this.state.paraLlevar})
   }
 
   onSelectCliente = (event) => {
@@ -105,15 +110,25 @@ class PoS extends Component {
   }
 
   getImageName = (elementInstance, label) => {
-    let sufix = elementInstance.estado===true?"On":"Off";
+    let sufix = (elementInstance.estado!==undefined && elementInstance.estado===true)?"On":"Off";
     let prefix="";
     if (label === "ingrediente" ){
       let ingrediente = this.getIngredienteById(elementInstance.idIngrediente);
       prefix = ingrediente.nombre;
     }else if(label === "opcion"){
       prefix = elementInstance.nombre;
+    }else if(label === "paraLlevar"){
+      sufix = this.state.paraLlevar===true?"On":"Off";
+      prefix = "";
     }
     return prefix + sufix + '.png';
+  }
+
+  getClassName = (label) => {
+    if (label==="paraLlevar"){
+      let className = this.state.paraLlevar?'btn btn-success px-0 py-0':'btn btn-light px-0 py-0';
+      return className;
+    }
   }
 
   toggleOnOffButton = (event, productIntanceID, elementInstance, label) =>{
@@ -295,8 +310,7 @@ class PoS extends Component {
     cuentasClientes.forEach(cuenta => { cuentaTotal = cuentaTotal + cuenta.total });
     //this.setState({cuentaTotal, cuentasClientes});
     return {cuentaTotal, cuentasClientes}
-  }
-  
+  }  
 
 	render() {
 		return (
@@ -347,6 +361,13 @@ class PoS extends Component {
                 </ul>
               </div>
             </div> */}
+            <div className="col-1">
+              <div className="btn-group w-100">
+                <button className={this.getClassName("paraLlevar")} onClick={this.onClickParaLLevar}>
+                  <img className="para-llevar" src={"/images/llevar"+ this.getImageName({}, "paraLlevar")} />
+                </button>                
+              </div>
+            </div>
           </div>
         </div>
 

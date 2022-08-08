@@ -90,7 +90,7 @@ table.products-table tr:nth-child(odd){
 	padding:1px;
 }
 
-.products-cell .eliminable, .products-cell .opcion{
+.products-cell .eliminable, .products-cell .opcion, button .para-llevar{
   width: 35px;
   height: 35px;
 }
