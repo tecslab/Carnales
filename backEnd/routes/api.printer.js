@@ -97,7 +97,7 @@ const Types = require('node-thermal-printer').types;
 
 async function imprimirPedido(pedido) {
   //  {productos:[{name, cantidad, observacion}]}
-  const {cuentaTotal, paraLlevar} = pedido;
+  const {cuentaTotal, paraLlevar, mesa} = pedido;
   let productosPedido = pedido.canastas[0].productos;
 
   const printer = new ThermalPrinter({
@@ -130,13 +130,15 @@ async function imprimirPedido(pedido) {
   printer.println('RUC: 3050103781001   Tel: 0984348665');
 
   printer.bold(true);
+  printer.setTextDoubleHeight();
   if (paraLlevar){
     printer.println('Llevar');
   }else{
     printer.println('Servirse');
   }
 
-  printer.bold(false);  
+  printer.setTextNormal();
+  printer.println(mesa);
 
   for (let i = 0; i <productosPedido.length; i++) {
     let labelProducto = getProductByName(productosPedido[i].name).alias?getProductByName(productosPedido[i].name).alias:productosPedido[i].name;
@@ -175,7 +177,6 @@ async function imprimirPedido(pedido) {
 }
 
 //imprimirPedido();
-
 
 router.post('/', async(req,res)=>{
   

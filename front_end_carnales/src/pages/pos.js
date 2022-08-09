@@ -233,15 +233,14 @@ class PoS extends Component {
     let pedido = {
       mesa:this.state.mesaSeleccionada,
       canastas: canastas,
-      cuentaTotal: this.state.cuentaTotal
+      cuentaTotal: this.state.cuentaTotal,
+      paraLlevar: this.state.paraLlevar
     }
 
     this.setState({
       pedido,
       showSummaryModal:true
     })
-
-    //this.reiniciarPoS();
   }
 
   onClickConfirmarOrden = () => {
@@ -318,7 +317,7 @@ class PoS extends Component {
         <Header />
         <Modal show={this.state.showSummaryModal} onHide={this.handleCloseSummaryModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Resumen</Modal.Title>
+            <Modal.Title>{this.state.paraLlevar?"LLEVAR":"SERVIRSE"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <SummaryCard pedido={this.state.pedido} onClickConfirmarOrden={this.onClickConfirmarOrden}/>
@@ -391,6 +390,11 @@ class PoS extends Component {
 
                 <div className="col-9">
                   <div className="row">
+                  
+
+                    {/* <button type="button" className="btn btn-primary">Mezclar</button> */}
+
+
                     {this.state.productosActivos.map(producto => (
                       <div className="col-6 col-md-4 producto-activo" key={producto.name}>
                         <div className="row">
@@ -432,6 +436,18 @@ class PoS extends Component {
             {/* Buffer de productos en el carrito*/}
             <div className="col-12 col-lg-6">
               <div className="row">
+                {/* <div className="col-12">
+                  <div className="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked/>
+                    <label className="btn btn-outline-warning" for="btnradio1">Quitar</label>
+
+                    <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off"/>
+                    <label style={{backgroundColor: "white"}} className="btn btn-outline-warning" for="btnradio2">Extras</label>
+
+                    <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autoComplete="off"/>
+                    <label style={{background: "white"}} className="btn btn-outline-warning" for="btnradio3">Opciones</label>
+                  </div>
+                </div> */}
                 <div className="col-12 canasta-container">
                   <div className="card">
                     <div className="card-body text-center px-0">
@@ -468,7 +484,6 @@ class PoS extends Component {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
 
