@@ -86,7 +86,7 @@ function getDetallesProducto(producto){
   detalles = detEliminables + " - " + detOpciones;
   
   if (detalles!==" - "){
-    return detalles;
+    return "   " + detalles;
   }
   return("");
   // **Sin (Aguacate, Cebolla) - Dividido ->36 caracteres
@@ -153,7 +153,8 @@ async function imprimirPedido(pedido) {
     // Imprime los detalles del producto en una nueva línea con letra más pequeña
     let detalles = getDetallesProducto(productosPedido[i]);
     if (detalles!==""){
-      printer.setTextSize(3,3);
+      //printer.setTextSize(1,1);
+      printer.setTypeFontB(); 
       printer.println(detalles);
       printer.setTextNormal();
     }
@@ -166,7 +167,8 @@ async function imprimirPedido(pedido) {
   printer.setTextDoubleHeight();
   printer.print('Total: ' + cuentaTotal);
 
-  printer.cut();
+  printer.beep(); 
+  printer.partialCut();
 
   try {
     await printer.execute();
@@ -175,8 +177,6 @@ async function imprimirPedido(pedido) {
     console.error('Print error:', error);
   }
 }
-
-//imprimirPedido();
 
 router.post('/', async(req,res)=>{
   

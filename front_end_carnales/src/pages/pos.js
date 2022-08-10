@@ -263,6 +263,7 @@ class PoS extends Component {
     //Reinicia el PoS para un nuevo pedido
     this.setState ({
       mesaSeleccionada: mesas[0].name,
+      paraLlevar:false,
       clienteSeleccionado: clientes[0].name,
       categoriaSeleccionada: categorias[0].name,
       productosActivos: productos.filter(producto => producto.idCategoria===1), // Se inicializa con los tacos
@@ -392,7 +393,7 @@ class PoS extends Component {
                   <div className="row">
                   
 
-                    {/* <button type="button" className="btn btn-primary">Mezclar</button> */}
+                    <button type="button" className="btn btn-primary">Mezclar</button>
 
 
                     {this.state.productosActivos.map(producto => (
@@ -436,7 +437,7 @@ class PoS extends Component {
             {/* Buffer de productos en el carrito*/}
             <div className="col-12 col-lg-6">
               <div className="row">
-                {/* <div className="col-12">
+                <div className="col-12">
                   <div className="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked/>
                     <label className="btn btn-outline-warning" for="btnradio1">Quitar</label>
@@ -447,7 +448,7 @@ class PoS extends Component {
                     <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autoComplete="off"/>
                     <label style={{background: "white"}} className="btn btn-outline-warning" for="btnradio3">Opciones</label>
                   </div>
-                </div> */}
+                </div>
                 <div className="col-12 canasta-container">
                   <div className="card">
                     <div className="card-body text-center px-0">
