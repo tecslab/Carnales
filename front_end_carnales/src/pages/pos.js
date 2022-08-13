@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Header from '../components/header';
 import "../stylesheets/pos.css";
 import _ from 'lodash';
-import SummaryCard from '../components/summaryCard.js'
+import SummaryCard from '../components/summaryCard.js';
+import CanastaProductos from '../components/canastaProductos.js';
 import parametrosGlobales from "../parametrosGlobales.js";
 import Modal from 'react-bootstrap/Modal'
 
@@ -10,7 +11,6 @@ let mesas = parametrosGlobales.constants.mesas;
 let clientes = parametrosGlobales.constants.clientes;
 let productos = parametrosGlobales.constants.productos;
 let categorias = parametrosGlobales.constants.categorias;
-let ingredientes = parametrosGlobales.constants.ingredientes;
 
 class PoS extends Component {
   constructor(props){
@@ -33,10 +33,8 @@ class PoS extends Component {
     };
   }
 
-
   handleCloseSummaryModal = () => {console.log('test');this.setState({showSummaryModal:false})};
-  handleShowSummaryModal = () => this.setState({showSummaryModal:true});
-  
+  handleShowSummaryModal = () => this.setState({showSummaryModal:true});  
 
   componentDidMount() {
   }
@@ -90,6 +88,7 @@ class PoS extends Component {
   }
 
   isFocusedProduct = (producto) => {
+    // true on clicked product
     if (this.state.focusedProduct && this.state.focusedProduct.name===producto.name){
       return true;
     }else{
@@ -105,19 +104,10 @@ class PoS extends Component {
     }
   }
 
-  getIngredienteById = ingredienteId =>{
-    return ingredientes.find(ingrediente => ingrediente.id===ingredienteId)
-  }
-
   getImageName = (elementInstance, label) => {
     let sufix = (elementInstance.estado!==undefined && elementInstance.estado===true)?"On":"Off";
     let prefix="";
-    if (label === "ingrediente" ){
-      let ingrediente = this.getIngredienteById(elementInstance.idIngrediente);
-      prefix = ingrediente.nombre;
-    }else if(label === "opcion"){
-      prefix = elementInstance.nombre;
-    }else if(label === "paraLlevar"){
+    if(label === "paraLlevar"){
       sufix = this.state.paraLlevar===true?"On":"Off";
       prefix = "";
     }
@@ -129,22 +119,6 @@ class PoS extends Component {
       let className = this.state.paraLlevar?'btn btn-success px-0 py-0':'btn btn-light px-0 py-0';
       return className;
     }
-  }
-
-  toggleOnOffButton = (event, productIntanceID, elementInstance, label) =>{
-    let product = this.state.bufferProductos.find(producto => producto.instanceID === productIntanceID);
-    let element = {};
-    if (label === "ingrediente" ){
-      let productEliminables = product.eliminables;
-      element = productEliminables.find(eliminable=>eliminable.idIngrediente===elementInstance.idIngrediente);
-    }else if(label === "opcion"){
-      let productOpciones = product.opciones;
-      element = productOpciones.find(opcion=>opcion.nombre===elementInstance.nombre);
-    }
-    element.estado = !element.estado;
-    this.setState({
-      bufferProductos:this.state.bufferProductos
-    });
   }
 
   setCantidad = event =>{
@@ -186,26 +160,10 @@ class PoS extends Component {
       let newProduct = {instanceID: + new Date() + i, name: product.name, precio:product.precio, cliente, eliminables, opciones}; //Definir el formato para eliminables
       addBuffer.push(newProduct);
     }
-    let {cuentaTotal, cuentasClientes} = this.getCuentas([...this.state.bufferProductos, ...addBuffer]);
+    this.actualizarBufferProductos([...this.state.bufferProductos, ...addBuffer]);
     this.setState({
-      cuentaTotal: cuentaTotal.toFixed(2),
-      cuentasClientes,
-      bufferProductos: [...this.state.bufferProductos, ...addBuffer],
       focusedProduct: null
     });
-  }
-
-  onClickEliminar = event => {
-    let instanceID = event.target.id;
-    console.log(instanceID);
-    let productos = this.state.bufferProductos;
-    let newBufferProductos = productos.filter(producto => producto.instanceID!==Number(instanceID));
-    let {cuentaTotal, cuentasClientes} = this.getCuentas(newBufferProductos);
-    this.setState({
-      bufferProductos: newBufferProductos,
-      cuentaTotal: cuentaTotal.toFixed(2),
-      cuentasClientes,
-    })
   }
 
   onClickContinuar = event =>{
@@ -293,8 +251,10 @@ class PoS extends Component {
     return newArrayProductos;
   }
 
-  getCuentas = productosNoProcesados => {
-    //in: {instanceID, name, precio, cliente}
+  actualizarBufferProductos = bufferProductos => {
+    // Actualiza el buffer de productos, la cuenta total y de todos los clientes
+    //in: bufferProductos
+    let productosNoProcesados = JSON.parse(JSON.stringify(bufferProductos)); // Deep Copy
     let cuentasClientes =[];
     while (productosNoProcesados.length>0){
       let nombreProductoActual = productosNoProcesados[0].name;
@@ -308,8 +268,7 @@ class PoS extends Component {
     }
     let cuentaTotal = 0;
     cuentasClientes.forEach(cuenta => { cuentaTotal = cuentaTotal + cuenta.total });
-    //this.setState({cuentaTotal, cuentasClientes});
-    return {cuentaTotal, cuentasClientes}
+    this.setState({cuentaTotal, cuentasClientes, bufferProductos});
   }  
 
 	render() {
@@ -434,60 +393,13 @@ class PoS extends Component {
               </div>
             </div>
 
-            {/* Buffer de productos en el carrito*/}
-            <div className="col-12 col-lg-6">
-              <div className="row">
-                <div className="col-12">
-                  <div className="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked/>
-                    <label className="btn btn-outline-warning" for="btnradio1">Quitar</label>
-
-                    <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off"/>
-                    <label style={{backgroundColor: "white"}} className="btn btn-outline-warning" for="btnradio2">Extras</label>
-
-                    <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autoComplete="off"/>
-                    <label style={{background: "white"}} className="btn btn-outline-warning" for="btnradio3">Opciones</label>
-                  </div>
-                </div>
-                <div className="col-12 canasta-container">
-                  <div className="card">
-                    <div className="card-body text-center px-0">
-                      <table className="products-table">
-                        <tbody>
-                        {this.state.bufferProductos.map(product=>(
-                          <tr>
-                            <td className="products-cell delete-cell">
-                              <button className="btn btn-danger products-control" id={product.instanceID} onClick={this.onClickEliminar}>
-                              X
-                              </button>
-                            </td>
-                            <td className="products-cell">{product.name}</td>
-                            {product.eliminables.map(eliminable =>
-                              <td className="products-cell">
-                                <button className='btn btn-light px-0 py-0' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, eliminable, "ingrediente")}>
-                                  <img className="eliminable" src={"/images/eliminables/" + this.getImageName(eliminable, "ingrediente")} />
-                                </button>
-                              </td>
-                            )}
-                            {product.opciones.map(opcion =>
-                              <td className="products-cell">
-                                <button className='btn btn-light px-0 py-0' onClick={(event) => this.toggleOnOffButton(event, product.instanceID, opcion, "opcion")}>
-                                  <img className="opcion" src={"/images/opciones/" + this.getImageName(opcion, "opcion")} />
-                                </button>
-                              </td>
-                            )}
-                          </tr>
-                        ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* muestra el buffer de productos en la canasta*/}
+            <CanastaProductos
+              bufferProductos={this.state.bufferProductos}
+              actualizarBufferProductos={this.actualizarBufferProductos}
+            />
           </div>
         </div>
-
 
         {/* Resumen precio y continuar*/}
         <div className="container-md pt-3">
