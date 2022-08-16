@@ -11,8 +11,6 @@ import Modal from 'react-bootstrap/Modal'
 
 let mesas = parametrosGlobales.constants.mesas;
 let clientes = parametrosGlobales.constants.clientes;
-let productos = parametrosGlobales.constants.productos;
-let categorias = parametrosGlobales.constants.categorias;
 
 class PoS extends Component {
   constructor(props){
@@ -21,41 +19,29 @@ class PoS extends Component {
       mesaSeleccionada: mesas[0].name,
       paraLlevar: false,
       clienteSeleccionado: clientes[0].name,
-      categoriaSeleccionada: categorias[0].name, //Check
-      productosActivos: productos.filter(producto => producto.idCategoria===1), // Se inicializa con los tacos
-      //productoVisible: null
-      focusedProduct: null,
-      selectorCantidad: 1,
       bufferProductos:[],
       cuentasClientes: [],
       cuentaTotal: (0).toFixed(2),
-      //productoVisible: "Carne Asada"
       showSummaryModal: false,
-      orden: {canastas:[], mesa: mesas[0].name, cuentaTotal:(0).toFixed(2)}
+      //orden: {canastas:[], mesa: mesas[0].name, cuentaTotal:(0).toFixed(2)}
     };
   }
 
   handleCloseSummaryModal = () => {this.setState({showSummaryModal:false})};
-  handleShowSummaryModal = () => this.setState({showSummaryModal:true});  
-
-  componentDidMount() {
-  }
-
-  onSelectMesa = (event) => {
-    this.setState({
-      mesaSeleccionada: event.target.text
-    });
-  }
-
-  onClickParaLLevar = (event) => {
-    this.setState({paraLlevar:!this.state.paraLlevar})
-  }
 
   lanzarModalResumen = (pedido) =>{
     this.setState({
       pedido,
       showSummaryModal:true
     })
+  }
+
+  onSelectMesa = (event) => {
+    this.setState({ mesaSeleccionada: event.target.text });
+  }
+
+  onClickParaLLevar = (event) => {
+    this.setState({paraLlevar:!this.state.paraLlevar})
   }
 
   onClickConfirmarOrden = () => {
@@ -80,17 +66,17 @@ class PoS extends Component {
       mesaSeleccionada: mesas[0].name,
       paraLlevar:false,
       clienteSeleccionado: clientes[0].name,
-      categoriaSeleccionada: categorias[0].name,
-      productosActivos: productos.filter(producto => producto.idCategoria===1), // Se inicializa con los tacos
-      //productoVisible: null
-      focusedProduct: null,
-      selectorCantidad: 1,
       bufferProductos:[],
       cuentasClientes: [],
       cuentaTotal: (0).toFixed(2),
       showSummaryModal: false,
-      orden: {canastas:[ { productos:[] } ], mesa: mesas[0].name}
+      reiniciarSelectorProductos: true
+      //orden: {canastas:[ { productos:[] } ], mesa: mesas[0].name}
     });
+  }
+
+  selectorReiniciado = () => {
+    this.setState({reiniciarSelectorProductos:false})
   }
 
   actualizarBufferProductos = bufferProductos => {
@@ -111,7 +97,7 @@ class PoS extends Component {
     let cuentaTotal = 0;
     cuentasClientes.forEach(cuenta => { cuentaTotal = cuentaTotal + cuenta.total });
     this.setState({cuentaTotal, cuentasClientes, bufferProductos});
-  }  
+  }
 
 	render() {
 		return (
@@ -148,6 +134,8 @@ class PoS extends Component {
               clienteSeleccionado ={this.state.clienteSeleccionado}
               bufferProductos={this.state.bufferProductos}
               actualizarBufferProductos={this.actualizarBufferProductos}
+              reiniciarSelectorProductos={this.state.reiniciarSelectorProductos}
+              selectorReiniciado = {this.selectorReiniciado}
             />
 
             {/* muestra el buffer de productos en la canasta*/}

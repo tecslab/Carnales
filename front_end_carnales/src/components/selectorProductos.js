@@ -1,4 +1,4 @@
-import { useState, React } from "react";
+import React, { useState } from "react";
 import parametrosGlobales from "../parametrosGlobales.js";
 let productos = parametrosGlobales.constants.productos;
 let categorias = parametrosGlobales.constants.categorias;
@@ -9,6 +9,17 @@ function SelectorProductos(props) {
   const [focusedProduct, setFocusedProduct] = useState(null);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0].name);
   const [productosActivos, setProductosActivos] = useState(productos.filter(producto => producto.idCategoria===1));
+
+  React.useEffect(() => {
+    // [] this is to execute it only the first time
+    if(props.reiniciarSelectorProductos){
+      setSelectorCantProducto(1);
+      setFocusedProduct(null);
+      setCategoriaSeleccionada(categorias[0].name);
+      setProductosActivos(productos.filter(producto => producto.idCategoria===1));
+      props.selectorReiniciado();
+    }
+  });
 
   const checkRadioButton = focusedCategory => {
     // check the selected radio button
