@@ -85,6 +85,14 @@ function SelectorProductos(props) {
     }
   }
 
+  const getEliminables = (producto) =>{
+    // let instancia = 
+    let eliminablesCategoria = producto.ingredientesCategoria? JSON.parse(JSON.stringify(producto.ingredientesCategoria.filter(ingrediente => ingrediente.eliminable===true))):[];
+    let eliminablesVariedad = producto.ingredientesVariedad? JSON.parse(JSON.stringify(producto.ingredientesVariedad.filter(ingrediente => ingrediente.eliminable===true))):[];
+    let eliminables = [...eliminablesCategoria, ...eliminablesVariedad];
+    return eliminables    
+  } 
+
   const onClickAceptarProducto = event =>{
     let cliente = props.clienteSeleccionado;
     let product = focusedProduct;
@@ -93,7 +101,7 @@ function SelectorProductos(props) {
     for (let i=0; i< cantidad; i++){
       // se suma i al instanceID para evitar ids repetidos en la misma iteración
       // Es necesario un copiado profundo
-      let eliminables = product.ingredientes?JSON.parse(JSON.stringify(product.ingredientes.filter(ingrediente => ingrediente.eliminable===true))):[];
+      let eliminables = getEliminables(product);
       eliminables.forEach(eliminable => eliminable.estado=true);
       let opciones = product.opciones?JSON.parse(JSON.stringify(product.opciones)):[];
       opciones.forEach(opcion => opcion.estado=opcion.default)
