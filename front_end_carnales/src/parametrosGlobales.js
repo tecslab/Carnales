@@ -72,6 +72,7 @@ module.exports = {
       {_id:8, nombre: "Carnitas", ingredientes: [{idIngrediente: 17}]},
       {_id:9, nombre: "Cabeza", ingredientes: [{idIngrediente: 18}]},
     ],
+    // Las mezclas de productos se las hacen sumando los ingredientesVariedad y manteniendo los ingredientesCategoria
     productos : [
       {name:'Taco Pollo Asado', variedad: "Pollo Asado", alias: "T. Pollo Asado", idCategoria: 1, precio: 1, ingredientesVariedad:[{idIngrediente:10, eliminable:false, cant:"25", unidades:unidades.gramos}], ingredientesCategoria:[{idIngrediente:1, eliminable:true, cant:"25", unidades:unidades.gramos}, {idIngrediente:2, eliminable:true}, {idIngrediente:9, eliminable:false}]},
       {name:'Taco Carne Asada', variedad: "Carne Asada", alias:"T. Carne Asada", idCategoria: 1, precio: 1, ingredientesVariedad:[{idIngrediente:11, eliminable:false, cant:"25", unidades:unidades.gramos}], ingredientesCategoria:[{idIngrediente:1, eliminable:true}, {idIngrediente:2, eliminable:true}, {idIngrediente:9, eliminable:false}]},
