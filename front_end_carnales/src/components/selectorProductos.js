@@ -7,6 +7,8 @@ function SelectorProductos(props) {
 
   const [selectorCantProducto, setSelectorCantProducto] = useState(1);
   const [focusedProduct, setFocusedProduct] = useState(null);
+  const [mezclar, setMezclar] = useState(false);
+  const [variedadesMezclar, setVariedadesMezclar] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0].name);
   const [productosActivos, setProductosActivos] = useState(productos.filter(producto => producto.idCategoria===1));
 
@@ -31,11 +33,18 @@ function SelectorProductos(props) {
   }
 
   const getProductColor = producto => {
-    if (focusedProduct && focusedProduct.name===producto.name){
+    if (mezclar){
+      return "btn btn-success w-100 btn-light-green"
+    }else if (focusedProduct && focusedProduct.name===producto.name){
       return "btn btn-danger w-100"
     }else{
       return "btn btn-secondary w-100"
     }
+  }
+
+  const onClickMezclar = event =>{
+    setMezclar(!mezclar);
+    setFocusedProduct(null);
   }
 
   const isFocusedProduct = (producto) => {
@@ -76,12 +85,14 @@ function SelectorProductos(props) {
   }
 
   const onClickProduct = (event) => {
-    let producto = JSON.parse(event.target.value);
-    if (focusedProduct && focusedProduct.name===producto.name){
-      setFocusedProduct(null);
-    }else{
-      setFocusedProduct(producto);
-      setSelectorCantProducto(1);
+    if (!mezclar){
+      let producto = JSON.parse(event.target.value);
+      if (focusedProduct && focusedProduct.name===producto.name){
+        setFocusedProduct(null);
+      }else{
+        setFocusedProduct(producto);
+        setSelectorCantProducto(1);
+      }
     }
   }
 
@@ -120,10 +131,7 @@ function SelectorProductos(props) {
         </div>
 
         <div className="col-9">
-          <div className="row">          
-
-            <button type="button" className="btn btn-primary">Mezclar</button>
-
+          <div className="row">
             {productosActivos.map(producto => (
               <div className="col-6 col-md-4 producto-activo" key={producto.name}>
                 <div className="row">
@@ -157,6 +165,7 @@ function SelectorProductos(props) {
                 </div>                  
               </div>                  
             ))}
+            <button type="button" className="btn btn-primary" onClick={onClickMezclar}>Mezclar</button>
           </div>
         </div>
       </div>
