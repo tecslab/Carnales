@@ -95,6 +95,11 @@ table.products-table tr:nth-child(odd){
   height: 35px;
 }
 
+.btn-light-green{
+  background-color:var(--verde-secundario);
+  color:#198754
+}
+
 @media (min-width: 992px) {
   *{
     font-size:16px;
