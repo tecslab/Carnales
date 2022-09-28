@@ -34,6 +34,9 @@ function SelectorProductos(props) {
 
   const getProductColor = producto => {
     if (mezclar){
+      if (variedadesMezclar.includes(producto)){
+        return "btn btn-success w-100"
+      }
       return "btn btn-success w-100 btn-light-green"
     }else if (focusedProduct && focusedProduct.name===producto.name){
       return "btn btn-danger w-100"
@@ -43,8 +46,28 @@ function SelectorProductos(props) {
   }
 
   const onClickMezclar = event =>{
+    setStateMezclaDefault()
+  }
+
+  const setStateMezclaDefault = ()=> {
     setMezclar(!mezclar);
     setFocusedProduct(null);
+    setVariedadesMezclar([]);
+  }
+
+  const onClickAceptarMezcla = (event)=>{
+    if (variedadesMezclar.length>=2){
+      setStateMezclaDefault()
+      let nombreMezcla = "B Mixto"
+      variedadesMezclar.forEach(producto => nombreMezcla += producto.labelMezcla)
+      let cliente = props.clienteSeleccionado;
+      let precio = (variedadesMezclar[0].precio + 0.5*variedadesMezclar.length).toFixed(2)
+      let eliminables = getEliminables(variedadesMezclar[0]);
+      let opciones = JSON.parse(JSON.stringify(variedadesMezclar[0].opciones));
+      let newProduct = [{instanceID: + new Date(), name: nombreMezcla, precio, cliente, eliminables, opciones}];
+      props.actualizarBufferProductos([...props.bufferProductos, ...newProduct]);
+      setStateMezclaDefault()
+    }
   }
 
   const isFocusedProduct = (producto) => {
@@ -80,11 +103,11 @@ function SelectorProductos(props) {
     let productosActivos = productos.filter(producto => producto.idCategoria===categoria._id);
 
     setCategoriaSeleccionada(categoria.name);
-    setFocusedProduct(null);
+    setStateMezclaDefault()
     setProductosActivos(productosActivos);
   }
 
-  const onClickProduct = (event) => {
+  const onClickProduct = (event, producto) => {
     if (!mezclar){
       let producto = JSON.parse(event.target.value);
       if (focusedProduct && focusedProduct.name===producto.name){
@@ -92,6 +115,18 @@ function SelectorProductos(props) {
       }else{
         setFocusedProduct(producto);
         setSelectorCantProducto(1);
+      }
+    }else{
+      if(variedadesMezclar.length<3){
+        let newVariedadesMezclar = [...variedadesMezclar]
+        if (newVariedadesMezclar.includes(producto)){
+          let indexEliminar = newVariedadesMezclar.findIndex(elemento=> elemento===producto)
+          newVariedadesMezclar.splice(indexEliminar, 1)
+          setVariedadesMezclar(newVariedadesMezclar)
+        }else{
+          newVariedadesMezclar.push(producto)
+          setVariedadesMezclar(newVariedadesMezclar)
+        }
       }
     }
   }
@@ -144,7 +179,7 @@ function SelectorProductos(props) {
               <div className="col-6 col-md-4 producto-activo" key={producto.name}>
                 <div className="row">
                   <div className="col-12">
-                    <button className={getProductColor(producto)} value={JSON.stringify(producto)} onClick={onClickProduct}>
+                    <button className={getProductColor(producto)} value={JSON.stringify(producto)} onClick={(event)=>onClickProduct(event, producto)}>
                       {producto.variedad?producto.variedad:producto.name}
                     </button>
                   </div>
@@ -173,7 +208,15 @@ function SelectorProductos(props) {
                 </div>                  
               </div>                  
             ))}
-            <button type="button" className="btn btn-primary" onClick={onClickMezclar}>Mezclar</button>
+            {categoriaSeleccionada==="Burrito" &&
+            <>
+              <button type="button" className={mezclar?"col-6 btn btn-danger":"col-12 btn btn-primary"} onClick={onClickMezclar}>{mezclar?"CANCELAR":"MEZCLAR"}</button>
+              {mezclar?
+                <button type="button" className={variedadesMezclar.length>=2?"col-6 btn btn-success":"col-6 btn btn-secondary"} onClick={onClickAceptarMezcla}>ACEPTAR</button>
+                :null
+              }
+            </>
+            }
           </div>
         </div>
       </div>
