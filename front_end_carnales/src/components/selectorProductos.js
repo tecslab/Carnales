@@ -46,25 +46,30 @@ function SelectorProductos(props) {
   }
 
   const onClickMezclar = event =>{
-    setStateMezclaDefault()
+    setMezclar(!mezclar);
+    setFocusedProduct(null);
+    setVariedadesMezclar([]);
   }
 
   const setStateMezclaDefault = ()=> {
-    setMezclar(!mezclar);
+    setMezclar(false);
     setFocusedProduct(null);
     setVariedadesMezclar([]);
   }
 
   const onClickAceptarMezcla = (event)=>{
     if (variedadesMezclar.length>=2){
-      setStateMezclaDefault()
-      let nombreMezcla = "B Mixto"
-      variedadesMezclar.forEach(producto => nombreMezcla += producto.labelMezcla)
+      let nombreMezcla = "BM "
+      variedadesMezclar.forEach(producto => nombreMezcla += producto.labelMezcla + "+")
+      nombreMezcla = nombreMezcla.slice(0,nombreMezcla.length-2)
       let cliente = props.clienteSeleccionado;
-      let precio = (variedadesMezclar[0].precio + 0.5*variedadesMezclar.length).toFixed(2)
+      let precio = Number((variedadesMezclar[0].precio + 0.5*(variedadesMezclar.length-1)).toFixed(2))
       let eliminables = getEliminables(variedadesMezclar[0]);
+      eliminables.forEach(eliminable => eliminable.estado=true);
       let opciones = JSON.parse(JSON.stringify(variedadesMezclar[0].opciones));
       let newProduct = [{instanceID: + new Date(), name: nombreMezcla, precio, cliente, eliminables, opciones}];
+      // Mejorar el precio, sería el precio del más alto mas 0.5.....
+      // Mejorar los eliminables: si se selecciono pastor de segunda no se refleja, debe ser una unión.
       props.actualizarBufferProductos([...props.bufferProductos, ...newProduct]);
       setStateMezclaDefault()
     }
@@ -132,10 +137,11 @@ function SelectorProductos(props) {
   }
 
   const getEliminables = (producto) =>{
-    // let instancia = 
+    console.log(producto)
     let eliminablesCategoria = producto.ingredientesCategoria? JSON.parse(JSON.stringify(producto.ingredientesCategoria.filter(ingrediente => ingrediente.eliminable===true))):[];
     let eliminablesVariedad = producto.ingredientesVariedad? JSON.parse(JSON.stringify(producto.ingredientesVariedad.filter(ingrediente => ingrediente.eliminable===true))):[];
     let eliminables = [...eliminablesCategoria, ...eliminablesVariedad];
+    console.log(eliminables)
     return eliminables    
   } 
 
