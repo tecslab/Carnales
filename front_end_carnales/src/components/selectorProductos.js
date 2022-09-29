@@ -35,6 +35,7 @@ function SelectorProductos(props) {
   const getProductColor = producto => {
     if (mezclar){
       if (variedadesMezclar.includes(producto)){
+        //return "btn btn-success w-100"
         return "btn btn-success w-100"
       }
       return "btn btn-success w-100 btn-light-green"
@@ -122,16 +123,16 @@ function SelectorProductos(props) {
         setSelectorCantProducto(1);
       }
     }else{
-      if(variedadesMezclar.length<3){
-        let newVariedadesMezclar = [...variedadesMezclar]
-        if (newVariedadesMezclar.includes(producto)){
-          let indexEliminar = newVariedadesMezclar.findIndex(elemento=> elemento===producto)
-          newVariedadesMezclar.splice(indexEliminar, 1)
-          setVariedadesMezclar(newVariedadesMezclar)
-        }else{
+      let newVariedadesMezclar = [...variedadesMezclar]
+      let indexEliminar = newVariedadesMezclar.findIndex(elemento=> elemento===producto)
+      if (indexEliminar===-1){ //Si no está ya seleccionado
+        if(variedadesMezclar.length<3){
           newVariedadesMezclar.push(producto)
           setVariedadesMezclar(newVariedadesMezclar)
         }
+      }else{
+        newVariedadesMezclar.splice(indexEliminar, 1)
+        setVariedadesMezclar(newVariedadesMezclar)          
       }
     }
   }
