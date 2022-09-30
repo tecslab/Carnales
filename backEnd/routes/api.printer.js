@@ -43,7 +43,11 @@ let productos = parametrosGlobales.constants.productos;
 let ingredientes = parametrosGlobales.constants.ingredientes;
 
 function getProductByName(productName){
-  return productos.find(producto => producto.name === productName);
+  let producto = productos.find(producto => producto.name === productName);
+  if (producto==undefined){
+    producto = {name: productName, variedad: "Burrito", precio: 3.50}
+  }
+  return producto;
 }
 
 function getTotalPrice(productFromOrder){
@@ -100,6 +104,8 @@ async function imprimirPedido(pedido) {
   const {cuentaTotal, paraLlevar, mesa} = pedido;
   let productosPedido = pedido.canastas[0].productos;
 
+  let lineWidth = 48
+
   const printer = new ThermalPrinter({
     type: Types.EPSON, // 'star' or 'epson'
     interface: '/dev/usb/lp1',
@@ -107,7 +113,7 @@ async function imprimirPedido(pedido) {
     options: {
       timeout: 1000,
     },
-    width: 48, // Number of characters in one line - default: 48
+    width: lineWidth, // Number of characters in one line - default: 48
     characterSet: 'SLOVENIA', // Character set - default: SLOVENIA
     removeSpecialCharacters: false, // Removes special characters - default: false
     lineCharacter: '_', // Use custom character for drawing lines - default: -
@@ -141,14 +147,26 @@ async function imprimirPedido(pedido) {
   printer.println(mesa);
 
   for (let i = 0; i <productosPedido.length; i++) {
-    let labelProducto = getProductByName(productosPedido[i].name).alias?getProductByName(productosPedido[i].name).alias:productosPedido[i].name;
+    let producto_i = getProductByName(productosPedido[i].name)
+    let labelProducto = producto_i.alias?producto_i.alias:productosPedido[i].name;
     /* 
     printer.println( productosPedido[i].cantidad + "     " + labelProducto + "     " + getTotalPrice(productosPedido[i]));
     */
     printer.alignLeft();
-    printer.print(productosPedido[i].cantidad + "  " + labelProducto); 
+    let ladoIzq = productosPedido[i].cantidad + "  " + labelProducto
+    let ladoDer = getTotalPrice(productosPedido[i])
+    let puntos = lineWidth - (ladoIzq.length + ladoDer.length)// funciona mientras ladoIzq sea menos a los espacio restantes
+    for (let j=0; j < puntos; j++){
+      ladoDer = "." + ladoDer
+    }
+
+    printer.print(ladoIzq); 
     printer.alignRight();
-    printer.print(getTotalPrice(productosPedido[i]));
+
+
+
+
+    printer.print(ladoDer);
     printer.newLine();
     // Imprime los detalles del producto en una nueva línea con letra más pequeña
     let detalles = getDetallesProducto(productosPedido[i]);

@@ -54,19 +54,19 @@ li{
     background-repeat: no-repeat;
     background-position:center;
     background-size: cover;
-    height: 900px;
-    width:600px;
+    height: 932px;
+    width:623px;
     position:relative;
     margin:auto;
 }
 
 .ventana{
     height: 30px;
-    width: 200px;
+    width: 205px;
 }
 
 .mesa{
-    height:60px;
+    height:51px;
     width:120px;
 }
 
@@ -84,42 +84,42 @@ li{
 }
 
 #ventana{
-    left:35px;
+    left:39px;
 }
 
 #mesa1{
-    left:282px;
-    top:84px;
+    left:292px;
+    top:93px;
 }
 
 #mesa2{
-    left:478px;
-    top:84px;    
+    left:500px;
+    top:93px;    
 }
 
 #mesa3{
-    left:282px;
-    top:250px;    
+    left:292px;
+    top:263px;    
 }
 
 #mesa4{
-    left:478px;
-    top:325px;    
+    left:500px;
+    top:342px;    
 }
 
 #mesa5{
-    left:456px;
-    top:602px;    
+    left:476px;
+    top:629px;    
 }
 
 #mesa6{
-    left:456px;
-    top:780px;    
+    left:476px;
+    top:810px;    
 }
 
 #mesa7{
-    left:250px;
-    top:624px;
+    left:261px;
+    top:647px;
 }
 /* ################# Modal  #######################*/
 .modal-background{

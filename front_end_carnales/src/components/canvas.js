@@ -5,6 +5,19 @@ import conf from '../conf';
 
 let urlBack =  conf.urlBack;
 
+let planoSize = {height: "932px", width:"623px"}
+
+let mesas = [
+    {nombre: "Ventana", height:"30px", width:"205", left:"39px", top:"0px"},
+    {nombre: "Mesa1", height:"51px", width:"120px", left:"292px", top:"93px"},
+    {nombre: "Mesa2", height:"51px", width:"120px", left:"500px", top:"93px"},
+    {nombre: "Mesa3", height:"51px", width:"120px", left:"292px", top:"263px"},
+    {nombre: "Mesa4", height:"51px", width:"120px", left:"500px", top:"342px"},
+    {nombre: "Mesa5", height:"51px", width:"120px", left:"476px", top:"629px"},
+    {nombre: "Mesa6", height:"51px", width:"120px", left:"476px", top:"810px"},
+    {nombre: "Mesa7", height:"51px", width:"120px", left:"261px", top:"647px"},
+]
+
 class Canvas extends Component {
     constructor(props) {
         super(props);
@@ -61,14 +74,14 @@ class Canvas extends Component {
                             <HorizontalSliderContainer clickeable={"true"} pedidos={this.state.pedidos} />;
                         </div>
                     }
-                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value='Ventana' mesaType='ventana' id="ventana" />
-                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 1" mesaType="mesa" id="mesa1" />
-                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 2" mesaType="mesa" id="mesa2" />
-                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 3" mesaType="mesa" id="mesa3" />
-                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 4" mesaType="mesa" id="mesa4" />
-                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 5" mesaType="mesa" id="mesa5" />
-                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 6" mesaType="mesa" id="mesa6" />
-                    <Mesa toggleLax yout={this.toggleLayout} modalID='modal' value="Mesa 7" mesaType="mesaV" id="mesa7" />
+                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value='Ventana' mesaType='ventana' id="ventana" mesaInfo={mesas[0]}/>
+                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 1" mesaType="mesa" id="mesa1" mesaInfo={mesas[1]}/>
+                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 2" mesaType="mesa" id="mesa2" mesaInfo={mesas[2]}/>
+                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 3" mesaType="mesa" id="mesa3" mesaInfo={mesas[3]}/>
+                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 4" mesaType="mesa" id="mesa4" mesaInfo={mesas[4]}/>
+                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 5" mesaType="mesa" id="mesa5" mesaInfo={mesas[5]}/>
+                    <Mesa toggleLayout={this.toggleLayout} modalID='modal' value="Mesa 6" mesaType="mesa" id="mesa6" mesaInfo={mesas[6]}/>
+                    <Mesa toggleLax yout={this.toggleLayout} modalID='modal' value="Mesa 7" mesaType="mesaV" id="mesa7" mesaInfo={mesas[7]}/>
                 </div>
             </div>
         )
