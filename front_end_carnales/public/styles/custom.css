@@ -60,67 +60,6 @@ li{
     margin:auto;
 }
 
-.ventana{
-    height: 30px;
-    width: 205px;
-}
-
-.mesa{
-    height:51px;
-    width:120px;
-}
-
-.mesaV{
-    height:120px;
-    width:60px;
-    padding: 0;
-}
-
-.mesa-wrapper{
-    position:relative;
-    padding: 0;
-    margin: 0;
-    height: 0;
-}
-
-#ventana{
-    left:39px;
-}
-
-#mesa1{
-    left:292px;
-    top:93px;
-}
-
-#mesa2{
-    left:500px;
-    top:93px;    
-}
-
-#mesa3{
-    left:292px;
-    top:263px;    
-}
-
-#mesa4{
-    left:500px;
-    top:342px;    
-}
-
-#mesa5{
-    left:476px;
-    top:629px;    
-}
-
-#mesa6{
-    left:476px;
-    top:810px;    
-}
-
-#mesa7{
-    left:261px;
-    top:647px;
-}
 /* ################# Modal  #######################*/
 .modal-background{
     position: fixed;

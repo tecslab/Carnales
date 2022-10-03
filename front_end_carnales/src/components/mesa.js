@@ -14,14 +14,17 @@ class Mesa extends Component {
     classPositionSize() {
       //color: "white",
       //backgroundColor: "DodgerBlue",
-      return {height:this.props.mesaInfo.height,
+      return {
+        position: "absolute",
+        height:this.props.mesaInfo.height,
         width:this.props.mesaInfo.width,
         left: this.props.mesaInfo.left,
         top: this.props.mesaInfo.top,}
     };
 
     classSize() {
-      return {height:this.props.mesaInfo.height,
+      return {
+        height:this.props.mesaInfo.height,
         width:this.props.mesaInfo.width}
     };
 
