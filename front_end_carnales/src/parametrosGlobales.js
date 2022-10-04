@@ -33,12 +33,12 @@ module.exports = {
       {name: "Cliente 8"},
       ],
     categorias : [
-      {_id: 1, name: "Taco"},
-      {_id: 2, name: "Taco Chingón"},
-      {_id: 3, name: "Burrito"},
-      {_id: 4, name: "Quesadilla"},
-      {_id: 5, name: "Especiales"},
-      {_id: 6, name: "Bebidas"}
+      {_id: 1, name: "Taco", mezclable: true, alias: "T"},
+      {_id: 2, name: "Taco Chingón", mezclable: true, alias: "CH"},
+      {_id: 3, name: "Burrito", mezclable: true, alias: "B"},
+      {_id: 4, name: "Quesadilla", mezclable: true, alias: "Q"},
+      {_id: 5, name: "Especiales", mezclable: false, alias: "E"},
+      {_id: 6, name: "Bebidas", mezclable: false, alias: "Beb"}
       ],
     
     ingredientes: [
@@ -62,15 +62,15 @@ module.exports = {
     ],
 
     variedad:[
-      {_id:1, nombre: "Pollo Asado", ingredientes: [{idIngrediente: 10}]},
-      {_id:2, nombre: "Carne Asada", ingredientes: [{idIngrediente: 11}]},
-      {_id:3, nombre: "Carne Guisada", ingredientes: [{idIngrediente: 12}]},
-      {_id:4, nombre: "Al Pastor", ingredientes: [{idIngrediente: 10}, {idIngrediente: 3}]},
-      {_id:5, nombre: "Cerdo Asado Picante", ingredientes: [{idIngrediente: 14}]},
-      {_id:6, nombre: "Barbacoa de Res Picante", ingredientes: [{idIngrediente: 15}]},
-      {_id:7, nombre: "Chicharrón", ingredientes: [{idIngrediente: 16}]},
-      {_id:8, nombre: "Carnitas", ingredientes: [{idIngrediente: 17}]},
-      {_id:9, nombre: "Cabeza", ingredientes: [{idIngrediente: 18}]},
+      {_id:1, nombre: "Pollo Asado", labelMezcla:"Pollo", ingredientes: [{idIngrediente: 10}], },
+      {_id:2, nombre: "Carne Asada", labelMezcla:"C.A.", ingredientes: [{idIngrediente: 11}]},
+      {_id:3, nombre: "Carne Guisada", labelMezcla:"C.G.", ingredientes: [{idIngrediente: 12}]},
+      {_id:4, nombre: "Al Pastor", labelMezcla:"Pastor", ingredientes: [{idIngrediente: 10}, {idIngrediente: 3}]},
+      {_id:5, nombre: "Cerdo Asado Picante", labelMezcla:"C.P.", ingredientes: [{idIngrediente: 14}]},
+      {_id:6, nombre: "Barbacoa de Res Picante", labelMezcla:"Barb", ingredientes: [{idIngrediente: 15}]},
+      {_id:7, nombre: "Chicharrón", labelMezcla:"Chich", ingredientes: [{idIngrediente: 16}]},
+      {_id:8, nombre: "Carnitas", labelMezcla:"Carnitas", ingredientes: [{idIngrediente: 17}]},
+      {_id:9, nombre: "Cabeza", labelMezcla:"Cabeza", ingredientes: [{idIngrediente: 18}]},
     ],
     // Las mezclas de productos se las hacen sumando los ingredientesVariedad y manteniendo los ingredientesCategoria
     productos : [

@@ -9,7 +9,7 @@ function SelectorProductos(props) {
   const [focusedProduct, setFocusedProduct] = useState(null);
   const [mezclar, setMezclar] = useState(false);
   const [variedadesMezclar, setVariedadesMezclar] = useState([]);
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0].name);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categorias[0]);
   const [productosActivos, setProductosActivos] = useState(productos.filter(producto => producto.idCategoria===1));
 
   React.useEffect(() => {
@@ -17,7 +17,7 @@ function SelectorProductos(props) {
     if(props.reiniciarSelectorProductos){
       setSelectorCantProducto(1);
       setFocusedProduct(null);
-      setCategoriaSeleccionada(categorias[0].name);
+      setCategoriaSeleccionada(categorias[0]);
       setProductosActivos(productos.filter(producto => producto.idCategoria===1));
       props.selectorReiniciado();
     }
@@ -25,7 +25,7 @@ function SelectorProductos(props) {
 
   const checkRadioButton = focusedCategory => {
     // check the selected radio button
-    if(categoriaSeleccionada===focusedCategory){
+    if(categoriaSeleccionada.name===focusedCategory){
       return true;
     }else{
       return null;
@@ -60,7 +60,7 @@ function SelectorProductos(props) {
 
   const onClickAceptarMezcla = (event)=>{
     if (variedadesMezclar.length>=2){
-      let nombreMezcla = "BM "
+      let nombreMezcla = categoriaSeleccionada.alias
       variedadesMezclar.forEach(producto => nombreMezcla += producto.labelMezcla + "+")
       nombreMezcla = nombreMezcla.slice(0,nombreMezcla.length-2)
       let cliente = props.clienteSeleccionado;
@@ -108,7 +108,7 @@ function SelectorProductos(props) {
     let categoria = categorias.find(categoria => categoria._id === Number(event.target.id));
     let productosActivos = productos.filter(producto => producto.idCategoria===categoria._id);
 
-    setCategoriaSeleccionada(categoria.name);
+    setCategoriaSeleccionada(categoria);
     setStateMezclaDefault()
     setProductosActivos(productosActivos);
   }
@@ -215,7 +215,7 @@ function SelectorProductos(props) {
                 </div>                  
               </div>                  
             ))}
-            {categoriaSeleccionada==="Burrito" &&
+            {categoriaSeleccionada.mezclable &&
             <>
               <button type="button" className={mezclar?"col-6 btn btn-danger":"col-12 btn btn-primary"} onClick={onClickMezclar}>{mezclar?"CANCELAR":"MEZCLAR"}</button>
               {mezclar?
