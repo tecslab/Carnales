@@ -7,7 +7,7 @@ leer los productos en el Pos y generar el menú con ellos
 
 -----------
 
-Integrar la BD
 Hacer más sencillo la obtención del nombre de la conexión USB
 Mejorar el estilo del slider del buffer de productos, ahora depende del nbavegador
-Mixtos
+Mixtos: la cantidad está dependiendo del orden de la selección de las variedades
+Colocar trys and catchs

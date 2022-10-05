@@ -32,6 +32,7 @@ try {
   console.log("Print failed:", error);
 } */
 
+// DEBERÍA ESTAR OBSOLETA
 
 
 const express = require('express');
@@ -197,8 +198,6 @@ async function imprimirPedido(pedido) {
 }
 
 router.post('/', async(req,res)=>{
-  
-  //const pedido = JSON.parse(req.body);
   const pedido = req.body;
   console.log(pedido);
   imprimirPedido(pedido);

@@ -26,7 +26,7 @@ var pedidoSchema = new Schema({
             message: '{VALUE} is not supported'
         }
     }
-});
+}, {timestamps: true});
 //  {name: productoAProcesar.name, cantidad: selectedProducts.length, eliminables: productoAProcesar.eliminables, opciones: productoAProcesar.opciones };
 // let pedido = {
 //     mesa: props.mesaSeleccionada,
