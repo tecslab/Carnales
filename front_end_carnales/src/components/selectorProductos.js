@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import parametrosGlobales from "../parametrosGlobales.js";
 let productos = parametrosGlobales.constants.productos;
 let categorias = parametrosGlobales.constants.categorias;
+let variedades = parametrosGlobales.constants.variedades;
 
 function SelectorProductos(props) {
 
@@ -58,16 +59,22 @@ function SelectorProductos(props) {
     setVariedadesMezclar([]);
   }
 
+  const getVariedadByProd = (producto) => {
+    let variedad = variedades.find(variedad => variedad.nombre == producto.variedad)
+    return variedad.labelMezcla
+  }
+
   const onClickAceptarMezcla = (event)=>{
     if (variedadesMezclar.length>=2){
-      let nombreMezcla = categoriaSeleccionada.alias
-      variedadesMezclar.forEach(producto => nombreMezcla += producto.labelMezcla + "+")
+      //let aliasVariedad = getVariedad.labelMezcla
+      let nombreMezcla = categoriaSeleccionada.alias + " "
+      variedadesMezclar.forEach(producto => nombreMezcla += getVariedadByProd(producto) + "+")
       nombreMezcla = nombreMezcla.slice(0,nombreMezcla.length-2)
       let cliente = props.clienteSeleccionado;
       let precio = Number((variedadesMezclar[0].precio + 0.5*(variedadesMezclar.length-1)).toFixed(2))
       let eliminables = getEliminables(variedadesMezclar[0]);
       eliminables.forEach(eliminable => eliminable.estado=true);
-      let opciones = JSON.parse(JSON.stringify(variedadesMezclar[0].opciones));
+      let opciones = variedadesMezclar[0].opciones?JSON.parse(JSON.stringify(variedadesMezclar[0].opciones)):[];
       let newProduct = [{instanceID: + new Date(), name: nombreMezcla, precio, cliente, eliminables, opciones}];
       // Mejorar el precio, sería el precio del más alto mas 0.5.....
       // Mejorar los eliminables: si se selecciono pastor de segunda no se refleja, debe ser una unión.
