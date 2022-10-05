@@ -45,17 +45,19 @@ class PoS extends Component {
   }
 
   onClickConfirmarOrden = () => {
-    fetch('http://localhost:4000/api/print', {
+    //fetch('http://localhost:4000/api/print', {
+    fetch('http://localhost:4000/api/pedidos', {
       method: 'POST', 
       body: JSON.stringify(this.state.pedido),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    }).then(response => {
-      this.reiniciarPoS();
-      console.log(response);
-    }).catch(error =>{
+    }).then(response => response.json())
+      .then(data =>{
+        this.reiniciarPoS();
+        console.log(data)
+      }).catch(error =>{
       console.log(error);
     });
   }

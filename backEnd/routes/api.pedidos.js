@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Pedido = require('../models/pedido');
+let numPedido = 0;
 
 router.get('/', async (req, res)=>{
     var pedidos = await Pedido.find();
@@ -18,10 +19,11 @@ router.get('/mesa/:num', async (req, res)=>{
 }); 
 
 router.post('/', async(req,res)=>{
-    const {mesa, total, fecha, canasta, cantClientes} = req.body;
-    const pedido = new Pedido({mesa, total, fecha, canasta});
+    const {canastas, mesa, cuentaTotal, fecha, paraLlevar} = req.body;
+    console.log(req.body)
+    const pedido = new Pedido({canastas, mesa, fecha, numPedido: numPedido++, cuentaTotal, paraLlevar, estado:"Pendiente"});
     await pedido.save();
-    res.json('Tarea guardada');
+    res.json({msj:'Tarea guardada'}); // no está llegando
 });
 
 router.put('/:id', async(req, res)=>{

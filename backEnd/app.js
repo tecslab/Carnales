@@ -26,6 +26,14 @@ var printerAPI = require('./routes/api.printer');
 
 const cors = require('cors');
 
+const mongoose = require('mongoose');
+
+const URI='mongodb://localhost/Carnales';
+
+mongoose.connect(URI)
+    .then(db => console.log('DB is connected'))
+    .catch(err=>console.error(err));
+
 var app = express();
 global.globalOrders = [];
 global.globalCuentas = [];
@@ -45,6 +53,19 @@ var corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 // For legacy browser support
 }
+
+/* const corsOptions = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+}; */
 
 app.use(cors(corsOptions));
 

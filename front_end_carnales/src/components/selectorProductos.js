@@ -59,16 +59,16 @@ function SelectorProductos(props) {
     setVariedadesMezclar([]);
   }
 
-  const getVariedadByProd = (producto) => {
-    let variedad = variedades.find(variedad => variedad.nombre == producto.variedad)
-    return variedad.labelMezcla
+  const getVariedadByName = (nameVariedad) => {
+    let variedad = variedades.find(variedad => variedad.nombre === nameVariedad)
+    return variedad
   }
 
   const onClickAceptarMezcla = (event)=>{
     if (variedadesMezclar.length>=2){
       //let aliasVariedad = getVariedad.labelMezcla
       let nombreMezcla = categoriaSeleccionada.alias + " "
-      variedadesMezclar.forEach(producto => nombreMezcla += getVariedadByProd(producto) + "+")
+      variedadesMezclar.forEach(producto => nombreMezcla += getVariedadByName(producto.variedad).labelMezcla + "+")
       nombreMezcla = nombreMezcla.slice(0,nombreMezcla.length-2)
       let cliente = props.clienteSeleccionado;
       let precio = Number((variedadesMezclar[0].precio + 0.5*(variedadesMezclar.length-1)).toFixed(2))
