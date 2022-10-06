@@ -27,14 +27,13 @@ var printerAPI = require('./routes/api.printer');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
-
 const URI='mongodb://localhost/Carnales';
-
 mongoose.connect(URI)
     .then(db => console.log('DB is connected'))
     .catch(err=>console.error(err));
 
 var app = express();
+
 global.globalOrders = [];
 global.globalCuentas = [];
 
