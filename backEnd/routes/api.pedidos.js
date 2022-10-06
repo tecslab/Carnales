@@ -122,6 +122,7 @@ async function imprimirPedido(pedido) {
     */
     printer.alignLeft();
     let ladoIzq = productosPedido[i].cantidad + "  " + labelProducto
+    //Va a fallar con las mezclas
     let ladoDer = getTotalPrice(productosPedido[i])
     let puntos = lineWidth - (ladoIzq.length + ladoDer.length)// funciona mientras ladoIzq sea menos a los espacio restantes
     for (let j=0; j < puntos; j++){
