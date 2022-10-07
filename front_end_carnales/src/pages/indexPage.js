@@ -24,6 +24,9 @@ class IndexPage extends Component {
           <button className="btn btn-success btn-lg w-100 my-3" type="button">Pedidos Pendientes</button></a>
         <a className="w-75" style={{color: '#f0ad4e'}} href="/inventario">
           <button className="btn btn-success btn-lg w-100 my-3" type="button">Inventario de Ingredientes</button></a> */}
+        <a className="w-75" style={{color: '#f0ad4e'}} href="/dashboard">
+          <button className="btn btn-success btn-lg w-100 my-3" type="button">Dashboard</button>
+        </a>
         <a className="w-75" style={{color: '#f0ad4e'}} href="/layout">
           <button className="btn btn-success btn-lg w-100 my-3" type="button">Layout</button></a>
         {/* <button className="btn btn-success btn-lg w-75 my-3" type="button" data-toggle="modal" data-target="#pswModal">Registro</button>
