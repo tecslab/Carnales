@@ -13,9 +13,10 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/" component={IndexPage} exact />
-        <Route path="/layout" component={Layout}/>
         <Route path="/dashboard" component={Dashboard}/>
         <Route path="/pos" component={PoS}/>
+        <Route path="/layout" component={Layout}/>
+        <Route path="/layoutEditor" component={Layout}/>
       </Switch>
     </div>
   );

@@ -8,14 +8,14 @@ let urlBack =  conf.urlBack;
 let planoSize = {height: "932px", width:"623px"}
 
 let mesas = [
-    {nombre: "Ventana", height:"30px", width:"205px", left:"39px", top:"0px", mesaType:"ventana", id:"ventana"},
-    {nombre: "Mesa 1", height:"51px", width:"120px", left:"292px", top:"93px", mesaType:"mesa", id:"mesa1"},
-    {nombre: "Mesa 2", height:"51px", width:"120px", left:"500px", top:"93px", mesaType:"mesa", id:"mesa2"},
-    {nombre: "Mesa 3", height:"51px", width:"120px", left:"292px", top:"263px", mesaType:"mesa", id:"mesa3"},
-    {nombre: "Mesa 4", height:"51px", width:"120px", left:"500px", top:"342px", mesaType:"mesa", id:"mesa4"},
-    {nombre: "Mesa 5", height:"51px", width:"120px", left:"476px", top:"629px", mesaType:"mesa", id:"mesa5"},
-    {nombre: "Mesa 6", height:"51px", width:"120px", left:"476px", top:"810px", mesaType:"mesa", id:"mesa6"},
-    {nombre: "Mesa 7", height:"120px", width:"60px", left:"261px", top:"647px", mesaType:"mesa", id:"mesa7"},
+    {nombre: "Ventana", height:"30px", width:"205px", left:"39px", top:"0px", giro:"359deg", mesaType:"ventana", id:"ventana"},
+    {nombre: "Mesa 1", height:"51px", width:"120px", left:"292px", top:"93px", giro:"0turn", mesaType:"mesa", id:"mesa1"},
+    {nombre: "Mesa 2", height:"51px", width:"120px", left:"500px", top:"93px", giro:"0turn", mesaType:"mesa", id:"mesa2"},
+    {nombre: "Mesa 3", height:"51px", width:"120px", left:"292px", top:"263px", giro:"0turn", mesaType:"mesa", id:"mesa3"},
+    {nombre: "Mesa 4", height:"51px", width:"120px", left:"500px", top:"342px", giro:"0turn", mesaType:"mesa", id:"mesa4"},
+    {nombre: "Mesa 5", height:"51px", width:"120px", left:"476px", top:"629px", giro:"0turn", mesaType:"mesa", id:"mesa5"},
+    {nombre: "Mesa 6", height:"51px", width:"120px", left:"476px", top:"810px", giro:"0turn", mesaType:"mesa", id:"mesa6"},
+    {nombre: "Mesa 7", height:"120px", width:"60px", left:"261px", top:"647px", giro:"0turn", mesaType:"mesa", id:"mesa7"},
 ]
 
 class Canvas extends Component {
@@ -98,7 +98,7 @@ const HorizontalSliderContainer = ({ clickeable, pedidos }) => {
 
     const getClass = () => {
         let elementClass = "horizontal-slider-container";
-        if (higherThanVP == true) {
+        if (higherThanVP === true) {
             elementClass = "horizontal-slider-container-big-card";
         }
         return elementClass;
