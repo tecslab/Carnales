@@ -3,7 +3,6 @@ import parametrosGlobales from "../parametrosGlobales.js";
 let ingredientes = parametrosGlobales.constants.ingredientes;
 
 function CanastaProductos(props) {
-
   const onClickEliminar = event => {
     let instanceID = event.target.id;
     let bufferProductos = props.bufferProductos;

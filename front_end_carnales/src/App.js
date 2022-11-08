@@ -1,5 +1,6 @@
 import IndexPage from './pages/indexPage';
 import Layout from './pages/layout';
+import LayoutEditor from './pages/layoutEditor';
 import Dashboard from './pages/dashboard';
 import PoS from './pages/pos';
 
@@ -16,7 +17,7 @@ function App() {
         <Route path="/dashboard" component={Dashboard}/>
         <Route path="/pos" component={PoS}/>
         <Route path="/layout" component={Layout}/>
-        <Route path="/layoutEditor" component={Layout}/>
+        <Route path="/layoutEditor" component={LayoutEditor}/>
       </Switch>
     </div>
   );

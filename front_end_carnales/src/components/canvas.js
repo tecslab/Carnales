@@ -8,7 +8,7 @@ let urlBack =  conf.urlBack;
 let planoSize = {height: "932px", width:"623px"}
 
 let mesas = [
-    {nombre: "Ventana", height:"30px", width:"205px", left:"39px", top:"0px", giro:"359deg", mesaType:"ventana", id:"ventana"},
+    {nombre: "Ventana", height:"30px", width:"205px", left:"39px", top:"0px", giro:"360deg", mesaType:"ventana", id:"ventana"},
     {nombre: "Mesa 1", height:"51px", width:"120px", left:"292px", top:"93px", giro:"0turn", mesaType:"mesa", id:"mesa1"},
     {nombre: "Mesa 2", height:"51px", width:"120px", left:"500px", top:"93px", giro:"0turn", mesaType:"mesa", id:"mesa2"},
     {nombre: "Mesa 3", height:"51px", width:"120px", left:"292px", top:"263px", giro:"0turn", mesaType:"mesa", id:"mesa3"},
@@ -66,21 +66,21 @@ class Canvas extends Component {
     }
 
     render() {
-        return (
-            <div className="canvas-container">
-                <div id="plano">
-                    {this.state.modal === true &&
-                        <div id="modalBackground" clickeable="true" className="modal-background" onClick={(e) => this.toggleLayout(e, this.state.mesaActiva)}>
-                            <HorizontalSliderContainer clickeable={"true"} pedidos={this.state.pedidos} />;
-                        </div>
-                    }
-                    {mesas.map(mesa => (
-                        <Mesa toggleLayout={this.toggleLayout} modalID='modal' value={mesa.nombre} mesaType={mesa.mesaType} id={mesa.id} mesaInfo={mesa}/>
-                    ))
-                    }
-                </div>
-            </div>
-        )
+      return (
+        <div className="canvas-container">
+          <div id="plano">
+            {this.state.modal === true &&
+              <div id="modalBackground" clickeable="true" className="modal-background" onClick={(e) => this.toggleLayout(e, this.state.mesaActiva)}>
+                <HorizontalSliderContainer clickeable={"true"} pedidos={this.state.pedidos} />;
+              </div>
+            }
+            {mesas.map(mesa => (
+              <Mesa toggleLayout={this.toggleLayout} modalID='modal' value={mesa.nombre} mesaType={mesa.mesaType} id={mesa.id} mesaInfo={mesa}/>
+            ))
+            }
+          </div>
+        </div>
+      )
     }
 }
 
